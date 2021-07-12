@@ -94,6 +94,7 @@ C = college student(s)
 [Add picture of your hand sketched wireframes in this section]
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
+## Schema 
 ### Models
 User
 | Property     | Type         | Description |
