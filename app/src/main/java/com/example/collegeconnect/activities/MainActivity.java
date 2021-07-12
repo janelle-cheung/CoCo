@@ -1,7 +1,8 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.activities;
 
 import android.os.Bundle;
 
+import com.example.collegeconnect.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
