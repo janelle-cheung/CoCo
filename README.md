@@ -1,6 +1,12 @@
 # CollegeConnect
 An app that connects high schoolers applying to college with college students
 
+## Table of Contents
+1. [Overview](#Overview)
+1. [Product Spec](#Product-Spec)
+1. [Wireframes](#Wireframes)
+2. [Schema](#Schema)
+
 ## Overview
 ### Description
 An app for high school students to connect with undergraduate college students and learn about the universities through real student experiences. 
