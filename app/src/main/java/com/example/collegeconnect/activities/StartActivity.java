@@ -1,5 +1,6 @@
 package com.example.collegeconnect.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,22 +10,22 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.databinding.ActivitySignupBinding;
+import com.example.collegeconnect.databinding.ActivityStartBinding;
 
 public class StartActivity extends AppCompatActivity {
 
     public static final String TAG = "StartActivity";
-    Button btnSignup;
-    Button btnLogin;
+    ActivityStartBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        binding = ActivityStartBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        btnSignup = findViewById(R.id.btnSignup);
-        btnLogin = findViewById(R.id.btnLogin);
-
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        
+        binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(StartActivity.this, SignupActivity.class);
@@ -32,10 +33,11 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartActivity.this, "login clicked", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(StartActivity.this, LoginActivity.class);
+                startActivity(i);
             }
         });
     }
