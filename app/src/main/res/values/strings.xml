@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">CollegeConnect</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_search">Search</string>
+    <string name="title_conversations">Conversations</string>
+    <string name="title_profile">Profile</string>
     <string name="get_started">Get started</string>
     <string name="login">Log-in</string>
     <string name="name">Name</string>
