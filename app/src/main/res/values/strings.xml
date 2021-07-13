@@ -19,4 +19,5 @@
     <string name="type_prompt">I\'m currently in...</string>
     <string name="academics_prompt">Academically, I\'m interested in...</string>
     <string name="extracurriculars_prompt">Outside of academics, I\'m interested in...</string>
+    <string name="logout">Logout</string>
 </resources>
