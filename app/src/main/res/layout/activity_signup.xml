@@ -5,43 +5,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="30dp"
     tools:context=".activities.SignupActivity">
+
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="@string/name" />
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="285dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etName"
+        android:layout_marginTop="10dp"
+        android:hint="@string/email" />
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etEmail"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
-        android:ems="10"
+        android:layout_marginTop="10dp"
         android:hint="@string/password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="348dp" />
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/etSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_marginTop="10dp"
+        android:hint="@string/school" />
+
+    <RadioGroup
+        android:id="@+id/rGroupGrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etSchool"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioFreshman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/freshman" />
+
+        <RadioButton
+            android:id="@+id/radioSophomore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sophomore" />
+
+        <RadioButton
+            android:id="@+id/radioJunior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/junior" />
+
+        <RadioButton
+            android:id="@+id/radioSenior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/senior" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/etHighSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rGroupGrade"
+        android:layout_marginTop="10dp"
+        android:hint="@string/high_school" />
+
+    <EditText
+        android:id="@+id/etAcademics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etHighSchool"
+        android:layout_marginTop="10dp"
+        android:hint="@string/academics_prompt" />
+
+    <EditText
+        android:id="@+id/etExtracurriculars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAcademics"
+        android:layout_marginTop="10dp"
+        android:hint="@string/extracurriculars_prompt" />
 
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="30dp"
         android:text="@string/create_account" />
 
 </RelativeLayout>

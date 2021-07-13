@@ -9,4 +9,14 @@
     <string name="password">Password</string>
     <string name="create_account">Create account</string>
     <string name="email">Email</string>
+    <string name="high_school">High school</string>
+    <string name="college">College</string>
+    <string name="school">Current school</string>
+    <string name="freshman">Freshman</string>
+    <string name="sophomore">Sophomore</string>
+    <string name="junior">Junior</string>
+    <string name="senior">Senior</string>
+    <string name="type_prompt">I\'m currently in...</string>
+    <string name="academics_prompt">Academically, I\'m interested in...</string>
+    <string name="extracurriculars_prompt">Outside of academics, I\'m interested in...</string>
 </resources>
