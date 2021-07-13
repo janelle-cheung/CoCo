@@ -33,20 +33,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
         ParseUser user = ParseUser.getCurrentUser();
-
-        // Hide high school text if it's a high school student
-        if (user.getString(getString(R.string.KEY_TYPE)).equals("high school")) {
-            binding.tvHighSchoolPrompt.setVisibility(View.GONE);
-            binding.tvHighSchoolValue.setVisibility(View.GONE);
-        } else {
-            binding.tvHighSchoolValue.setText(user.getString(getString(R.string.KEY_HIGHSCHOOL)));
-        }
 
         // Display data
         binding.tvName.setText(user.getUsername());
@@ -58,6 +46,7 @@ public class ProfileFragment extends Fragment {
         binding.tvExtracurricularsValue.setText(user.getString(getString(R.string.KEY_ACADEMICS)));
         binding.tvAcademicsValue.setText(user.getString(getString(R.string.KEY_ACADEMICS)));
         binding.tvExtracurricularsValue.setText(user.getString(getString(R.string.KEY_EXTRACURRICULARS)));
+        
         ParseFile profileImage = user.getParseFile("profileImage");
         // Display placeholder image if user has no profile image
         if (profileImage == null) {
@@ -67,11 +56,21 @@ public class ProfileFragment extends Fragment {
                     .into(binding.ivProfileImage);;
         } else {
             Glide.with(getContext())
-                .load(profileImage.getUrl())
-                .placeholder(R.mipmap.profile_placeholder_foreground)
-                .circleCrop()
-                .into(binding.ivProfileImage);
+                    .load(profileImage.getUrl())
+                    .placeholder(R.mipmap.profile_placeholder_foreground)
+                    .circleCrop()
+                    .into(binding.ivProfileImage);
         }
+
+        // Hide high school text if it's a high school student
+        if (user.getString(getString(R.string.KEY_TYPE)).equals("high school")) {
+            binding.tvHighSchoolPrompt.setVisibility(View.GONE);
+            binding.tvHighSchoolValue.setVisibility(View.GONE);
+        } else {
+            binding.tvHighSchoolValue.setText(user.getString(getString(R.string.KEY_HIGHSCHOOL)));
+        }
+
+        return binding.getRoot();
     }
 
     @Override
