@@ -71,9 +71,7 @@ public class SignupActivity extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(SignupActivity.this, "Account sign-up successful", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(SignupActivity.this, MainActivity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(i);
+                            launchMainActivity();
                         } else {
                             Toast.makeText(SignupActivity.this, "Error with sign-up", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "Error signing up ", e);
@@ -97,5 +95,11 @@ public class SignupActivity extends AppCompatActivity {
         // College students must fill out the high school field
         if (type.equals("college") && binding.etHighSchool.getText().toString().isEmpty()) return false;
         return true;
+    }
+
+    private void launchMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 }

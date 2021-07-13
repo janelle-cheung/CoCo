@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivitySignupBinding;
 import com.example.collegeconnect.databinding.ActivityStartBinding;
+import com.parse.ParseUser;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -24,6 +25,9 @@ public class StartActivity extends AppCompatActivity {
         binding = ActivityStartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (ParseUser.getCurrentUser() != null) {
+            launchMainActivity();
+        }
 
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,9 +40,20 @@ public class StartActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(StartActivity.this, LoginActivity.class);
-                startActivity(i);
+                launchLoginActivity();
             }
         });
     }
+
+    private void launchLoginActivity() {
+        Intent i = new Intent(StartActivity.this, LoginActivity.class);
+        startActivity(i);
+    }
+
+    private void launchMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 }
