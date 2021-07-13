@@ -56,13 +56,14 @@ public class SignupActivity extends AppCompatActivity {
                 user.setUsername(binding.etName.getText().toString());
                 user.setEmail(binding.etEmail.getText().toString());
                 user.setPassword(binding.etPassword.getText().toString());
-                user.put("type", type);
-                user.put("school", binding.etSchool.getText().toString());
-                user.put("academicInterests", binding.etAcademics.getText().toString());
-                user.put("extracurricularInterests", binding.etExtracurriculars.getText().toString());
-                user.put("grade", grade);
+                user.put(getString(R.string.KEY_TYPE), type);
+                user.put(getString(R.string.KEY_FROM), binding.etFrom.getText().toString());
+                user.put(getString(R.string.KEY_SCHOOL), binding.etSchool.getText().toString());
+                user.put(getString(R.string.KEY_ACADEMICS), binding.etAcademics.getText().toString());
+                user.put(getString(R.string.KEY_EXTRACURRICULARS), binding.etExtracurriculars.getText().toString());
+                user.put(getString(R.string.KEY_GRADE), grade);
                 if (type.equals("college")) {
-                    user.put("highSchool", binding.etHighSchool.getText().toString());
+                    user.put(getString(R.string.KEY_HIGHSCHOOL), binding.etHighSchool.getText().toString());
                 }
 
                 // Send request to Parse to save new user
@@ -88,6 +89,7 @@ public class SignupActivity extends AppCompatActivity {
         if (binding.etName.getText().toString().isEmpty()) return false;
         if (binding.etEmail.getText().toString().isEmpty()) return false;
         if (binding.etPassword.getText().toString().isEmpty()) return false;
+        if (binding.etFrom.getText().toString().isEmpty()) return false;
         if (binding.etSchool.getText().toString().isEmpty()) return false;
         if (binding.rGroupGrade.getCheckedRadioButtonId() == -1) return false;
         if (binding.etAcademics.getText().toString().isEmpty()) return false;

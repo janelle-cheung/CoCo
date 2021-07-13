@@ -9,6 +9,7 @@
     <string name="password">Password</string>
     <string name="create_account">Create account</string>
     <string name="email">Email</string>
+    <string name="from">Hometown</string>
     <string name="high_school">High school</string>
     <string name="college">College</string>
     <string name="school">Current school</string>
@@ -20,4 +21,18 @@
     <string name="academics_prompt">Academically, I\'m interested in...</string>
     <string name="extracurriculars_prompt">Outside of academics, I\'m interested in...</string>
     <string name="logout">Logout</string>
+    <string name="profile_from">From:</string>
+    <string name="profile_academics">Academic interests:</string>
+    <string name="profile_extracurriculars">Extracurricular interests:</string>
+    <string name="profile_highschool">High school:</string>
+
+    # Parse Keys
+    <string name="KEY_TYPE">type</string>
+    <string name="KEY_SCHOOL">school</string>
+    <string name="KEY_GRADE">grade</string>
+    <string name="KEY_FROM">from</string>
+    <string name="KEY_HIGHSCHOOL">highSchool</string>
+    <string name="KEY_ACADEMICS">academicInterests</string>
+    <string name="KEY_EXTRACURRICULARS">extracurricularInterests</string>
+    <string name="KEY_PROFILEIMAGE">profileImage</string>
 </resources>

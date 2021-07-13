@@ -13,7 +13,7 @@
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:hint="@string/name" />
 
     <EditText
@@ -34,10 +34,18 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/etSchool"
+        android:id="@+id/etFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
+        android:layout_marginTop="10dp"
+        android:hint="@string/from" />
+
+    <EditText
+        android:id="@+id/etSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etFrom"
         android:layout_marginTop="10dp"
         android:hint="@string/school" />
 

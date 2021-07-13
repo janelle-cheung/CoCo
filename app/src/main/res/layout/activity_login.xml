@@ -14,9 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="252dp"
-        android:ems="10"
         android:hint="@string/email"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="242dp" />
@@ -37,11 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etEmail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:ems="10"
+        android:layout_marginTop="15dp"
         android:hint="@string/password"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="303dp" />
+        android:inputType="textPassword" />
 
 </RelativeLayout>
