@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
         binding.tvExtracurricularsValue.setText(user.getString(getString(R.string.KEY_ACADEMICS)));
         binding.tvAcademicsValue.setText(user.getString(getString(R.string.KEY_ACADEMICS)));
         binding.tvExtracurricularsValue.setText(user.getString(getString(R.string.KEY_EXTRACURRICULARS)));
-        
+
         ParseFile profileImage = user.getParseFile("profileImage");
         // Display placeholder image if user has no profile image
         if (profileImage == null) {

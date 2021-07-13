@@ -2,7 +2,9 @@ package com.example.collegeconnect;
 
 import android.app.Application;
 
+import com.example.collegeconnect.models.Conversation;
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
 
@@ -10,6 +12,7 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        ParseObject.registerSubclass(Conversation.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("cTxaFE96P54cuwItOi4DNBHWXVSZkfS30pmIEhdE")
                 .clientKey("U9JvyI3nvaHAjxMgGRP8FXLfRjx4UAOt2UdXAQfs")
