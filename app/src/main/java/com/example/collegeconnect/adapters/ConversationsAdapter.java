@@ -28,15 +28,17 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
 
     Context context;
     List<Conversation> conversations;
+    OnConversationListener onConversationListener;
 
-    public ConversationsAdapter(Context context, List<Conversation> conversations) {
+    public ConversationsAdapter(Context context, List<Conversation> conversations, OnConversationListener onConversationListener) {
         this.context = context;
         this.conversations = conversations;
+        this.onConversationListener = onConversationListener;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_conversation, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onConversationListener);
     }
 
     @Override
@@ -55,19 +57,22 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivProfileImage;
         TextView tvUsername;
         TextView tvGradeAndSchool;
         ParseUser user;
+        OnConversationListener onConversationListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, OnConversationListener onConversationListener) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvGradeAndSchool = itemView.findViewById(R.id.tvGradeAndSchool);
             user = ParseUser.getCurrentUser();
+            this.onConversationListener = onConversationListener;
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Conversation conversation) {
@@ -96,5 +101,14 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
                         .into(ivProfileImage);
             }
         }
+
+        @Override
+        public void onClick(View v) {
+            onConversationListener.onConversationClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnConversationListener {
+        void onConversationClick(int position);
     }
 }

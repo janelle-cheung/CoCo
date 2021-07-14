@@ -4,6 +4,9 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
+@Parcel(analyze = Conversation.class)
 @ParseClassName("Conversation")
 public class Conversation extends ParseObject {
 
