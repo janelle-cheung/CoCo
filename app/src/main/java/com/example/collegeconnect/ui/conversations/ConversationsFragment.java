@@ -72,12 +72,13 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     private void queryConversations() {
         ParseQuery<Conversation> query = ParseQuery.getQuery(Conversation.class);
 
+        // If user is in high school, find the college students that the user is talking to
         if (user.isInHighSchool()) {
             query.include(Conversation.KEY_COLLEGE_STUDENT);
             query.whereEqualTo(Conversation.KEY_HIGHSCHOOL_STUDENT, user);
         } else {
+        // If user is in college, find the high school students that the user is talking to
             query.include(Conversation.KEY_HIGHSCHOOL_STUDENT);
-            query.include(Conversation.KEY_COLLEGE_STUDENT);
             query.whereEqualTo(Conversation.KEY_COLLEGE_STUDENT, user);
         }
 
@@ -91,7 +92,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
                     Log.e(TAG, "Problem with querying conversations ", e);
                     return;
                 }
-                Log.i(TAG, "Success querying posts");
+                Log.i(TAG, "Success querying conversations");
 
                 adapter.clear();
                 conversations.addAll(objects);

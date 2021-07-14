@@ -26,4 +26,5 @@
     <string name="profile_extracurriculars">Extracurricular interests:</string>
     <string name="profile_highschool">High school:</string>
     <string name="message_hint">Message...</string>
+    <string name="college_search_prompt">Search for a college...</string>
 </resources>

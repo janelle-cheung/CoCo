@@ -40,7 +40,6 @@ public class ConversationActivity extends AppCompatActivity {
 
     public static final int NUM_MESSAGES_TO_QUERY = 10;
     public static final String TAG = "ConversationActivity";
-    private RecyclerView rvMessages;
     private ConversationAdapter adapter;
     private ActivityConversationBinding binding;
     private List<Message> messages;
@@ -65,11 +64,10 @@ public class ConversationActivity extends AppCompatActivity {
 
         messages = new ArrayList<>();
         adapter = new ConversationAdapter(this, user, otherUser, messages);
-        rvMessages = findViewById(R.id.rvMessages);
-        rvMessages.setAdapter(adapter);
+        binding.rvMessages.setAdapter(adapter);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
-        rvMessages.setLayoutManager(linearLayoutManager);
+        binding.rvMessages.setLayoutManager(linearLayoutManager);
         firstLoad = true;
 
         queryMessages();
@@ -98,7 +96,7 @@ public class ConversationActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     adapter.notifyDataSetChanged();
-                    rvMessages.scrollToPosition(0);
+                    binding.rvMessages.scrollToPosition(0);
                 }
             });
         });
@@ -146,7 +144,7 @@ public class ConversationActivity extends AppCompatActivity {
 
                     // Scroll to the bottom of the list on initial load
                     if (firstLoad) {
-                        rvMessages.scrollToPosition(0);
+                        binding.rvMessages.scrollToPosition(0);
                         firstLoad = false;
                     }
                 } else {
