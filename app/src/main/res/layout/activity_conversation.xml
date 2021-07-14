@@ -6,10 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".ui.conversations.ConversationsFragment">
 
-    <TextView
-        android:id="@+id/test"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvConversation"
+        android:transcriptMode="alwaysScroll"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/rlSend"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="TextView" />
+        android:layout_height="match_parent" />
 
+    <RelativeLayout
+        android:id="@+id/rlSend"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/etMessage"
+            android:layout_toLeftOf="@+id/ibSend"
+            android:layout_alignBottom="@+id/ibSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/message_hint"
+            android:inputType="textShortMessage"
+            android:imeOptions="actionSend" />
+
+        <ImageButton
+            android:id="@+id/ibSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:src="@android:drawable/ic_menu_send"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 </RelativeLayout>

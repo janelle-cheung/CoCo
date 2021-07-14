@@ -39,7 +39,7 @@ import java.util.List;
 public class ConversationsFragment extends Fragment implements ConversationsAdapter.OnConversationListener {
 
     public static final String TAG = "ConversationsFragment";
-    public static final String KEY_OTHER_STUDENT = "other student";
+    public static final String KEY_CONVERSATION = "conversation";
     private ConversationsViewModel mViewModel;
     private FragmentConversationsBinding binding;
     private ConversationsAdapter adapter;
@@ -110,13 +110,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     public void onConversationClick(int position) {
         Conversation conversation = conversations.get(position);
         Intent i = new Intent(getContext(), ConversationActivity.class);
-
-        // Pass the other student's ParseUser object to intent
-        if (user.isInHighSchool()) {
-            i.putExtra(KEY_OTHER_STUDENT, Parcels.wrap(conversation.getCollegeStudent()));
-        } else {
-            i.putExtra(KEY_OTHER_STUDENT, Parcels.wrap(conversation.getHighSchoolStudent()));
-        }
+        i.putExtra(KEY_CONVERSATION, Parcels.wrap(conversation));
         startActivity(i);
     }
 }

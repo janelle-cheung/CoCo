@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityConversationBinding;
 import com.example.collegeconnect.databinding.FragmentConversationsBinding;
+import com.example.collegeconnect.models.Conversation;
+import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
 import com.example.collegeconnect.ui.conversations.ConversationsFragment;
 import com.parse.ParseException;
@@ -32,14 +34,15 @@ public class ConversationActivity extends AppCompatActivity {
         binding = ActivityConversationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        User otherStudent = Parcels.unwrap(getIntent().getParcelableExtra(ConversationsFragment.KEY_OTHER_STUDENT));
+        Conversation conversation = Parcels.unwrap(getIntent().getParcelableExtra(ConversationsFragment.KEY_CONVERSATION));
         binding.ibSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String body = binding.etMessage.getText().toString();
-                ParseObject message = ParseObject.create("Message");
-//                message.put(USER_ID_KEY, ParseUser.getCurrentUser().getObjectId());
-//                message.put(BODY_KEY, body);
+                Message message = new Message();
+                message.setSender(ParseUser.getCurrentUser());
+                message.setBody(body);
+                message.setConversation(conversation);
                 message.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -47,6 +50,7 @@ public class ConversationActivity extends AppCompatActivity {
                             Toast.makeText(ConversationActivity.this, "Successfully created message on Parse",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            Toast.makeText(ConversationActivity.this, "Failed to save message", Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "Failed to save message", e);
                         }
                     }
