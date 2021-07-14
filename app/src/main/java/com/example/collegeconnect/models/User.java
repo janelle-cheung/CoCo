@@ -21,39 +21,37 @@ public class User extends ParseUser {
         return getString(KEY_TYPE).equals("high school");
     }
 
-    public String getSchool() {
-        return getString(KEY_SCHOOL);
-    }
+    public String getSchool() { return getString(KEY_SCHOOL); }
 
-    public String getGrade() {
-        return getString(KEY_GRADE);
-    }
+    public String getGrade() { return getString(KEY_GRADE); }
 
-    public String getFrom() {
-        return getString(KEY_FROM);
-    }
+    public String getFrom() { return getString(KEY_FROM); }
 
-    public boolean hasProfileImage() {
-        return getParseFile(KEY_PROFILEIMAGE) != null;
-    }
+    public boolean hasProfileImage() { return getParseFile(KEY_PROFILEIMAGE) != null; }
 
-    public String getProfileImageUrl() {
-        return getParseFile(KEY_PROFILEIMAGE).getUrl();
-    }
+    public String getProfileImageUrl() { return getParseFile(KEY_PROFILEIMAGE).getUrl(); }
 
-    public String getAcademics() {
-        return getString(KEY_ACADEMICS);
-    }
+    public String getAcademics() { return getString(KEY_ACADEMICS); }
 
-    public String getExtracurriculars() {
-        return getString(KEY_EXTRACURRICULARS);
-    }
+    public String getExtracurriculars() { return getString(KEY_EXTRACURRICULARS); }
 
-    public String getHighSchool() {
-        return getString(KEY_HIGHSCHOOL);
-    }
+    public String getHighSchool() { return getString(KEY_HIGHSCHOOL); }
 
-    public String getEmail() {
-        return getString(KEY_EMAIL);
-    }
+    public String getEmail() { return getString(KEY_EMAIL); }
+
+    public void setType(String type) { put(KEY_TYPE, type); }
+
+    public void setSchool(String school) { put(KEY_SCHOOL, school); }
+
+    public void setGrade(String grade) { put(KEY_GRADE, grade); }
+
+    public void setFrom(String from) { put(KEY_FROM, from); }
+
+    public void setAcademics(String academics) { put(KEY_ACADEMICS, academics); }
+
+    public void setExtracurriculars(String extracurriculars) { put(KEY_EXTRACURRICULARS, extracurriculars); }
+
+    public void setEmail(String email) { put(KEY_EMAIL, email); }
+
+    public void setHighSchool(String highSchool) { put(KEY_HIGHSCHOOL, highSchool); }
 }

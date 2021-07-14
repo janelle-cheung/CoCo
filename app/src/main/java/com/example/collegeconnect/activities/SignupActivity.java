@@ -15,6 +15,7 @@ import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityMainBinding;
 import com.example.collegeconnect.databinding.ActivitySignupBinding;
 import com.example.collegeconnect.models.User;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -53,21 +54,21 @@ public class SignupActivity extends AppCompatActivity {
                 }
 
                 // Create new Parse user with user inputs
-                ParseUser user = new ParseUser();
+                User user = new User();
                 user.setUsername(binding.etName.getText().toString());
                 user.setEmail(binding.etEmail.getText().toString());
                 user.setPassword(binding.etPassword.getText().toString());
-                user.put(User.KEY_TYPE, type);
-                user.put(User.KEY_FROM, binding.etFrom.getText().toString());
-                user.put(User.KEY_SCHOOL, binding.etSchool.getText().toString());
-                user.put(User.KEY_ACADEMICS, binding.etAcademics.getText().toString());
-                user.put(User.KEY_EXTRACURRICULARS, binding.etExtracurriculars.getText().toString());
-                user.put(User.KEY_GRADE, grade);
+                user.setType(type);
+                user.setFrom(binding.etFrom.getText().toString());
+                user.setSchool(binding.etSchool.getText().toString());
+                user.setAcademics(binding.etAcademics.getText().toString());
+                user.setExtracurriculars(binding.etExtracurriculars.getText().toString());
+                user.setGrade(grade);
                 if (type.equals("college")) {
-                    user.put(User.KEY_HIGHSCHOOL, binding.etHighSchool.getText().toString());
+                    user.setHighSchool(binding.etHighSchool.getText().toString());
                 }
 
-                // Send request to Parse to save new user
+                // Send request to Parse to save new user\
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {

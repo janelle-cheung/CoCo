@@ -15,12 +15,12 @@ public class Conversation extends ParseObject {
     public static final String KEY_HIGHSCHOOL_STUDENT = "highSchoolStudent";
     public static final String KEY_COLLEGE_STUDENT = "collegeStudent";
 
-    public ParseUser getHighSchoolStudent() {
-        return getParseUser(KEY_HIGHSCHOOL_STUDENT);
+    public User getHighSchoolStudent() {
+        return (User) getParseUser(KEY_HIGHSCHOOL_STUDENT);
     }
 
-    public ParseUser getCollegeStudent() {
-        return getParseUser(KEY_COLLEGE_STUDENT);
+    public User getCollegeStudent() {
+        return (User) getParseUser(KEY_COLLEGE_STUDENT);
     }
 
     public void setHighSchoolStudent(ParseUser user) {
