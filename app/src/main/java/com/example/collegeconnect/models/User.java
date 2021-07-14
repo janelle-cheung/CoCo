@@ -29,6 +29,7 @@ public class User extends ParseUser {
 
     public boolean hasProfileImage() { return getParseFile(KEY_PROFILEIMAGE) != null; }
 
+    // Must use hasProfileImage() to check if null first
     public String getProfileImageUrl() { return getParseFile(KEY_PROFILEIMAGE).getUrl(); }
 
     public String getAcademics() { return getString(KEY_ACADEMICS); }

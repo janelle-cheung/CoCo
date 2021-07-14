@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ItemConversationBinding;
 import com.example.collegeconnect.models.Conversation;
+import com.example.collegeconnect.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
@@ -62,7 +63,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
         ImageView ivProfileImage;
         TextView tvUsername;
         TextView tvGradeAndSchool;
-        ParseUser user;
+        User user;
         OnConversationListener onConversationListener;
 
         public ViewHolder(View itemView, OnConversationListener onConversationListener) {
@@ -70,14 +71,14 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvGradeAndSchool = itemView.findViewById(R.id.tvGradeAndSchool);
-            user = ParseUser.getCurrentUser();
+            user = (User) ParseUser.getCurrentUser();
             this.onConversationListener = onConversationListener;
             itemView.setOnClickListener(this);
         }
 
         public void bind(Conversation conversation) {
-            ParseUser otherStudent;
-            if (user.getString("type").equals("high school")) {
+            User otherStudent;
+            if (user.isInHighSchool()) {
                 otherStudent = conversation.getCollegeStudent();
             } else {
                 otherStudent = conversation.getHighSchoolStudent();
@@ -86,17 +87,16 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
             tvUsername.setText(otherStudent.getUsername());
             tvGradeAndSchool.setText(String.format("%s at %s", otherStudent.getString("grade"), otherStudent.getString("school")));
 
-            // Display placeholder image if user has no profile image
-            ParseFile profileImage = otherStudent.getParseFile("profileImage");
-            if (profileImage == null) {
+            if (otherStudent.hasProfileImage()) {
+                Glide.with(context)
+                        .load(otherStudent.getProfileImageUrl())
+                        .placeholder(R.mipmap.profile_placeholder_foreground)
+                        .circleCrop()
+                        .into(ivProfileImage);
+            } else {
+                // Display placeholder image if user has no profile image
                 Glide.with(context)
                         .load(R.mipmap.profile_placeholder_foreground)
-                        .circleCrop()
-                        .into(ivProfileImage);;
-            } else {
-                Glide.with(context)
-                        .load(profileImage.getUrl())
-                        .placeholder(R.mipmap.profile_placeholder_foreground)
                         .circleCrop()
                         .into(ivProfileImage);
             }
