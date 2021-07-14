@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        returnToLoginActivity();
+                        returnToStartActivity();
                     } else {
                         Log.e(TAG, "Issue with log-out");
                         return;
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void returnToLoginActivity() {
-        Intent i = new Intent(this, LoginActivity.class);
+    private void returnToStartActivity() {
+        Intent i = new Intent(this, StartActivity.class);
         startActivity(i);
         finish();
     }
