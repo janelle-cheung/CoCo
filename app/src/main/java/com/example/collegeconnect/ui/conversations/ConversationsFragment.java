@@ -24,6 +24,7 @@ import com.example.collegeconnect.adapters.ConversationsAdapter;
 import com.example.collegeconnect.databinding.FragmentConversationsBinding;
 import com.example.collegeconnect.databinding.FragmentSearchBinding;
 import com.example.collegeconnect.models.Conversation;
+import com.example.collegeconnect.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -43,7 +44,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     private FragmentConversationsBinding binding;
     private ConversationsAdapter adapter;
     private List<Conversation> conversations;
-    private ParseUser user;
+    private User user;
 
     public static ConversationsFragment newInstance() {
         return new ConversationsFragment();
@@ -55,7 +56,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
         binding = FragmentConversationsBinding.inflate(inflater, container, false);
 
         conversations = new ArrayList<>();
-        user = ParseUser.getCurrentUser();
+        user = (User) ParseUser.getCurrentUser();
 
         // Set up recycler view and adapter
         adapter = new ConversationsAdapter(getContext(), conversations, this);
@@ -71,7 +72,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     private void queryConversations() {
         ParseQuery<Conversation> query = ParseQuery.getQuery(Conversation.class);
 
-        if (user.getString(getString(R.string.KEY_TYPE)).equals("high school")) {
+        if (user.isInHighSchool()) {
             query.include(Conversation.KEY_COLLEGE_STUDENT);
             query.whereEqualTo(Conversation.KEY_HIGHSCHOOL_STUDENT, user);
         } else {
@@ -111,7 +112,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
         Intent i = new Intent(getContext(), ConversationActivity.class);
 
         // Pass the other student's ParseUser object to intent
-        if (user.getString(getString(R.string.KEY_TYPE)).equals("high school")) {
+        if (user.isInHighSchool()) {
             i.putExtra(KEY_OTHER_STUDENT, Parcels.wrap(conversation.getCollegeStudent()));
         } else {
             i.putExtra(KEY_OTHER_STUDENT, Parcels.wrap(conversation.getHighSchoolStudent()));

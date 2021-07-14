@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityMainBinding;
 import com.example.collegeconnect.databinding.ActivitySignupBinding;
+import com.example.collegeconnect.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -56,14 +57,14 @@ public class SignupActivity extends AppCompatActivity {
                 user.setUsername(binding.etName.getText().toString());
                 user.setEmail(binding.etEmail.getText().toString());
                 user.setPassword(binding.etPassword.getText().toString());
-                user.put(getString(R.string.KEY_TYPE), type);
-                user.put(getString(R.string.KEY_FROM), binding.etFrom.getText().toString());
-                user.put(getString(R.string.KEY_SCHOOL), binding.etSchool.getText().toString());
-                user.put(getString(R.string.KEY_ACADEMICS), binding.etAcademics.getText().toString());
-                user.put(getString(R.string.KEY_EXTRACURRICULARS), binding.etExtracurriculars.getText().toString());
-                user.put(getString(R.string.KEY_GRADE), grade);
+                user.put(User.KEY_TYPE, type);
+                user.put(User.KEY_FROM, binding.etFrom.getText().toString());
+                user.put(User.KEY_SCHOOL, binding.etSchool.getText().toString());
+                user.put(User.KEY_ACADEMICS, binding.etAcademics.getText().toString());
+                user.put(User.KEY_EXTRACURRICULARS, binding.etExtracurriculars.getText().toString());
+                user.put(User.KEY_GRADE, grade);
                 if (type.equals("college")) {
-                    user.put(getString(R.string.KEY_HIGHSCHOOL), binding.etHighSchool.getText().toString());
+                    user.put(User.KEY_HIGHSCHOOL, binding.etHighSchool.getText().toString());
                 }
 
                 // Send request to Parse to save new user

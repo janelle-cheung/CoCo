@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.FragmentProfileBinding;
+import com.example.collegeconnect.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
@@ -34,40 +35,36 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        ParseUser user = ParseUser.getCurrentUser();
+        User user = (User) ParseUser.getCurrentUser();
 
         // Display data
         binding.tvName.setText(user.getUsername());
         binding.tvGradeAndSchool.setText(
-                String.format("%s at %s",
-                        user.getString(getString(R.string.KEY_GRADE)),
-                        user.getString(getString(R.string.KEY_SCHOOL))));
-        binding.tvFromValue.setText(user.getString(getString(R.string.KEY_FROM)));
-        binding.tvExtracurricularsValue.setText(user.getString(getString(R.string.KEY_ACADEMICS)));
-        binding.tvAcademicsValue.setText(user.getString(getString(R.string.KEY_ACADEMICS)));
-        binding.tvExtracurricularsValue.setText(user.getString(getString(R.string.KEY_EXTRACURRICULARS)));
+                String.format("%s at %s", user.getGrade(), user.getSchool()));
+        binding.tvFromValue.setText(user.getFrom());
+        binding.tvExtracurricularsValue.setText(user.getExtracurriculars());
+        binding.tvAcademicsValue.setText(user.getAcademics());
 
-        ParseFile profileImage = user.getParseFile("profileImage");
-        // Display placeholder image if user has no profile image
-        if (profileImage == null) {
+        if (user.hasProfileImage()) {
+            Glide.with(getContext())
+                    .load(user.getProfileImageUrl())
+                    .placeholder(R.mipmap.profile_placeholder_foreground)
+                    .circleCrop()
+                    .into(binding.ivProfileImage);
+        } else {
+            // Display placeholder image if user has no profile image
             Glide.with(getContext())
                     .load(R.mipmap.profile_placeholder_foreground)
-                    .circleCrop()
-                    .into(binding.ivProfileImage);;
-        } else {
-            Glide.with(getContext())
-                    .load(profileImage.getUrl())
-                    .placeholder(R.mipmap.profile_placeholder_foreground)
                     .circleCrop()
                     .into(binding.ivProfileImage);
         }
 
         // Hide high school text if it's a high school student
-        if (user.getString(getString(R.string.KEY_TYPE)).equals("high school")) {
+        if (user.isInHighSchool()) {
             binding.tvHighSchoolPrompt.setVisibility(View.GONE);
             binding.tvHighSchoolValue.setVisibility(View.GONE);
         } else {
-            binding.tvHighSchoolValue.setText(user.getString(getString(R.string.KEY_HIGHSCHOOL)));
+            binding.tvHighSchoolValue.setText(user.getHighSchool());
         }
 
         return binding.getRoot();
