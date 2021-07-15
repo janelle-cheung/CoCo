@@ -27,5 +27,6 @@
     <string name="profile_highschool">High school:</string>
     <string name="message_hint">Message...</string>
     <string name="college_search_prompt">Search for a college...</string>
+    <string name="start_conversation">Start conversation</string>
     <string name="no_college_students">Sorry!\nThere are no CoCo users who attend this college right now.</string>
 </resources>

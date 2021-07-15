@@ -100,6 +100,8 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
     @Override
     public void onCollegeStudentClick(int position) {
         User collegeStudent = collegeStudents.get(position);
-        Toast.makeText(getContext(), collegeStudent.getUsername(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_OTHER_PROFILE, Parcels.wrap(collegeStudent));
+        ((SearchResultActivity) getActivity()).replaceFragmentWithOtherProfile(bundle);
     }
 }

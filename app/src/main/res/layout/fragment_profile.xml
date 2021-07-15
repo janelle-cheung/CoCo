@@ -38,13 +38,24 @@
         android:hint="TextView"
         android:textSize="15sp" />
 
+    <Button
+        android:id="@+id/btnStartConversation"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:text="@string/start_conversation" />
+
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/ivProfileImage"
+        android:layout_below="@+id/btnStartConversation"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@android:color/darker_gray" />
 
     <TextView
@@ -126,4 +137,5 @@
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/tvExtracurricularsPrompt"
         android:hint="TextView" />
+
 </RelativeLayout>

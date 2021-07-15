@@ -30,4 +30,12 @@ public class SearchResultActivity extends AppCompatActivity {
                 .add(R.id.fragment_container_view, CollegeDetailsFragment.class, bundle)
                 .commit();
     }
+
+    public void replaceFragmentWithOtherProfile(Bundle bundle) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_view, ProfileFragment.class, bundle)
+                .addToBackStack(null)
+                .commit();
+    }
 }

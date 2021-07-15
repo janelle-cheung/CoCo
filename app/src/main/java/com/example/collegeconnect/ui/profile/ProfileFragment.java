@@ -16,26 +16,38 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.activities.CollegeDetailsFragment;
 import com.example.collegeconnect.databinding.FragmentProfileBinding;
 import com.example.collegeconnect.models.User;
+import com.example.collegeconnect.ui.search.SearchFragment;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import org.parceler.Parcels;
 
 public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileFragment";
     private ProfileViewModel mViewModel;
     private FragmentProfileBinding binding;
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        User user = (User) ParseUser.getCurrentUser();
+        // Check if bundle has arguments - if so, we are displaying another user's profile
+        // If bundle is null, we're displaying the current user's profile
+        Bundle bundle = this.getArguments();
+        User user;
+        boolean isMe;
+        if (bundle != null) {
+            user = Parcels.unwrap(getArguments().getParcelable(CollegeDetailsFragment.KEY_OTHER_PROFILE));
+            isMe = false;
+        } else {
+            user = (User) ParseUser.getCurrentUser();
+            isMe = true;
+        }
 
         // Display data
         binding.tvName.setText(user.getUsername());
@@ -65,6 +77,18 @@ public class ProfileFragment extends Fragment {
             binding.tvHighSchoolValue.setVisibility(View.GONE);
         } else {
             binding.tvHighSchoolValue.setText(user.getHighSchool());
+        }
+
+        // Show start conversation button if we are viewing another user's profile
+        if (!isMe) {
+            binding.btnStartConversation.setVisibility(View.VISIBLE);
+
+            binding.btnStartConversation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Button clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         return binding.getRoot();
