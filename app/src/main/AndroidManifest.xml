@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CollegeConnect">
-        <activity android:name=".activities.CollegeDetailsActivity"></activity>
+        <activity android:name=".activities.SearchResultActivity"></activity>
+        <activity android:name=".activities.CollegeDetailsFragment" />
         <activity android:name=".activities.ConversationActivity" />
         <activity android:name=".activities.SelectTypeActivity" />
         <activity android:name=".activities.LoginActivity" />

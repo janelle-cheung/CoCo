@@ -1,7 +1,5 @@
 package com.example.collegeconnect.ui.search;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,8 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.collegeconnect.R;
-import com.example.collegeconnect.activities.CollegeDetailsActivity;
+import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.databinding.FragmentSearchBinding;
 
 public class SearchFragment extends Fragment {
@@ -38,15 +35,15 @@ public class SearchFragment extends Fragment {
                 String input = binding.etCollege.getText().toString();
                 if (input.isEmpty()) { return; }
                 // TO-DO: check if college actually exists with API
-                launchDetailsActivity(input);
+                launchSearchResultActivity(input);
             }
         });
 
         return binding.getRoot();
     }
 
-    private void launchDetailsActivity(String college) {
-        Intent i = new Intent(getContext(), CollegeDetailsActivity.class);
+    private void launchSearchResultActivity(String college) {
+        Intent i = new Intent(getContext(), SearchResultActivity.class);
         i.putExtra(KEY_COLLEGE, college);
         startActivity(i);
     }

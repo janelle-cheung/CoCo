@@ -1,18 +1,23 @@
 package com.example.collegeconnect.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
-import com.example.collegeconnect.databinding.ActivityCollegeDetailsBinding;
+import com.example.collegeconnect.databinding.FragmentCollegeDetailsBinding;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
@@ -22,37 +27,49 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollegeDetailsActivity extends AppCompatActivity implements CollegeStudentsAdapter.OnCollegeStudentListener {
+public class CollegeDetailsFragment extends Fragment implements CollegeStudentsAdapter.OnCollegeStudentListener {
 
-    public static final String TAG = "CollegeDetailsActivity";
+    public static final String TAG = "CollegeDetails";
     public static final String KEY_OTHER_PROFILE = "other profile";
     public static final int NUM_COLUMNS = 3;
-    private ActivityCollegeDetailsBinding binding;
+    private FragmentCollegeDetailsBinding binding;
     private CollegeStudentsAdapter adapter;
     private String college;
     private List<User> collegeStudents;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityCollegeDetailsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate 2");
+        binding = FragmentCollegeDetailsBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         collegeStudents = new ArrayList<>();
-        adapter = new CollegeStudentsAdapter(this, collegeStudents, this);
+        adapter = new CollegeStudentsAdapter(getContext(), collegeStudents, this);
         binding.rvCollegeStudents.setAdapter(adapter);
-        binding.rvCollegeStudents.setLayoutManager(new GridLayoutManager(this, NUM_COLUMNS));
+        binding.rvCollegeStudents.setLayoutManager(new GridLayoutManager(getContext(), NUM_COLUMNS));
 
-        college = getIntent().getStringExtra(SearchFragment.KEY_COLLEGE);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            college = bundle.getString(SearchResultActivity.KEY_COLLEGE_2);
+        } else {
+            Log.e(TAG, "Bundle empty");
+        }
+
         queryCollegeStudents();
     }
 
     private void queryCollegeStudents() {
+        Log.i(TAG, college);
         ParseQuery<User> query = ParseQuery.getQuery(User.class);
         query.whereEqualTo(User.KEY_SCHOOL, college);
 
@@ -83,6 +100,6 @@ public class CollegeDetailsActivity extends AppCompatActivity implements College
     @Override
     public void onCollegeStudentClick(int position) {
         User collegeStudent = collegeStudents.get(position);
-        Toast.makeText(this, collegeStudent.getUsername(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), collegeStudent.getUsername(), Toast.LENGTH_SHORT).show();
     }
 }

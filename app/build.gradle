@@ -50,4 +50,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'            // Glide
     implementation 'org.parceler:parceler-api:1.1.12'                          // Parceler
     annotationProcessor 'org.parceler:parceler:1.1.12'                         // Parceler
+    implementation "androidx.fragment:fragment:1.3.5"                          // Fragment
 }
