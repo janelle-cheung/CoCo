@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
@@ -57,12 +58,18 @@ public class CollegeDetailsActivity extends AppCompatActivity {
                     return;
                 }
                 Log.i(TAG, "Success querying college students");
-                for (User u : objects) {
-                    Log.i(TAG, u.getUsername());
+
+                if (objects.size() > 0) {
+                    binding.tvNoStudents.setVisibility(View.GONE);
+                    binding.rvCollegeStudents.setVisibility(View.VISIBLE);
+                    adapter.clear();
+                    collegeStudents.addAll(objects);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // Hide RV and show message if there are no CoCo users at the college
+                    binding.tvNoStudents.setVisibility(View.VISIBLE);
+                    binding.rvCollegeStudents.setVisibility(View.GONE);
                 }
-                adapter.clear();
-                collegeStudents.addAll(objects);
-                adapter.notifyDataSetChanged();
             }
         });
     }

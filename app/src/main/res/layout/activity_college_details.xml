@@ -6,10 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.conversations.ConversationsFragment">
 
+    <TextView
+        android:id="@+id/tvNoStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:text="@string/no_college_students" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCollegeStudents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true" />
+        android:layout_below="@id/tvNoStudents"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>
