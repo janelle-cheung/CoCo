@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
@@ -14,17 +16,21 @@ import com.example.collegeconnect.databinding.ActivityCollegeDetailsBinding;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
+import com.example.collegeconnect.ui.profile.ProfileFragment;
 import com.example.collegeconnect.ui.search.SearchFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollegeDetailsActivity extends AppCompatActivity {
+public class CollegeDetailsActivity extends AppCompatActivity implements CollegeStudentsAdapter.OnCollegeStudentListener {
 
     public static final String TAG = "CollegeDetailsActivity";
+    public static final String KEY_OTHER_PROFILE = "other profile";
     public static final int NUM_COLUMNS = 3;
     private ActivityCollegeDetailsBinding binding;
     private CollegeStudentsAdapter adapter;
@@ -38,7 +44,7 @@ public class CollegeDetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         collegeStudents = new ArrayList<>();
-        adapter = new CollegeStudentsAdapter(this, collegeStudents);
+        adapter = new CollegeStudentsAdapter(this, collegeStudents, this);
         binding.rvCollegeStudents.setAdapter(adapter);
         binding.rvCollegeStudents.setLayoutManager(new GridLayoutManager(this, NUM_COLUMNS));
 
@@ -72,5 +78,11 @@ public class CollegeDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onCollegeStudentClick(int position) {
+        User collegeStudent = collegeStudents.get(position);
+        Toast.makeText(this, collegeStudent.getUsername(), Toast.LENGTH_SHORT).show();
     }
 }
