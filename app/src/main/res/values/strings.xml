@@ -34,4 +34,8 @@
     <string name="starting_conversation_with">Starting conversation with </string>
     <string name="send">Send</string>
     <string name="existing_conversation">Conversation started</string>
+    <string name="acceptance_rate">Acceptance rate: </string>
+    <string name="undergrad_size">Undergraduate size:</string>
+    <string name="website">Website: </string>
+    <string name="connect_with_students">Connect with students on CoCo now</string>
 </resources>

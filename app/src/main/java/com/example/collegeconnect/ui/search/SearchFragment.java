@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.collegeconnect.CollegeAIClient;
 import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.databinding.FragmentSearchBinding;
+
+import okhttp3.Headers;
 
 public class SearchFragment extends Fragment {
 

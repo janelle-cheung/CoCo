@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.collegeconnect.CollegeAIClient;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
@@ -29,10 +32,15 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Headers;
 
 public class CollegeDetailsFragment extends Fragment implements CollegeStudentsAdapter.OnCollegeStudentListener {
 
@@ -65,7 +73,56 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
             Log.e(TAG, "Bundle empty");
         }
 
+        getCollegeInfo();
         queryCollegeStudents();
+    }
+
+    private void getCollegeInfo() {
+        CollegeAIClient.getCollegeDetails(college, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    String success = jsonObject.getString("success");
+                    if (success.equals("false")) {
+                        Log.e(TAG, "GET request for college details failed");
+                        return;
+                    }
+                    JSONArray colleges = jsonObject.getJSONArray("colleges");
+                    String campusImage = colleges.getJSONObject(0).getString("campusImage");
+                    String name = colleges.getJSONObject(0).getString("name");
+                    String city = colleges.getJSONObject(0).getString("city");
+                    String stateAbbr = colleges.getJSONObject(0).getString("stateAbbr");
+                    double acceptanceRate = colleges.getJSONObject(0).getDouble("acceptanceRate") * 100;
+                    String undergradSize = colleges.getJSONObject(0).getString("undergraduateSize");
+                    String website = colleges.getJSONObject(0).getString("website");
+                    String shortDescription = colleges.getJSONObject(0).getString("shortDescription");
+                    displayCollegeInfo(campusImage, name, city, stateAbbr, acceptanceRate, undergradSize, website, shortDescription);
+                } catch (JSONException e) {
+                    Log.d(TAG, "Hit JSON exception ", e);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+            }
+        });
+    }
+
+    private void displayCollegeInfo(String campusImage, String name, String city,
+                                    String stateAbbr, double acceptanceRate,
+                                    String undergradSize, String website, String shortDescription) {
+        Glide.with(getContext())
+                .load(campusImage)
+                .into(binding.ivCampusImage);
+
+        binding.tvName.setText(name);
+        binding.tvLocation.setText(String.format("%s, %s", city, stateAbbr));
+        binding.tvAcceptanceRateValue.setText(String.format("%s%%", String.valueOf(acceptanceRate)));
+        binding.tvUndergradSizeValue.setText(undergradSize);
+        binding.tvWebsiteValue.setText(website);
+        binding.tvShortDescription.setText(shortDescription);
     }
 
     private void queryCollegeStudents() {

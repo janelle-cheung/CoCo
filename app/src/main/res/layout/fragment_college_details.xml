@@ -1,19 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.conversations.ConversationsFragment">
+
+    <ImageView
+        android:id="@+id/ivCampusImage"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        tools:src="@tools:sample/avatars" />
+
+    <RelativeLayout
+        android:id="@+id/rlCollegeInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivCampusImage"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvName"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toEndOf="@+id/tvName"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvAcceptanceRatePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/acceptance_rate"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAcceptanceRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvAcceptanceRatePrompt"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/tvAcceptanceRatePrompt"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvUndergradSizePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAcceptanceRateValue"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="3dp"
+            android:text="@string/undergrad_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvUndergradSizeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvUndergradSizePrompt"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/tvUndergradSizePrompt"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvWebsitePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvUndergradSizeValue"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="3dp"
+            android:text="@string/website"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWebsiteValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvWebsitePrompt"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/tvWebsitePrompt"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvShortDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvWebsiteValue"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:hint="TextView" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rlCollegeInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="25dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tvConnectPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line"
+        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:text="@string/connect_with_students"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvNoStudents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:visibility="gone"
+        android:layout_below="@id/tvConnectPrompt"
         android:gravity="center_horizontal"
-        android:text="@string/no_college_students" />
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        android:text="@string/no_college_students"
+        android:textColor="#E6E2E2"
+        android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCollegeStudents"
@@ -23,4 +155,6 @@
         android:layout_centerInParent="true"
         android:layout_margin="10dp"/>
 
+
 </RelativeLayout>
+</ScrollView>
