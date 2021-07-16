@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".activities.StartConversationActivity">
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:hint="TextView"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvGradeAndSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:hint="TextView"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tvIntroPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp"
+        android:textSize="12sp"
+        android:text="@string/brief_intro_prompt" />
+
+    <EditText
+        android:id="@+id/etIntroInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvIntroPrompt"
+        android:layout_alignParentStart="true"
+        android:padding="10dp"
+        android:gravity="top|left"
+        android:minLines="5"
+        android:maxLines="5"
+        android:background="@drawable/rounded_edittext"
+        android:hint="TextView" />
+
+    <TextView
+        android:id="@+id/tvInquiriesPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etIntroInput"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp"
+        android:textSize="12sp"
+        android:text="@string/inquiries_prompt" />
+
+    <EditText
+        android:id="@+id/etInquiriesInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvInquiriesPrompt"
+        android:layout_alignParentStart="true"
+        android:padding="10dp"
+        android:gravity="top|left"
+        android:minLines="7"
+        android:maxLines="7"
+        android:background="@drawable/rounded_edittext"
+        android:hint="TextView" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/send" />
+
+</RelativeLayout>

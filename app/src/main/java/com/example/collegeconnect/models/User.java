@@ -3,6 +3,9 @@ package com.example.collegeconnect.models;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
+@Parcel(analyze = User.class)
 @ParseClassName("_User")
 public class User extends ParseUser {
     public User() {}

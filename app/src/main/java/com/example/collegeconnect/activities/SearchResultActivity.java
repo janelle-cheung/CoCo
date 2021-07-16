@@ -1,14 +1,11 @@
 package com.example.collegeconnect.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.databinding.FragmentCollegeDetailsBinding;
+import com.example.collegeconnect.ui.CollegeDetailsFragment;
 import com.example.collegeconnect.ui.profile.ProfileFragment;
 import com.example.collegeconnect.ui.search.SearchFragment;
 
@@ -31,10 +28,10 @@ public class SearchResultActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void replaceFragmentWithOtherProfile(Bundle bundle) {
+    public void replaceFragment(Class fragmentClass, Bundle bundle) {
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.fragment_container_view, ProfileFragment.class, bundle)
+                .replace(R.id.fragment_container_view, fragmentClass, bundle)
                 .addToBackStack(null)
                 .commit();
     }

@@ -74,19 +74,15 @@ public class ConversationActivity extends AppCompatActivity {
 
         // Configure live refreshing of messages
         String webSocketUrl = "https://collegeconnect.b4a.io";
-
         ParseLiveQueryClient parseLiveQueryClient = null;
         try {
             parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient(new URI(webSocketUrl));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
         ParseQuery<Message> parseQuery = ParseQuery.getQuery(Message.class);
-
         // Connect to Parse server
         SubscriptionHandling<Message> subscriptionHandling = parseLiveQueryClient.subscribe(parseQuery);
-
         // Listen for CREATE events on the Message class
         subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, (query, object) -> {
             messages.add(0, object);

@@ -1,4 +1,4 @@
-package com.example.collegeconnect.activities;
+package com.example.collegeconnect.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
 import com.example.collegeconnect.databinding.FragmentCollegeDetailsBinding;
 import com.example.collegeconnect.models.Conversation;
@@ -45,7 +46,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate 2");
         binding = FragmentCollegeDetailsBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
@@ -69,7 +69,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
     }
 
     private void queryCollegeStudents() {
-        Log.i(TAG, college);
         ParseQuery<User> query = ParseQuery.getQuery(User.class);
         query.whereEqualTo(User.KEY_SCHOOL, college);
 
@@ -102,6 +101,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         User collegeStudent = collegeStudents.get(position);
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_OTHER_PROFILE, Parcels.wrap(collegeStudent));
-        ((SearchResultActivity) getActivity()).replaceFragmentWithOtherProfile(bundle);
+        ((SearchResultActivity) getActivity()).replaceFragment(ProfileFragment.class, bundle);
     }
 }
