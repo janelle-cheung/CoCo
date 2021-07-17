@@ -64,8 +64,11 @@ public class ProfileFragment extends Fragment {
 
     public void displayInfo() {
         binding.tvName.setText(userShown.getUsername());
+        String currSchool;
+        if (userShown.isInHighSchool()) { currSchool = userShown.getHighSchool(); }
+        else { currSchool = userShown.getCollege(); }
         binding.tvGradeAndSchool.setText(
-                String.format("%s at %s", userShown.getGrade(), userShown.getSchool()));
+                String.format("%s at %s", userShown.getGrade(), currSchool));
         binding.tvFromValue.setText(userShown.getFrom());
         binding.tvExtracurricularsValue.setText(userShown.getExtracurriculars());
         binding.tvAcademicsValue.setText(userShown.getAcademics());

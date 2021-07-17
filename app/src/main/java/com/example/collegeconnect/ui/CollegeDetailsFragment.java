@@ -85,7 +85,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
                 try {
                     String success = jsonObject.getString("success");
                     if (success.equals("false")) {
-                        Log.e(TAG, "GET request for college details failed");
+                        Log.e(TAG, "GET request returned but is unsuccessful in getting data");
                         return;
                     }
                     JSONArray colleges = jsonObject.getJSONArray("colleges");
@@ -104,8 +104,8 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
             }
 
             @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
+            public void onFailure(int statusCode, Headers headers, String response, Throwable e) {
+                Log.e(TAG, "GET request for college info failed ", e);
             }
         });
     }
@@ -127,7 +127,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
 
     private void queryCollegeStudents() {
         ParseQuery<User> query = ParseQuery.getQuery(User.class);
-        query.whereEqualTo(User.KEY_SCHOOL, college);
+        query.whereEqualTo(User.KEY_COLLEGE_ID, college);
 
         query.findInBackground(new FindCallback<User>() {
             @Override

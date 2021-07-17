@@ -11,7 +11,7 @@ public class User extends ParseUser {
     public User() {}
 
     public static final String KEY_TYPE = "type";
-    public static final String KEY_SCHOOL = "school";
+    public static final String KEY_COLLEGE = "school";
     public static final String KEY_GRADE = "grade";
     public static final String KEY_FROM = "from";
     public static final String KEY_PROFILEIMAGE = "profileImage";
@@ -19,12 +19,13 @@ public class User extends ParseUser {
     public static final String KEY_EXTRACURRICULARS = "extracurricularInterests";
     public static final String KEY_HIGHSCHOOL = "highSchool";
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_COLLEGE_ID = "collegeUnitId";
 
     public boolean isInHighSchool() {
         return getString(KEY_TYPE).equals("high school");
     }
 
-    public String getSchool() { return getString(KEY_SCHOOL); }
+    public String getCollege() { return getString(KEY_COLLEGE); }
 
     public String getGrade() { return getString(KEY_GRADE); }
 
@@ -43,9 +44,11 @@ public class User extends ParseUser {
 
     public String getEmail() { return getString(KEY_EMAIL); }
 
+    public String getCollegeUnitId() { return getString(KEY_COLLEGE_ID); }
+
     public void setType(String type) { put(KEY_TYPE, type); }
 
-    public void setSchool(String school) { put(KEY_SCHOOL, school); }
+    public void setCollege(String college) { put(KEY_COLLEGE, college); }
 
     public void setGrade(String grade) { put(KEY_GRADE, grade); }
 
@@ -58,4 +61,6 @@ public class User extends ParseUser {
     public void setEmail(String email) { put(KEY_EMAIL, email); }
 
     public void setHighSchool(String highSchool) { put(KEY_HIGHSCHOOL, highSchool); }
+
+    public void setCollegeUnitId(String collegeId) { put(KEY_COLLEGE_ID, collegeId); }
 }

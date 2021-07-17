@@ -64,7 +64,7 @@ public class StartConversationActivity extends AppCompatActivity {
         String otherUserName = otherUser.getUsername();
 
         binding.tvName.setText(otherUserName);
-        binding.tvGradeAndSchool.setText(String.format("%s at %s", otherUser.getGrade(), otherUser.getSchool()));
+        binding.tvGradeAndSchool.setText(String.format("%s at %s", otherUser.getGrade(), otherUser.getCollege()));
         if (otherUser.hasProfileImage()) {
             Glide.with(this)
                     .load(otherUser.getProfileImageUrl())

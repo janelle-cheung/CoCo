@@ -8,7 +8,6 @@
     android:layout_margin="30dp"
     tools:context=".activities.SignupActivity">
 
-
     <EditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
@@ -42,18 +41,26 @@
         android:hint="@string/from" />
 
     <EditText
-        android:id="@+id/etSchool"
+        android:id="@+id/etHighSchool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etFrom"
         android:layout_marginTop="10dp"
-        android:hint="@string/school" />
+        android:hint="@string/high_school" />
+
+    <AutoCompleteTextView
+        android:id="@+id/aetCollegeAutoComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etHighSchool"
+        android:layout_marginTop="10dp"
+        android:hint="@string/college" />
 
     <RadioGroup
         android:id="@+id/rGroupGrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etSchool"
+        android:layout_below="@+id/aetCollegeAutoComplete"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
@@ -83,18 +90,10 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/etHighSchool"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rGroupGrade"
-        android:layout_marginTop="10dp"
-        android:hint="@string/high_school" />
-
-    <EditText
         android:id="@+id/etAcademics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etHighSchool"
+        android:layout_below="@+id/rGroupGrade"
         android:layout_marginTop="10dp"
         android:hint="@string/academics_prompt" />
 
