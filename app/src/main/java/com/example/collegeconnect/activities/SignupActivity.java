@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         type = getIntent().getStringExtra(SelectTypeActivity.KEY_TYPE);
-        if (type.equals("high school")) { binding.etHighSchool.setVisibility(View.GONE); }
+        if (type.equals("high school")) { binding.aetCollegeAutoComplete.setVisibility(View.GONE); }
 
         List<String> suggestions = new ArrayList<>();
         suggestionIds = new ArrayList<>();
