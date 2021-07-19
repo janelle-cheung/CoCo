@@ -1,7 +1,13 @@
 package com.example.collegeconnect.models;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcel;
 
@@ -11,7 +17,7 @@ public class User extends ParseUser {
     public User() {}
 
     public static final String KEY_TYPE = "type";
-    public static final String KEY_COLLEGE = "school";
+    public static final String KEY_COLLEGE = "college";
     public static final String KEY_GRADE = "grade";
     public static final String KEY_FROM = "from";
     public static final String KEY_PROFILEIMAGE = "profileImage";
@@ -53,6 +59,11 @@ public class User extends ParseUser {
     public void setGrade(String grade) { put(KEY_GRADE, grade); }
 
     public void setFrom(String from) { put(KEY_FROM, from); }
+
+    public void setProfileImage(ParseFile file, SaveCallback callback) {
+        put(KEY_PROFILEIMAGE, file);
+        saveInBackground(callback);
+    }
 
     public void setAcademics(String academics) { put(KEY_ACADEMICS, academics); }
 

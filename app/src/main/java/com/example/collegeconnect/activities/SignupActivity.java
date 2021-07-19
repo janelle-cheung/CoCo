@@ -112,7 +112,6 @@ public class SignupActivity extends AppCompatActivity {
                     // Filter based on the current text because api call is asynchronous.
                     arrayAdapter.getFilter().filter(collegeInput, null);
 
-                    Log.i(TAG, "NOTIFY DATA SET CHANGED BITCH");
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception ", e);
                 }
