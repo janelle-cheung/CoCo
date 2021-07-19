@@ -85,7 +85,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
             }
 
             tvUsername.setText(otherStudent.getUsername());
-            tvGradeAndSchool.setText(String.format("%s at %s", otherStudent.getString("grade"), otherStudent.getString("school")));
+            tvGradeAndSchool.setText(String.format("%s at %s", otherStudent.getGrade(), otherStudent.getCollege()));
 
             if (otherStudent.hasProfileImage()) {
                 Glide.with(context)
