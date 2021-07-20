@@ -80,12 +80,13 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
             User otherStudent;
             if (user.isInHighSchool()) {
                 otherStudent = conversation.getCollegeStudent();
+                tvGradeAndSchool.setText(String.format("%s at %s", otherStudent.getGrade(), otherStudent.getCollege()));
             } else {
                 otherStudent = conversation.getHighSchoolStudent();
+                tvGradeAndSchool.setText(String.format("%s at %s", otherStudent.getGrade(), otherStudent.getHighSchool()));
             }
 
             tvUsername.setText(otherStudent.getUsername());
-            tvGradeAndSchool.setText(String.format("%s at %s", otherStudent.getGrade(), otherStudent.getCollege()));
 
             if (otherStudent.hasProfileImage()) {
                 Glide.with(context)

@@ -39,7 +39,7 @@ import java.util.List;
 public class ConversationsFragment extends Fragment implements ConversationsAdapter.OnConversationListener {
 
     public static final String TAG = "ConversationsFragment";
-    public static final String KEY_CONVERSATION = "conversation";
+    public static final String KEY_CONVERSATION_1 = "conversation1";
     private ConversationsViewModel mViewModel;
     private FragmentConversationsBinding binding;
     private ConversationsAdapter adapter;
@@ -111,7 +111,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     public void onConversationClick(int position) {
         Conversation conversation = conversations.get(position);
         Intent i = new Intent(getContext(), ConversationActivity.class);
-        i.putExtra(KEY_CONVERSATION, Parcels.wrap(conversation));
+        i.putExtra(KEY_CONVERSATION_1, Parcels.wrap(conversation));
         startActivity(i);
     }
 }

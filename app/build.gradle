@@ -44,12 +44,14 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation "com.github.parse-community.Parse-SDK-Android:parse:1.26.0" // Parse
-    implementation 'com.github.parse-community:ParseLiveQuery-Android:1.2.2'   // Parse Live Query
-    implementation 'com.github.bumptech.glide:glide:4.12.0'                    // Glide
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'            // Glide
-    implementation 'org.parceler:parceler-api:1.1.12'                          // Parceler
-    annotationProcessor 'org.parceler:parceler:1.1.12'                         // Parceler
-    implementation "androidx.fragment:fragment:1.3.5"                          // Fragment
-    implementation 'com.codepath.libraries:asynchttpclient:2.1.1'              // Async HTTP Client
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:1.26.0"          // Parse
+    implementation 'com.github.parse-community:ParseLiveQuery-Android:1.2.2'            // Parse Live Query
+    implementation 'com.github.bumptech.glide:glide:4.12.0'                             // Glide
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'                     // Glide
+    implementation 'org.parceler:parceler-api:1.1.12'                                   // Parceler
+    annotationProcessor 'org.parceler:parceler:1.1.12'                                  // Parceler
+    implementation "androidx.fragment:fragment:1.3.5"                                   // Fragment
+    implementation 'com.codepath.libraries:asynchttpclient:2.1.1'                       // Async HTTP Client
+    implementation "com.google.android.gms:play-services-maps:17.0.1"                   // Google Maps
+    implementation "com.google.android.gms:play-services-location:18.0.0"               // Google Location
 }

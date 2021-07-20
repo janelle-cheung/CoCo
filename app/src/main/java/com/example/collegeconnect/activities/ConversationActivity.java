@@ -6,11 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.collegeconnect.CollegeAIClient;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.ConversationAdapter;
 import com.example.collegeconnect.databinding.ActivityConversationBinding;
@@ -40,6 +44,7 @@ public class ConversationActivity extends AppCompatActivity {
 
     public static final int NUM_MESSAGES_TO_QUERY = 10;
     public static final String TAG = "ConversationActivity";
+    public static final String KEY_CONVERSATION_2 = "conversation2";
     private ConversationAdapter adapter;
     private ActivityConversationBinding binding;
     private List<Message> messages;
@@ -54,7 +59,7 @@ public class ConversationActivity extends AppCompatActivity {
         binding = ActivityConversationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        conversation = Parcels.unwrap(getIntent().getParcelableExtra(ConversationsFragment.KEY_CONVERSATION));
+        conversation = Parcels.unwrap(getIntent().getParcelableExtra(ConversationsFragment.KEY_CONVERSATION_1));
         user = (User) ParseUser.getCurrentUser();
         if (user.isInHighSchool()) {
             otherUser = conversation.getCollegeStudent();
@@ -148,5 +153,30 @@ public class ConversationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_conversation, menu);
+        if (user.isInHighSchool() && !conversation.meetLocationSet()) {
+            menu.findItem(R.id.miLocationSharing).setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.miLocationSharing) {
+            if (user.isInHighSchool()) {
+                Intent i = new Intent(this, HighSchoolLocationShare.class);
+                i.putExtra(KEY_CONVERSATION_2, Parcels.wrap(conversation));
+                startActivity(i);
+            } else {
+                Intent i = new Intent(this, CollegeLocationShare.class);
+                i.putExtra(KEY_CONVERSATION_2, Parcels.wrap(conversation));
+                startActivity(i);
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
