@@ -54,9 +54,6 @@ public class SignupActivity extends AppCompatActivity {
         if (type.equals("high school")) { binding.aetCollegeAutoComplete.setVisibility(View.GONE); }
 
         suggestionIds = new ArrayList<>();
-
-
-
         List<String> suggestions = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggestions);
         binding.aetCollegeAutoComplete.setAdapter(arrayAdapter);

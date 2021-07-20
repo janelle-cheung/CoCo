@@ -1,9 +1,9 @@
 package com.example.collegeconnect.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,19 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.collegeconnect.CollegeAIClient;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.ConversationAdapter;
 import com.example.collegeconnect.databinding.ActivityConversationBinding;
-import com.example.collegeconnect.databinding.FragmentConversationsBinding;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
 import com.example.collegeconnect.ui.conversations.ConversationsFragment;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -45,6 +41,7 @@ public class ConversationActivity extends AppCompatActivity {
     public static final int NUM_MESSAGES_TO_QUERY = 10;
     public static final String TAG = "ConversationActivity";
     public static final String KEY_CONVERSATION_2 = "conversation2";
+    public static final int LOCATION_REQUEST_CODE = 40;
     private ConversationAdapter adapter;
     private ActivityConversationBinding binding;
     private List<Message> messages;
@@ -168,15 +165,28 @@ public class ConversationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.miLocationSharing) {
             if (user.isInHighSchool()) {
-                Intent i = new Intent(this, HighSchoolLocationShare.class);
+                Intent i = new Intent(this, HighSchoolLocationShareActivity.class);
                 i.putExtra(KEY_CONVERSATION_2, Parcels.wrap(conversation));
-                startActivity(i);
+                startActivityForResult(i, LOCATION_REQUEST_CODE);
             } else {
-                Intent i = new Intent(this, CollegeLocationShare.class);
+                Intent i = new Intent(this, CollegeLocationShareActivity.class);
                 i.putExtra(KEY_CONVERSATION_2, Parcels.wrap(conversation));
-                startActivity(i);
+                startActivityForResult(i, LOCATION_REQUEST_CODE);
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == LOCATION_REQUEST_CODE  && resultCode  == RESULT_OK) {
+                Conversation newConversation = Parcels.unwrap(data.getParcelableExtra(CollegeLocationShareActivity.KEY_NEW_CONVERSATION));
+                this.conversation = newConversation;
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "Error on activity result");
+        }
     }
 }

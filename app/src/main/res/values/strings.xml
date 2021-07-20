@@ -39,7 +39,8 @@
     <string name="website">Website: </string>
     <string name="connect_with_students">Connect with students on CoCo now</string>
     <string name="send_location">Send location</string>
-    <string name="send_location_prompt">Select a location to meet</string>
+    <string name="search_location">Search location</string>
+    <string name="send_location_prompt">Search or tap location on map</string>
     <string name="update_location_prompt">Select a location to update</string>
     <string name="update_location">Update location</string>
     <string name="location_sent">Location sent</string>

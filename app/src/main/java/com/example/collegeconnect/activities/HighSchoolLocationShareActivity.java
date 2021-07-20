@@ -21,7 +21,7 @@ import com.parse.ParseGeoPoint;
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
-public class HighSchoolLocationShare extends AppCompatActivity {
+public class HighSchoolLocationShareActivity extends AppCompatActivity {
 
     private ActivityHighSchoolLocationShareBinding binding;
     private GoogleMap map;
@@ -62,7 +62,7 @@ public class HighSchoolLocationShare extends AppCompatActivity {
                 googleMap.addMarker(new MarkerOptions()
                         .position(meetLocation)
                         .title("Meet location"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(meetLocation));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(meetLocation, 10));
             } else {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(Conversation.getDefaultMapLocation()));
             }

@@ -19,8 +19,8 @@
 
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         
-        <activity android:name=".activities.HighSchoolLocationShare"/>
-        <activity android:name=".activities.CollegeLocationShare" />
+        <activity android:name=".activities.HighSchoolLocationShareActivity"/>
+        <activity android:name=".activities.CollegeLocationShareActivity" />
         <activity android:name=".activities.StartConversationActivity" />
         <activity android:name=".activities.SearchResultActivity" />
         <activity android:name=".activities.ConversationActivity" />
