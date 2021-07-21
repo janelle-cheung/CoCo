@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
+import com.google.android.libraries.places.api.Places;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -24,5 +25,7 @@ public class ParseApplication extends Application {
                 .server("https://collegeconnect.b4a.io")
                 .build()
         );
+
+        Places.initialize(getApplicationContext(), getString(R.string.google_maps_api_key));
     }
 }

@@ -23,15 +23,23 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CollegeLocationShareActivity extends AppCompatActivity implements GoogleMap.OnMapClickListener {
 
     public static final String TAG = "CollegeLocationShareActivity";
+    public static final int AUTOCOMPLETE_REQUEST_CODE = 24;
     public static final String KEY_NEW_CONVERSATION = "new conversation";
     private ActivityCollegeLocationShareBinding binding;
     private GoogleMap map;
@@ -61,6 +69,17 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
             Toast.makeText(this, "Error - Map Fragment was null", Toast.LENGTH_SHORT).show();
         }
 
+        binding.aetSearchLocationAutoComplete.setFocusable(false);
+        binding.aetSearchLocationAutoComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.NAME);
+                Intent i = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList)
+                        .build(CollegeLocationShareActivity.this);
+                startActivityForResult(i, AUTOCOMPLETE_REQUEST_CODE);
+            }
+        });
+
         binding.btnSendLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +93,21 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
                 openGoogleMaps();
             }
         });
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            LatLng searchLocation = place.getLatLng();
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(searchLocation, 10));
+            onMapClick(searchLocation);
+        } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+            Status status = Autocomplete.getStatusFromIntent(data);
+            Log.e(TAG, "Error with Places autocomplete " + status.getStatusMessage());
+        }
     }
 
     private void openGoogleMaps() {
