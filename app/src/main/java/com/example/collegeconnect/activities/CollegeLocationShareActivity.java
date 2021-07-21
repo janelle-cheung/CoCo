@@ -4,7 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,15 +29,10 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class CollegeLocationShareActivity extends AppCompatActivity implements GoogleMap.OnMapClickListener {
 
     public static final String TAG = "CollegeLocationShareActivity";
     public static final String KEY_NEW_CONVERSATION = "new conversation";
-    public static final int AUTOCOMPLETE_REQUEST_CODE = 100;
     private ActivityCollegeLocationShareBinding binding;
     private GoogleMap map;
     private Conversation conversation;
@@ -44,7 +41,6 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         binding = ActivityCollegeLocationShareBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -71,6 +67,24 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
                 saveLocation();
             }
         });
+
+        binding.btnGoogleMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGoogleMaps();
+            }
+        });
+    }
+
+    private void openGoogleMaps() {
+        String uri = "http://maps.google.com/maps?daddr=" + locationSelected.latitude + "," + locationSelected.longitude;
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        i.setPackage("com.google.android.apps.maps");
+        try {
+            startActivity(i);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Google Maps not installed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void saveLocation() {
@@ -87,6 +101,7 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
                 Toast.makeText(CollegeLocationShareActivity.this, "Saved meet location", Toast.LENGTH_SHORT).show();
                 binding.btnSendLocation.setEnabled(false);
                 binding.btnSendLocation.setText(getString(R.string.location_sent));
+                binding.btnGoogleMaps.setVisibility(View.VISIBLE);
                 Intent i = getIntent();
                 i.putExtra(KEY_NEW_CONVERSATION, Parcels.wrap(conversation));
                 setResult(RESULT_OK, i);
@@ -96,14 +111,13 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
 
     @SuppressLint("LongLogTag")
     public void loadMap(GoogleMap googleMap) {
-        Log.i(TAG, "loadMap");
         map = googleMap;
         if (map != null) {
             map.getUiSettings().setZoomControlsEnabled(true);
+            map.getUiSettings().setMapToolbarEnabled(false);
             map.setOnMapClickListener(this);
             if (conversation.meetLocationSet()) {
                 ParseGeoPoint geoPoint = conversation.getMeetLocation();
-                Log.i(TAG, String.valueOf(geoPoint.getLatitude()));
                 LatLng meetLocation = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
                 googleMap.addMarker(new MarkerOptions()
                         .position(meetLocation)
@@ -113,6 +127,7 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
                 binding.btnSendLocation.setEnabled(false);
                 binding.btnSendLocation.setText(getString(R.string.location_sent));
                 binding.btnSendLocation.setVisibility(View.VISIBLE);
+                binding.btnGoogleMaps.setVisibility(View.VISIBLE);
             } else {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(Conversation.getDefaultMapLocation()));
             }
@@ -125,6 +140,7 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
     public void onMapClick(LatLng latLng) {
         map.clear();
         binding.tvSelectLocationPrompt.setVisibility(View.GONE);
+        binding.btnGoogleMaps.setVisibility(View.GONE);
         if (conversation.meetLocationSet()) {
             binding.btnSendLocation.setEnabled(true);
             binding.btnSendLocation.setText(getString(R.string.update_location));

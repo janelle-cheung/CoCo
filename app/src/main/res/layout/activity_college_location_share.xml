@@ -7,23 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.CollegeLocationShareActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="COLLEGE"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="41dp" />
-
     <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <EditText
-        android:id="@+id/etSearchLocation"
+    <AutoCompleteTextView
+        android:id="@+id/aetSearchLocationAutoComplete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -49,11 +40,27 @@
         android:id="@+id/tvSelectLocationPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="135dp"
-        android:background="@drawable/message_select_location"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="150dp"
         android:text="@string/send_location_prompt"
         android:textSize="15sp" />
+
+    <ImageButton
+        android:id="@+id/btnGoogleMaps"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="20dp"
+        android:background="#D2FFFFFF"
+        android:padding="20dp"
+        android:elevation="1dp"
+        android:visibility="gone"
+        app:srcCompat="@mipmap/google_directions_foreground" />
 
 </RelativeLayout>
