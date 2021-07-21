@@ -44,4 +44,5 @@
     <string name="update_location_prompt">Select a location to update</string>
     <string name="update_location">Update location</string>
     <string name="location_sent">Location sent</string>
+    <string name="view_photos">View photos</string>
 </resources>

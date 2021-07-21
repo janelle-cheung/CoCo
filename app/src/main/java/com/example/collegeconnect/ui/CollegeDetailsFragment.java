@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collegeconnect.CollegeAIClient;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.activities.CollegeMediaActivity;
 import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
 import com.example.collegeconnect.databinding.FragmentCollegeDetailsBinding;
@@ -75,6 +76,14 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
 
         getCollegeInfo();
         queryCollegeStudents();
+
+        binding.btnViewPhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), CollegeMediaActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void getCollegeInfo() {
