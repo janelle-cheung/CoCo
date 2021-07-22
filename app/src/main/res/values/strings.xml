@@ -51,4 +51,14 @@
     <string name="album_food">Food</string>
     <string name="album_student_life">Student life</string>
     <string name="no_media_message">No photos or videos uploaded yet</string>
+    <string name="caption_prompt">(Optional) Write a caption...</string>
+    <string name="uploading_to">Uploading to:</string>
+    <string name="upload">Upload</string>
+
+    <string-array name="albums_array">
+        <item>Campus</item>
+        <item>Dorms</item>
+        <item>Food</item>
+        <item>Student life</item>
+    </string-array>
 </resources>

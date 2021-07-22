@@ -40,11 +40,12 @@ public class CollegeAlbumsFragment extends Fragment {
                 getString(R.string.album_all), getString(R.string.album_campus),
                 getString(R.string.album_dorms), getString(R.string.album_food), getString(R.string.album_student_life));
         configureTabAdapter();
-
+        Log.i(TAG, "onCreateView");
         return binding.getRoot();
     }
 
     private void configureTabAdapter() {
+        Log.i(TAG, "configureTabAdapter");
         final CollegeAlbumsTabAdapter tabAdapter = new CollegeAlbumsTabAdapter(
                 this.getActivity().getSupportFragmentManager(),
                 albums, albums.size());

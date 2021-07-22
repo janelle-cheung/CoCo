@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.CollegeMediaDetailsFragment"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <ImageView
+    android:id="@+id/ivCollegeMedia"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    tools:src="@tools:sample/avatars" />
+
+    <RelativeLayout
+        android:id="@+id/rvDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ivUserProfileImage"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20dp"
+            android:hint="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivUserProfileImage"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            android:layout_toEndOf="@+id/ivUserProfileImage"
+            android:hint="TextView" />
+
+        <ImageView
+            android:id="@+id/ivUserProfileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvUsername"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentEnd="true"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

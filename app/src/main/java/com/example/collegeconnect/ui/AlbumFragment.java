@@ -11,25 +11,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.activities.CollegeMediaActivity;
+import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeAlbumAdapter;
 import com.example.collegeconnect.databinding.FragmentAlbumBinding;
 import com.example.collegeconnect.models.CollegeMedia;
 import com.example.collegeconnect.models.User;
+import com.example.collegeconnect.ui.profile.ProfileFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlbumFragment extends Fragment {
+public class AlbumFragment extends Fragment implements CollegeAlbumAdapter.OnMediaListener {
 
     public static final String TAG = "AlbumFragment";
+    public static final String KEY_CLICKED_MEDIA = "clicked media";
     private FragmentAlbumBinding binding;
     private String collegeId;
     private String albumName;
@@ -53,20 +58,23 @@ public class AlbumFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "onViewCreated");
         collegeId = ((CollegeMediaActivity) getActivity()).collegeId;
         Log.i(TAG, albumName);
 
         allMedia = new ArrayList<>();
-        adapter = new CollegeAlbumAdapter(getContext(), allMedia);
+        adapter = new CollegeAlbumAdapter(getContext(), allMedia, this);
         binding.rvMedia.setAdapter(adapter);
         binding.rvMedia.setLayoutManager(new GridLayoutManager(getContext(), NUM_COLUMNS));
 
         queryCollegeMedia();
+        Log.i(TAG, "query-ed college media");
     }
 
     private void queryCollegeMedia() {
         ParseQuery<CollegeMedia> query = ParseQuery.getQuery(CollegeMedia.class);
         query.whereEqualTo(CollegeMedia.KEY_COLLEGE_UNIT_ID, collegeId);
+        query.include(CollegeMedia.KEY_USER);
 
         if (!albumName.equals(getString(R.string.album_all))) {
             query.whereEqualTo(CollegeMedia.KEY_ALBUM_NAME, albumName);
@@ -79,9 +87,7 @@ public class AlbumFragment extends Fragment {
                     Log.e(TAG, "Problem with querying college media ", e);
                     return;
                 }
-                Log.i(TAG, "Success querying college media");
 
-                Log.i(TAG, String.valueOf(objects.size()));
                 if (objects.size() > 0) {
                     allMedia.addAll(objects);
                     adapter.notifyDataSetChanged();
@@ -93,4 +99,11 @@ public class AlbumFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onMediaClick(int position) {
+        CollegeMedia clickedMedia = allMedia.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_CLICKED_MEDIA, Parcels.wrap(clickedMedia));
+        ((CollegeMediaActivity) getActivity()).changeFragment(CollegeMediaDetailsFragment.class, bundle);    }
 }

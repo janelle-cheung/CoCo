@@ -32,7 +32,6 @@ public class CollegeAlbumsTabAdapter extends FragmentPagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        Log.i(TAG, String.valueOf(position));
         return new AlbumFragment(albums.get(position));
     }
 

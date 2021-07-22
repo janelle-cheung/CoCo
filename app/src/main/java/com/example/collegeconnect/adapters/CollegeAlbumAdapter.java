@@ -22,17 +22,19 @@ public class CollegeAlbumAdapter extends RecyclerView.Adapter<CollegeAlbumAdapte
 
     Context context;
     List<CollegeMedia> allMedia;
+    OnMediaListener onMediaListener;
 
-    public CollegeAlbumAdapter(Context context, List<CollegeMedia> media) {
+    public CollegeAlbumAdapter(Context context, List<CollegeMedia> media, OnMediaListener onMediaListener) {
         this.context = context;
         this.allMedia = media;
+        this.onMediaListener = onMediaListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_college_media, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onMediaListener);
     }
 
     @Override
@@ -46,15 +48,18 @@ public class CollegeAlbumAdapter extends RecyclerView.Adapter<CollegeAlbumAdapte
         return allMedia.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivCollegeMedia;
         TextView tvCaption;
+        OnMediaListener onMediaListener;
 
-        public ViewHolder(@NonNull @NotNull View itemView) {
+        public ViewHolder(@NonNull @NotNull View itemView, OnMediaListener onMediaListener) {
             super(itemView);
             this.ivCollegeMedia = itemView.findViewById(R.id.ivCollegeMedia);
             this.tvCaption = itemView.findViewById(R.id.tvCaption);
+            this.onMediaListener = onMediaListener;
+            itemView.setOnClickListener(this);
         }
 
         public void bind(CollegeMedia media) {
@@ -64,5 +69,14 @@ public class CollegeAlbumAdapter extends RecyclerView.Adapter<CollegeAlbumAdapte
                     .into(ivCollegeMedia);
             tvCaption.setText(media.getCaption());
         }
+
+        @Override
+        public void onClick(View v) {
+            onMediaListener.onMediaClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnMediaListener {
+        void onMediaClick(int position);
     }
 }

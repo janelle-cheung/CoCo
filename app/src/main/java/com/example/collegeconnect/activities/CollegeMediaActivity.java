@@ -27,4 +27,12 @@ public class CollegeMediaActivity extends AppCompatActivity {
                 .add(R.id.fragment_container_view, CollegeAlbumsFragment.class, new Bundle())
                 .commit();
     }
+
+    public void changeFragment(Class fragmentClass, Bundle bundle) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragment_container_view, fragmentClass, bundle)
+                .addToBackStack(null)
+                .commit();
+    }
 }
