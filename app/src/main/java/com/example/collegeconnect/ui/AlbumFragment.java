@@ -58,9 +58,7 @@ public class AlbumFragment extends Fragment implements CollegeAlbumAdapter.OnMed
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG, "onViewCreated");
         collegeId = ((CollegeMediaActivity) getActivity()).collegeId;
-        Log.i(TAG, albumName);
 
         allMedia = new ArrayList<>();
         adapter = new CollegeAlbumAdapter(getContext(), allMedia, this);
@@ -68,13 +66,13 @@ public class AlbumFragment extends Fragment implements CollegeAlbumAdapter.OnMed
         binding.rvMedia.setLayoutManager(new GridLayoutManager(getContext(), NUM_COLUMNS));
 
         queryCollegeMedia();
-        Log.i(TAG, "query-ed college media");
     }
 
     private void queryCollegeMedia() {
         ParseQuery<CollegeMedia> query = ParseQuery.getQuery(CollegeMedia.class);
         query.whereEqualTo(CollegeMedia.KEY_COLLEGE_UNIT_ID, collegeId);
         query.include(CollegeMedia.KEY_USER);
+        query.addDescendingOrder("createdAt");
 
         if (!albumName.equals(getString(R.string.album_all))) {
             query.whereEqualTo(CollegeMedia.KEY_ALBUM_NAME, albumName);
@@ -105,5 +103,6 @@ public class AlbumFragment extends Fragment implements CollegeAlbumAdapter.OnMed
         CollegeMedia clickedMedia = allMedia.get(position);
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_CLICKED_MEDIA, Parcels.wrap(clickedMedia));
-        ((CollegeMediaActivity) getActivity()).changeFragment(CollegeMediaDetailsFragment.class, bundle);    }
+        ((CollegeMediaActivity) getActivity()).changeFragment(CollegeMediaDetailsFragment.class, bundle);
+    }
 }

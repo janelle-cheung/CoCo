@@ -23,7 +23,6 @@ public class CollegeAlbumsFragment extends Fragment {
 
     public static final String TAG = "CollegeAlbumsFragment";
     private FragmentCollegeAlbumsBinding binding;
-    public List<String> albums;
 
     public CollegeAlbumsFragment() {}
 
@@ -36,24 +35,17 @@ public class CollegeAlbumsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCollegeAlbumsBinding.inflate(getLayoutInflater());
-        albums = Arrays.asList(
-                getString(R.string.album_all), getString(R.string.album_campus),
-                getString(R.string.album_dorms), getString(R.string.album_food), getString(R.string.album_student_life));
         configureTabAdapter();
-        Log.i(TAG, "onCreateView");
         return binding.getRoot();
     }
 
     private void configureTabAdapter() {
-        Log.i(TAG, "configureTabAdapter");
+        List<String> allAlbums = Arrays.asList(getResources().getStringArray(R.array.all_albums_array));
         final CollegeAlbumsTabAdapter tabAdapter = new CollegeAlbumsTabAdapter(
                 this.getActivity().getSupportFragmentManager(),
-                albums, albums.size());
+                allAlbums, allAlbums.size());
         binding.viewPager.setAdapter(tabAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-        for (int i = 0; i < albums.size(); i++) {
-            binding.tabLayout.getTabAt(i).setText(albums.get(i));
-        }
         binding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout));
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -67,5 +59,9 @@ public class CollegeAlbumsFragment extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });
+    }
+
+    public void onMediaUploaded() {
+        binding.viewPager.getAdapter().notifyDataSetChanged();
     }
 }

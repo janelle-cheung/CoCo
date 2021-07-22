@@ -46,14 +46,18 @@
     <string name="location_sent">Location sent</string>
     <string name="view_photos">View photos</string>
     <string name="album_all">All</string>
-    <string name="album_campus">Campus</string>
-    <string name="album_dorms">Dorms</string>
-    <string name="album_food">Food</string>
-    <string name="album_student_life">Student life</string>
     <string name="no_media_message">No photos or videos uploaded yet</string>
     <string name="caption_prompt">(Optional) Write a caption...</string>
     <string name="uploading_to">Uploading to:</string>
     <string name="upload">Upload</string>
+
+    <string-array name="all_albums_array">
+        <item>All</item>
+        <item>Campus</item>
+        <item>Dorms</item>
+        <item>Food</item>
+        <item>Student life</item>
+    </string-array>
 
     <string-array name="albums_array">
         <item>Campus</item>

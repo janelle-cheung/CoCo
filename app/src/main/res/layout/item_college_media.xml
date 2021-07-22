@@ -22,7 +22,6 @@
         android:layout_alignStart="@+id/ivCollegeMedia"
         android:layout_alignEnd="@+id/ivCollegeMedia"
         android:layout_alignBottom="@+id/ivCollegeMedia"
-        android:hint="TextView"
         android:padding="5dp"
         android:singleLine="true"
         android:textColor="#FFFFFF" />

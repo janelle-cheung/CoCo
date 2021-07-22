@@ -20,19 +20,30 @@ public class CollegeAlbumsTabAdapter extends FragmentPagerAdapter {
 
     public static final String TAG = "CollegeAlbumsTabAdapter";
     private int tabCount;
-    private List<String> albums;
+    private List<String> allAlbums;
 
-    public CollegeAlbumsTabAdapter(@NonNull FragmentManager fragmentManager, List<String> albums, int tabCount) {
+    public CollegeAlbumsTabAdapter(@NonNull FragmentManager fragmentManager, List<String> allAlbums, int tabCount) {
         super(fragmentManager);
-        this.albums = albums;
+        this.allAlbums = allAlbums;
         this.tabCount = tabCount;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return allAlbums.get(position);
+    }
+
+    // Recreates fragment upon notifyDataSetChanged()
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @NonNull
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        return new AlbumFragment(albums.get(position));
+        return new AlbumFragment(allAlbums.get(position));
     }
 
     @Override
