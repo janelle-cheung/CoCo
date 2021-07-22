@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.activities.CollegeMediaActivity;
 import com.example.collegeconnect.adapters.CollegeAlbumsTabAdapter;
 import com.example.collegeconnect.databinding.FragmentCollegeAlbumsBinding;
+import com.example.collegeconnect.ui.search.SearchFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class CollegeAlbumsFragment extends Fragment {
 
     public static final String TAG = "CollegeAlbumsFragment";
     private FragmentCollegeAlbumsBinding binding;
-    public static List<String> albums = Arrays.asList("All", "Campus", "Dorms", "Food", "Student life");
+    public List<String> albums;
 
     public CollegeAlbumsFragment() {}
 
@@ -34,10 +36,18 @@ public class CollegeAlbumsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCollegeAlbumsBinding.inflate(getLayoutInflater());
+        albums = Arrays.asList(
+                getString(R.string.album_all), getString(R.string.album_campus),
+                getString(R.string.album_dorms), getString(R.string.album_food), getString(R.string.album_student_life));
+        configureTabAdapter();
 
+        return binding.getRoot();
+    }
+
+    private void configureTabAdapter() {
         final CollegeAlbumsTabAdapter tabAdapter = new CollegeAlbumsTabAdapter(
                 this.getActivity().getSupportFragmentManager(),
-                albums.size());
+                albums, albums.size());
         binding.viewPager.setAdapter(tabAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
         for (int i = 0; i < albums.size(); i++) {
@@ -56,7 +66,5 @@ public class CollegeAlbumsFragment extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });
-
-        return binding.getRoot();
     }
 }

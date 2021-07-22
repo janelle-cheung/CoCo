@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="3dp" >
 
     <ImageView
         android:id="@+id/ivCollegeMedia"
@@ -22,6 +23,7 @@
         android:layout_alignEnd="@+id/ivCollegeMedia"
         android:layout_alignBottom="@+id/ivCollegeMedia"
         android:hint="TextView"
-        android:maxLines="1"
+        android:padding="5dp"
+        android:singleLine="true"
         android:textColor="#FFFFFF" />
 </RelativeLayout>

@@ -45,4 +45,10 @@
     <string name="update_location">Update location</string>
     <string name="location_sent">Location sent</string>
     <string name="view_photos">View photos</string>
+    <string name="album_all">All</string>
+    <string name="album_campus">Campus</string>
+    <string name="album_dorms">Dorms</string>
+    <string name="album_food">Food</string>
+    <string name="album_student_life">Student life</string>
+    <string name="no_media_message">No photos or videos uploaded yet</string>
 </resources>

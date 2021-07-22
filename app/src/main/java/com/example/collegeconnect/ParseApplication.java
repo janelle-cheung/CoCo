@@ -2,11 +2,13 @@ package com.example.collegeconnect;
 
 import android.app.Application;
 
+import com.example.collegeconnect.models.CollegeMedia;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
 import com.google.android.libraries.places.api.Places;
 import com.parse.Parse;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
@@ -18,6 +20,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(Conversation.class);
         ParseObject.registerSubclass(Message.class);
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(CollegeMedia.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("cTxaFE96P54cuwItOi4DNBHWXVSZkfS30pmIEhdE")

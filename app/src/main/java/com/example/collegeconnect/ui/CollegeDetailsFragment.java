@@ -47,10 +47,11 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
 
     public static final String TAG = "CollegeDetails";
     public static final String KEY_OTHER_PROFILE = "other profile";
+    public static final String KEY_COLLEGE_DETAILS_FRAGMENT_COLLEGE_ID = "CollegeDetailsFragment collegeId";
     public static final int NUM_COLUMNS = 3;
     private FragmentCollegeDetailsBinding binding;
     private CollegeStudentsAdapter adapter;
-    private String college;
+    private String collegeId;
     private List<User> collegeStudents;
 
     @Override
@@ -67,12 +68,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         binding.rvCollegeStudents.setAdapter(adapter);
         binding.rvCollegeStudents.setLayoutManager(new GridLayoutManager(getContext(), NUM_COLUMNS));
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            college = bundle.getString(SearchResultActivity.KEY_COLLEGE_2);
-        } else {
-            Log.e(TAG, "Bundle empty");
-        }
+        collegeId = ((SearchResultActivity) getActivity()).collegeId;
 
         getCollegeInfo();
         queryCollegeStudents();
@@ -81,13 +77,14 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), CollegeMediaActivity.class);
+                i.putExtra(KEY_COLLEGE_DETAILS_FRAGMENT_COLLEGE_ID, collegeId);
                 startActivity(i);
             }
         });
     }
 
     private void getCollegeInfo() {
-        CollegeAIClient.getCollegeDetails(college, new JsonHttpResponseHandler() {
+        CollegeAIClient.getCollegeDetails(collegeId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONObject jsonObject = json.jsonObject;
@@ -136,7 +133,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
 
     private void queryCollegeStudents() {
         ParseQuery<User> query = ParseQuery.getQuery(User.class);
-        query.whereEqualTo(User.KEY_COLLEGE_ID, college);
+        query.whereEqualTo(User.KEY_COLLEGE_ID, collegeId);
 
         query.findInBackground(new FindCallback<User>() {
             @Override

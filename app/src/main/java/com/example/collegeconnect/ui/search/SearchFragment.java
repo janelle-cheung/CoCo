@@ -20,7 +20,7 @@ import okhttp3.Headers;
 
 public class SearchFragment extends Fragment {
 
-    public static final String KEY_COLLEGE = "college";
+    public static final String KEY_SEARCH_FRAG_COLLEGE_ID = "SearchFrag collegeId";
     private SearchViewModel mViewModel;
     private FragmentSearchBinding binding;
 
@@ -46,9 +46,9 @@ public class SearchFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void launchSearchResultActivity(String college) {
+    private void launchSearchResultActivity(String collegeId) {
         Intent i = new Intent(getContext(), SearchResultActivity.class);
-        i.putExtra(KEY_COLLEGE, college);
+        i.putExtra(KEY_SEARCH_FRAG_COLLEGE_ID, collegeId);
         startActivity(i);
     }
 
