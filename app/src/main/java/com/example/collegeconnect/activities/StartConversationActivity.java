@@ -112,7 +112,7 @@ public class StartConversationActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     Toast.makeText(StartConversationActivity.this,
-                            "Conversation started!", Toast.LENGTH_SHORT).show();
+                            "Conversation started", Toast.LENGTH_SHORT).show();
                     Log.i(TAG, "Successfully saved Message");
                     Intent i = new Intent();
                     setResult(RESULT_OK, i);

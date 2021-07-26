@@ -55,4 +55,5 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:17.0.1"                   // Google Maps
     implementation "com.google.android.gms:play-services-location:18.0.0"               // Google Location
     implementation 'com.google.android.libraries.places:places:2.4.0'                   // Google Places
+    implementation "androidx.core:core-ktx:1.6.0"                                       // For notifications
 }

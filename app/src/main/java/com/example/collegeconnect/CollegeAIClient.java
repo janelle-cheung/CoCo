@@ -35,6 +35,7 @@ public class CollegeAIClient {
         RequestParams params = new RequestParams();
         params.put("api_key", REST_API_KEY);
         params.put("query", collegeInput);
+        params.put("limit", 6);
         client.get(REST_URL + REST_AUTOCOMPLETE_ENDPOINT, params, handler);
     }
 }
