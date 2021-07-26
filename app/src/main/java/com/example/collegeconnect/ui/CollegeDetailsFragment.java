@@ -100,7 +100,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
                             colleges.getJSONObject(0).getString("campusImage") : null;
                     String city = colleges.getJSONObject(0).has("city") ?
                             colleges.getJSONObject(0).getString("city") : null;
-                    String stateAbbr = colleges.getJSONObject(0).has("campusImage") ?
+                    String stateAbbr = colleges.getJSONObject(0).has("stateAbbr") ?
                             colleges.getJSONObject(0).getString("stateAbbr") : null;
                     double acceptanceRate = colleges.getJSONObject(0).has("acceptanceRate") ?
                             colleges.getJSONObject(0).getDouble("acceptanceRate") * 100 : -1;
@@ -140,14 +140,12 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         if (city != null && stateAbbr != null) {
             binding.tvLocation.setText(String.format("%s, %s", city, stateAbbr));
         } else {
-            Log.i(TAG, "location missing");
             binding.tvLocation.setVisibility(View.GONE);
         }
 
         if (acceptanceRate != -1) {
             binding.tvAcceptanceRateValue.setText(String.format("%s%%", String.valueOf(acceptanceRate)));
         } else {
-            Log.i(TAG, "acceptance rate missing");
             binding.tvAcceptanceRatePrompt.setVisibility(View.GONE);
             binding.tvAcceptanceRateValue.setVisibility(View.GONE);
         }
@@ -155,7 +153,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         if (undergradSize != null) {
             binding.tvUndergradSizeValue.setText(undergradSize);
         } else {
-            Log.i(TAG, "undergrad size missing");
             binding.tvUndergradSizePrompt.setVisibility(View.GONE);
             binding.tvUndergradSizeValue.setVisibility(View.GONE);
         }
@@ -163,7 +160,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         if (website != null) {
             binding.tvWebsiteValue.setText(website);
         } else {
-            Log.i(TAG, "website missing");
             binding.tvWebsitePrompt.setVisibility(View.GONE);
             binding.tvWebsiteValue.setVisibility(View.GONE);
         }
@@ -172,7 +168,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
             binding.tvShortDescription.setText(shortDescription);
 
         } else {
-            Log.i(TAG, "short description missing");
             binding.tvShortDescription.setVisibility(View.GONE);
         }
     }
