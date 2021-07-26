@@ -95,14 +95,21 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
                         return;
                     }
                     JSONArray colleges = jsonObject.getJSONArray("colleges");
-                    String campusImage = colleges.getJSONObject(0).getString("campusImage");
                     String name = colleges.getJSONObject(0).getString("name");
-                    String city = colleges.getJSONObject(0).getString("city");
-                    String stateAbbr = colleges.getJSONObject(0).getString("stateAbbr");
-                    double acceptanceRate = colleges.getJSONObject(0).getDouble("acceptanceRate") * 100;
-                    String undergradSize = colleges.getJSONObject(0).getString("undergraduateSize");
-                    String website = colleges.getJSONObject(0).getString("website");
-                    String shortDescription = colleges.getJSONObject(0).getString("shortDescription");
+                    String campusImage = colleges.getJSONObject(0).has("campusImage") ?
+                            colleges.getJSONObject(0).getString("campusImage") : null;
+                    String city = colleges.getJSONObject(0).has("city") ?
+                            colleges.getJSONObject(0).getString("city") : null;
+                    String stateAbbr = colleges.getJSONObject(0).has("campusImage") ?
+                            colleges.getJSONObject(0).getString("stateAbbr") : null;
+                    double acceptanceRate = colleges.getJSONObject(0).has("acceptanceRate") ?
+                            colleges.getJSONObject(0).getDouble("acceptanceRate") * 100 : -1;
+                    String undergradSize = colleges.getJSONObject(0).has("undergraduateSize") ?
+                            colleges.getJSONObject(0).getString("undergraduateSize") : null;
+                    String website = colleges.getJSONObject(0).has("website") ?
+                            colleges.getJSONObject(0).getString("website") : null;
+                    String shortDescription = colleges.getJSONObject(0).has("shortDescription") ?
+                            colleges.getJSONObject(0).getString("shortDescription") : null;
                     displayCollegeInfo(campusImage, name, city, stateAbbr, acceptanceRate, undergradSize, website, shortDescription);
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception ", e);
@@ -119,16 +126,55 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
     private void displayCollegeInfo(String campusImage, String name, String city,
                                     String stateAbbr, double acceptanceRate,
                                     String undergradSize, String website, String shortDescription) {
-        Glide.with(getContext())
-                .load(campusImage)
-                .into(binding.ivCampusImage);
+        if (campusImage != null) {
+            Glide.with(getContext())
+                    .load(campusImage)
+                    .into(binding.ivCampusImage);
+        } else {
+            Glide.with(getContext())
+                    .load(R.mipmap.university_image_placeholder_foreground)
+                    .into(binding.ivCampusImage);
+        }
 
         binding.tvName.setText(name);
-        binding.tvLocation.setText(String.format("%s, %s", city, stateAbbr));
-        binding.tvAcceptanceRateValue.setText(String.format("%s%%", String.valueOf(acceptanceRate)));
-        binding.tvUndergradSizeValue.setText(undergradSize);
-        binding.tvWebsiteValue.setText(website);
-        binding.tvShortDescription.setText(shortDescription);
+        if (city != null && stateAbbr != null) {
+            binding.tvLocation.setText(String.format("%s, %s", city, stateAbbr));
+        } else {
+            Log.i(TAG, "location missing");
+            binding.tvLocation.setVisibility(View.GONE);
+        }
+
+        if (acceptanceRate != -1) {
+            binding.tvAcceptanceRateValue.setText(String.format("%s%%", String.valueOf(acceptanceRate)));
+        } else {
+            Log.i(TAG, "acceptance rate missing");
+            binding.tvAcceptanceRatePrompt.setVisibility(View.GONE);
+            binding.tvAcceptanceRateValue.setVisibility(View.GONE);
+        }
+
+        if (undergradSize != null) {
+            binding.tvUndergradSizeValue.setText(undergradSize);
+        } else {
+            Log.i(TAG, "undergrad size missing");
+            binding.tvUndergradSizePrompt.setVisibility(View.GONE);
+            binding.tvUndergradSizeValue.setVisibility(View.GONE);
+        }
+
+        if (website != null) {
+            binding.tvWebsiteValue.setText(website);
+        } else {
+            Log.i(TAG, "website missing");
+            binding.tvWebsitePrompt.setVisibility(View.GONE);
+            binding.tvWebsiteValue.setVisibility(View.GONE);
+        }
+
+        if (shortDescription != null) {
+            binding.tvShortDescription.setText(shortDescription);
+
+        } else {
+            Log.i(TAG, "short description missing");
+            binding.tvShortDescription.setVisibility(View.GONE);
+        }
     }
 
     private void queryCollegeStudents() {
