@@ -16,6 +16,17 @@ import java.util.List;
 public class College {
 
     public static final String TAG = "College";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_CAMPUS_IMAGE = "campusImage";
+    public static final String KEY_CITY = "city";
+    public static final String KEY_STATE_ABBR = "stateAbbr";
+    public static final String KEY_ACCEPTANCE_RATE = "acceptanceRate";
+    public static final String KEY_UNDERGRAD_SIZE = "undergraduateSize";
+    public static final String KEY_WEBSITE = "website";
+    public static final String KEY_SHORT_DESCRIPTION = "shortDescription";
+    public static final String KEY_AVG_NET_PRICE = "avgNetPrice";
+    public static final String KEY_SAT25 = "satCompositePercentile25";
+    public static final String KEY_SAT75 = "satCompositePercentile75";
     private String name;
     private String campusImageUrl;
     private String city;
@@ -38,29 +49,30 @@ public class College {
         return colleges;
     }
 
+    // For each variable, check if the object has a non-null value for it
     public static College fromJSON(JSONObject jsonObject) throws JSONException {
         College college = new College();
         college.name = jsonObject.getString("name");
-        college.campusImageUrl = jsonObject.has("campusImage") ?
-                jsonObject.getString("campusImage") : null;
-        college.city = jsonObject.has("city") ?
-                jsonObject.getString("city") : null;
-        college.stateAbbr = jsonObject.has("stateAbbr") ?
-                jsonObject.getString("stateAbbr") : null;
-        college.acceptanceRate = jsonObject.has("acceptanceRate") ?
-                jsonObject.getDouble("acceptanceRate") * 100 : -1;
-        college.undergradSize = jsonObject.has("undergraduateSize") ?
-                jsonObject.getString("undergraduateSize") : null;
-        college.website = jsonObject.has("website") ?
-                jsonObject.getString("website") : null;
-        college.shortDescription = jsonObject.has("shortDescription") ?
-                jsonObject.getString("shortDescription") : null;
-        college.SAT25 = jsonObject.has("satCompositePercentile25") && !jsonObject.isNull("satCompositePercentile25")?
-                jsonObject.getInt("satCompositePercentile25") : -1;
-        college.SAT75 = jsonObject.has("satCompositePercentile75") && !jsonObject.isNull("satCompositePercentile75")?
-                jsonObject.getInt("satCompositePercentile75") : -1;
-        college.averageNetPrice = jsonObject.has("avgNetPrice") ?
-                jsonObject.getInt("avgNetPrice") : -1;
+        college.campusImageUrl = jsonObject.has(KEY_CAMPUS_IMAGE) && !jsonObject.isNull(KEY_CAMPUS_IMAGE) ?
+                jsonObject.getString(KEY_CAMPUS_IMAGE) : null;
+        college.city = jsonObject.has(KEY_CITY) && !jsonObject.isNull(KEY_CITY) ?
+                jsonObject.getString(KEY_CITY) : null;
+        college.stateAbbr = jsonObject.has(KEY_STATE_ABBR) && !jsonObject.isNull(KEY_STATE_ABBR) ?
+                jsonObject.getString(KEY_STATE_ABBR) : null;
+        college.acceptanceRate = jsonObject.has(KEY_ACCEPTANCE_RATE) && !jsonObject.isNull(KEY_ACCEPTANCE_RATE) ?
+                jsonObject.getDouble(KEY_ACCEPTANCE_RATE) * 100 : -1;
+        college.undergradSize = jsonObject.has(KEY_UNDERGRAD_SIZE) && !jsonObject.isNull(KEY_UNDERGRAD_SIZE) ?
+                jsonObject.getString(KEY_UNDERGRAD_SIZE) : null;
+        college.website = jsonObject.has(KEY_WEBSITE) && !jsonObject.isNull(KEY_WEBSITE) ?
+                jsonObject.getString(KEY_WEBSITE) : null;
+        college.shortDescription = jsonObject.has(KEY_SHORT_DESCRIPTION) && !jsonObject.isNull(KEY_SHORT_DESCRIPTION)?
+                jsonObject.getString(KEY_SHORT_DESCRIPTION) : null;
+        college.SAT25 = jsonObject.has(KEY_SAT25) && !jsonObject.isNull(KEY_SAT25)?
+                jsonObject.getInt(KEY_SAT25) : -1;
+        college.SAT75 = jsonObject.has(KEY_SAT75) && !jsonObject.isNull(KEY_SAT75)?
+                jsonObject.getInt(KEY_SAT75) : -1;
+        college.averageNetPrice = jsonObject.has(KEY_AVG_NET_PRICE) && !jsonObject.isNull(KEY_AVG_NET_PRICE) ?
+                jsonObject.getInt(KEY_AVG_NET_PRICE) : -1;
         return college;
     }
 
