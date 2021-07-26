@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.example.collegeconnect.activities.CollegeMediaActivity;
 import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
 import com.example.collegeconnect.databinding.FragmentCollegeDetailsBinding;
+import com.example.collegeconnect.models.College;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
@@ -53,6 +55,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
     private CollegeStudentsAdapter adapter;
     private String collegeId;
     private List<User> collegeStudents;
+    College college;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,23 +97,8 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
                         Log.e(TAG, "GET request returned but is unsuccessful in getting data");
                         return;
                     }
-                    JSONArray colleges = jsonObject.getJSONArray("colleges");
-                    String name = colleges.getJSONObject(0).getString("name");
-                    String campusImage = colleges.getJSONObject(0).has("campusImage") ?
-                            colleges.getJSONObject(0).getString("campusImage") : null;
-                    String city = colleges.getJSONObject(0).has("city") ?
-                            colleges.getJSONObject(0).getString("city") : null;
-                    String stateAbbr = colleges.getJSONObject(0).has("stateAbbr") ?
-                            colleges.getJSONObject(0).getString("stateAbbr") : null;
-                    double acceptanceRate = colleges.getJSONObject(0).has("acceptanceRate") ?
-                            colleges.getJSONObject(0).getDouble("acceptanceRate") * 100 : -1;
-                    String undergradSize = colleges.getJSONObject(0).has("undergraduateSize") ?
-                            colleges.getJSONObject(0).getString("undergraduateSize") : null;
-                    String website = colleges.getJSONObject(0).has("website") ?
-                            colleges.getJSONObject(0).getString("website") : null;
-                    String shortDescription = colleges.getJSONObject(0).has("shortDescription") ?
-                            colleges.getJSONObject(0).getString("shortDescription") : null;
-                    displayCollegeInfo(campusImage, name, city, stateAbbr, acceptanceRate, undergradSize, website, shortDescription);
+                    college = College.fromJSON(jsonObject.getJSONArray("colleges").getJSONObject(0));
+                    displayCollegeInfo();
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception ", e);
                 }
@@ -123,12 +111,11 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         });
     }
 
-    private void displayCollegeInfo(String campusImage, String name, String city,
-                                    String stateAbbr, double acceptanceRate,
-                                    String undergradSize, String website, String shortDescription) {
-        if (campusImage != null) {
+    @SuppressLint("DefaultLocale")
+    private void displayCollegeInfo() {
+        if (college.hasCampusImage()) {
             Glide.with(getContext())
-                    .load(campusImage)
+                    .load(college.getCampusImageUrl())
                     .into(binding.ivCampusImage);
         } else {
             Glide.with(getContext())
@@ -136,39 +123,38 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
                     .into(binding.ivCampusImage);
         }
 
-        binding.tvName.setText(name);
-        if (city != null && stateAbbr != null) {
-            binding.tvLocation.setText(String.format("%s, %s", city, stateAbbr));
-        } else {
+        binding.tvName.setText(college.getName());
+        if (college.getCityState() == null) {
             binding.tvLocation.setVisibility(View.GONE);
+        } else {
+            binding.tvLocation.setText(college.getCityState());
         }
 
-        if (acceptanceRate != -1) {
-            binding.tvAcceptanceRateValue.setText(String.format("%s%%", String.valueOf(acceptanceRate)));
-        } else {
+        if (college.getAcceptanceRate() == -1) {
             binding.tvAcceptanceRatePrompt.setVisibility(View.GONE);
             binding.tvAcceptanceRateValue.setVisibility(View.GONE);
+        } else {
+            binding.tvAcceptanceRateValue.setText(String.format("%.1f%%", college.getAcceptanceRate()));
         }
 
-        if (undergradSize != null) {
-            binding.tvUndergradSizeValue.setText(undergradSize);
-        } else {
+        if (college.getUndergradSize() == null) {
             binding.tvUndergradSizePrompt.setVisibility(View.GONE);
             binding.tvUndergradSizeValue.setVisibility(View.GONE);
+        } else {
+            binding.tvUndergradSizeValue.setText(college.getUndergradSize());
         }
 
-        if (website != null) {
-            binding.tvWebsiteValue.setText(website);
-        } else {
+        if (college.getWebsite() == null) {
             binding.tvWebsitePrompt.setVisibility(View.GONE);
             binding.tvWebsiteValue.setVisibility(View.GONE);
+        } else {
+            binding.tvWebsiteValue.setText(college.getWebsite());
         }
 
-        if (shortDescription != null) {
-            binding.tvShortDescription.setText(shortDescription);
-
-        } else {
+        if (college.getShortDescription() == null) {
             binding.tvShortDescription.setVisibility(View.GONE);
+        } else {
+            binding.tvShortDescription.setText(college.getShortDescription());
         }
     }
 
@@ -183,7 +169,6 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
                     Log.e(TAG, "Problem with querying college students ", e);
                     return;
                 }
-                Log.i(TAG, "Success querying college students");
 
                 if (objects.size() > 0) {
                     binding.tvNoStudents.setVisibility(View.GONE);

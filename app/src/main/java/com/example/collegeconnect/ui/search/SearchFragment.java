@@ -56,18 +56,22 @@ public class SearchFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
 
-        collegeSuggestions = new ArrayList<>();
-        adapter = new CollegeSuggestionsAdapter(getContext(), collegeSuggestions);
-        binding.rvSuggestions.setAdapter(adapter);
-        binding.rvSuggestions.setLayoutManager(new LinearLayoutManager(getContext()));
-        String defaultCategory = getString(R.string.formatted_best_colleges_category);
-        getCollegeSuggestions(defaultCategory);
+        configureAutocompleteSearch();
+        configureSuggestions();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.readable_college_categories_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spnCategory.setAdapter(adapter);
+        binding.ibSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = binding.aetCollegeAutoComplete.getText().toString();
+                if (input.isEmpty() || suggestionIds.isEmpty() || !suggestionClicked) { return; }
+                launchSearchResultActivity(collegeId);
+            }
+        });
 
+        return binding.getRoot();
+    }
+
+    private void configureAutocompleteSearch() {
         suggestionIds = new ArrayList<>();
         List<String> suggestions = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, suggestions);
@@ -93,33 +97,43 @@ public class SearchFragment extends Fragment {
                 suggestionClicked = true;
             }
         });
+    }
 
-        binding.ibSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String input = binding.aetCollegeAutoComplete.getText().toString();
-                if (input.isEmpty() || suggestionIds.isEmpty() || !suggestionClicked) { return; }
-                launchSearchResultActivity(collegeId);
-            }
-        });
+    private void configureSuggestions() {
+        collegeSuggestions = new ArrayList<>();
+        adapter = new CollegeSuggestionsAdapter(getContext(), collegeSuggestions);
+        binding.rvSuggestions.setAdapter(adapter);
+        binding.rvSuggestions.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.readable_college_categories_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spnCategory.setAdapter(adapter);
+
+        // Default suggestions category is "Best colleges"
+        String defaultCategory = getString(R.string.formatted_best_colleges_category);
+        getCollegeSuggestions(defaultCategory);
 
         binding.spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals(getString(R.string.readable_best_colleges_category))) {
                     getCollegeSuggestions(getString(R.string.formatted_best_colleges_category));
+                } else if (selectedItem.equals(getString(R.string.readable_best_value_category))) {
+                    getCollegeSuggestions(getString(R.string.formatted_best_value_category));
+                } else if (selectedItem.equals(getString(R.string.readable_best_academics_category))) {
+                    getCollegeSuggestions(getString(R.string.formatted_best_academics_category));
+                } else if (selectedItem.equals(getString(R.string.readable_best_student_life_category))) {
+                    getCollegeSuggestions(getString(R.string.formatted_best_student_life_category));
+                } else if (selectedItem.equals(getString(R.string.readable_best_CS_category))) {
+                    getCollegeSuggestions(getString(R.string.formatted_best_CS_category));
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        return binding.getRoot();
     }
 
     private void getCollegeSuggestions(String category) {
@@ -135,11 +149,7 @@ public class SearchFragment extends Fragment {
                     }
                     JSONArray collegeList = jsonObject.getJSONArray("colleges");
                     adapter.clear();
-                    for (int i = 0; i < collegeList.length(); i++) {
-                        College college = new College();
-                        college.setName(collegeList.getJSONObject(i).getString("name"));
-                        collegeSuggestions.add(college);
-                    }
+                    collegeSuggestions.addAll(College.fromJSONArray(collegeList));
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception getting suggestions ", e);

@@ -24,7 +24,7 @@ public class CollegeAIClient {
     public static void getCollegeDetails(String collegeUnitId, JsonHttpResponseHandler handler) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        String infoIds = "campusImage,name,city,stateAbbr,majorGraduates,acceptanceRate,undergraduateSize,website,shortDescription";
+        String infoIds = "campusImage,name,city,stateAbbr,acceptanceRate,undergraduateSize,website,shortDescription";
         params.put("api_key", REST_API_KEY);
         params.put("college_unit_ids", collegeUnitId);
         params.put("info_ids", infoIds);
@@ -43,8 +43,11 @@ public class CollegeAIClient {
     public static void getCollegeSuggestionsByCategory(String category, JsonHttpResponseHandler handler) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
+        String infoIds = "campusImage,name,city,stateAbbr,acceptanceRate,undergraduateSize,website" +
+                ",shortDescription,satCompositePercentile25,satCompositePercentile75,avgNetPrice";
         params.put("api_key", REST_API_KEY);
         params.put("sort_order", category);
+        params.put("info_ids", infoIds);
         client.get(REST_URL + REST_COLLEGE_LIST_ENDPOINT, params, handler);
     }
 }

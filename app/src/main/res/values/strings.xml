@@ -34,9 +34,11 @@
     <string name="starting_conversation_with">Starting conversation with </string>
     <string name="send">Send</string>
     <string name="existing_conversation">Conversation started</string>
-    <string name="acceptance_rate">Acceptance rate: </string>
+    <string name="acceptance_rate">Acceptance rate:</string>
+    <string name="avg_net_price">Average net price:</string>
+    <string name="sat_range">SAT range:</string>
     <string name="undergrad_size">Undergraduate size:</string>
-    <string name="website">Website: </string>
+    <string name="website">Website:</string>
     <string name="connect_with_students">Connect with students on CoCo now</string>
     <string name="send_location">Send location</string>
     <string name="search_location">Search location</string>
@@ -46,6 +48,10 @@
     <string name="location_sent">Location sent</string>
     <string name="view_photos">View photos</string>
     <string name="album_all">All</string>
+    <string name="album_campus">Campus</string>
+    <string name="album_dorms">Dorms</string>
+    <string name="album_food">Food</string>
+    <string name="album_student_life">Student life</string>
     <string name="no_media_message">No photos or videos uploaded yet</string>
     <string name="caption_prompt">(Optional) Write a caption...</string>
     <string name="uploading_to">Uploading to:</string>
@@ -53,24 +59,37 @@
     <string name="category">Category:</string>
 
     <string-array name="all_albums_array">
-        <item>All</item>
-        <item>Campus</item>
-        <item>Dorms</item>
-        <item>Food</item>
-        <item>Student life</item>
+        <item>@string/album_all</item>
+        <item>@string/album_campus</item>
+        <item>@string/album_dorms</item>
+        <item>@string/album_food</item>
+        <item>@string/album_student_life</item>
     </string-array>
 
     <string-array name="albums_array">
-        <item>Campus</item>
-        <item>Dorms</item>
-        <item>Food</item>
-        <item>Student life</item>
+        <item>@string/album_campus</item>
+        <item>@string/album_dorms</item>
+        <item>@string/album_food</item>
+        <item>@string/album_student_life</item>
     </string-array>
 
     <string-array name="readable_college_categories_array">
         <item>@string/readable_best_colleges_category</item>
+        <item>@string/readable_best_academics_category</item>
+        <item>@string/readable_best_value_category</item>
+        <item>@string/readable_best_student_life_category</item>
+        <item>@string/readable_best_CS_category</item>
     </string-array>
     
     <string name="readable_best_colleges_category">Best colleges</string>
+    <string name="readable_best_value_category">Best value</string>
+    <string name="readable_best_academics_category">Best academics</string>
+    <string name="readable_best_student_life_category">Best student life</string>
+    <string name="readable_best_CS_category">Best computer science</string>
+
     <string name="formatted_best_colleges_category">best-colleges</string>
+    <string name="formatted_best_value_category">best-value-colleges</string>
+    <string name="formatted_best_academics_category">best-college-academics</string>
+    <string name="formatted_best_student_life_category">best-student-life</string>
+    <string name="formatted_best_CS_category">best-colleges-for-computer-science</string>
 </resources>
