@@ -50,6 +50,7 @@
     <string name="caption_prompt">(Optional) Write a caption...</string>
     <string name="uploading_to">Uploading to:</string>
     <string name="upload">Upload</string>
+    <string name="category">Category:</string>
 
     <string-array name="all_albums_array">
         <item>All</item>
@@ -65,4 +66,11 @@
         <item>Food</item>
         <item>Student life</item>
     </string-array>
+
+    <string-array name="readable_college_categories_array">
+        <item>@string/readable_best_colleges_category</item>
+    </string-array>
+    
+    <string name="readable_best_colleges_category">Best colleges</string>
+    <string name="formatted_best_colleges_category">best-colleges</string>
 </resources>

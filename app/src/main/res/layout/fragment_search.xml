@@ -49,11 +49,43 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlSelectCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSearch"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:background="#E8E3D9">
+
+        <TextView
+            android:id="@+id/tvCategoryPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/category"
+            android:textSize="16sp" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/tvCategoryPrompt"
+            android:background="@drawable/white_spinner">
+            <Spinner
+                android:id="@+id/spnCategory"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSuggestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rlSearch" />
+        android:layout_below="@id/rlSelectCategory"/>
 
 
 </RelativeLayout>

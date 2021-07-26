@@ -17,6 +17,7 @@ public class CollegeAIClient {
     private static final String REST_API_KEY = "free_1440b86cce92aeb0e7d79ccffe";
     private static final String REST_COLLEGE_INFO_ENDPOINT = "college/info?";
     private static final String REST_AUTOCOMPLETE_ENDPOINT = "autocomplete/colleges";
+    private static final String REST_COLLEGE_LIST_ENDPOINT = "college-list";
 
     public CollegeAIClient() {}
 
@@ -37,5 +38,13 @@ public class CollegeAIClient {
         params.put("query", collegeInput);
         params.put("limit", 6);
         client.get(REST_URL + REST_AUTOCOMPLETE_ENDPOINT, params, handler);
+    }
+
+    public static void getCollegeSuggestionsByCategory(String category, JsonHttpResponseHandler handler) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("api_key", REST_API_KEY);
+        params.put("sort_order", category);
+        client.get(REST_URL + REST_COLLEGE_LIST_ENDPOINT, params, handler);
     }
 }
