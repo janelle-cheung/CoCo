@@ -41,11 +41,9 @@ C = college student(s)
 
 * C can share pinned location with HS to meet up on campus (*GoogleMaps SDK*)
 * HS can view photo albums for that college, i.e. dorms, food, campus / C can add to photo albums
+* * User can receive push notifications (contact adding and DMs)
 * Users can call each other
 * HS can leave a public review for C
-* Users can connect to FB account to see mutual friends (*FB Graph API*)
-* User can receive push notifications (contact adding and DMs)
-* HS can see distance between home and college on map
 
 ### 2. Screen Archetypes
 
@@ -92,29 +90,53 @@ C = college student(s)
     
  ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://github.com/janelle-cheung/CollegeConnect/blob/master/Wireframe" width=600>
 
 ## Schema 
 ### Models
 User
-| Property     | Type         | Description |
-| --------     | --------     | -------- |
-| objectId     | String       | unique user id |
-| type         | String       | "high school" or "college" |
-| name         | String       | user's name |
-| password     | String       | user's password |
-| email        | String       | user's email |
-| school       | String       | user's current school |
-| about        | String       | user's bio |
-| grade        | String       | user's grade (freshman, sophomore, etc) |
-| academics    | List<String> | user's academic interests |
-| interests    | List<String> | user's extracurricular interests |
-
-College
-| Property    | Type       | Description |
-| --------    | --------   | -------- |
-| name        | String     | name of college |
-| students    | List<User> | list of college users who attend the college |
+| Property                     | Type         | Description |
+| --------                     | --------     | -------- |
+| objectId                     | String       | unique user id |
+| type                         | String       | "high school" or "college" |
+| name                         | String       | user's name |
+| profileImage                 | File         | user's profile image |
+| password                     | String       | user's password |
+| email                        | String       | user's email |
+| from                         | String       | user's hometown |
+| college                      | String       | user's current college |
+| high school                  | String       | user's (current or past) high school |
+| about                        | String       | user's bio |
+| grade                        | String       | user's grade (freshman, sophomore, etc) |
+| academicInterests            | List<String> | user's academic interests |
+| extracurricularsInterests    | List<String> | user's extracurricular interests |
+| collegeUnitId                | String       | user's current college's unit id in CollegeAPI |
+   
+Message
+| Property              | Type                  | Description |
+| --------              | --------              | -------- |
+| objectId              | String                | unique message id |
+| body                  | String                | body of the message |
+| conversation          | ConversationPointer   | pointer to Conversation that the message is in |
+| sender                | UserPointer           | pointer to User that sent the message |
+   
+Conversation
+| Property              | Type                  | Description |
+| --------              | --------              | -------- |
+| objectId              | String                | unique conversation id |
+| highSchoolStudent     | UserPointer           | pointer to high school student in conversation |
+| collegeStudent        | UserPointer           | pointer to college student in conversation |
+| meetLocation          | LatLng                | coordinates of a location to meet up, set by collegeStudent |
+   
+CollegeMedia
+| Property              | Type                  | Description |
+| --------              | --------              | -------- |
+| objectId              | String                | unique college media id | 
+| file                  | File                  | file containing uploaded media (photo/video) |
+| caption               | String                | caption of the media (optional) |  
+| user                  | UserPointer           | pointer to user who uploaded the media | 
+| albumName             | String                | name of the album the media is in (dorms, food, etc.) |
+| collegeUnitId         | String                | unit id in CollegeAPI of the college that the media was uploaded for |  
 
 ### Networking
 - [Add list of network requests by screen ]
