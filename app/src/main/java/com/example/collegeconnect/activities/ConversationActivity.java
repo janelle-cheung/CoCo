@@ -3,10 +3,20 @@ package com.example.collegeconnect.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +24,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.ConversationAdapter;
 import com.example.collegeconnect.databinding.ActivityConversationBinding;
@@ -29,12 +43,19 @@ import com.parse.SaveCallback;
 import com.parse.livequery.ParseLiveQueryClient;
 import com.parse.livequery.SubscriptionHandling;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ConversationActivity extends AppCompatActivity {
 
@@ -73,8 +94,77 @@ public class ConversationActivity extends AppCompatActivity {
         firstLoad = true;
 
         queryMessages();
+        configureLiveMessageRefresh();
 
-        // Configure live refreshing of messages
+        binding.ibSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage();
+            }
+        });
+    }
+
+    private void sendMessage() {
+        String body = binding.etMessage.getText().toString();
+        if (body.isEmpty()) { return; }
+        Message message = new Message();
+        message.setSender(user);
+        message.setBody(body);
+        message.setConversation(conversation);
+        message.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Toast.makeText(ConversationActivity.this, "Failed to send message", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Failed to save message", e);
+                    return;
+                }
+            }
+        });
+        binding.etMessage.setText(null);
+    }
+
+    private void sendNotification(Bitmap bitmap, String body) {
+        Intent intent = new Intent(this, ConversationsFragment.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.channel_id))
+//            .setSmallIcon(R.drawable.ic_launcher_foreground)
+//            .setContentTitle(user.getUsername())
+//            .setContentText(body)
+//            .setLargeIcon(bitmap)
+//            .setPriority(Notification.PRIORITY_MAX)
+//            .setDefaults(Notification.DEFAULT_ALL)
+//            .setContentIntent(pendingIntent)
+//            .setAutoCancel(true);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.notify(12345, builder.build());
+    }
+
+    private void getUserImageBitmap(String body) {
+        if (user.hasProfileImage()) {
+            Glide.with(this)
+                    .asBitmap()
+                    .load(user.getProfileImageUrl())
+                    .centerCrop()
+                    .error(R.mipmap.profile_placeholder_foreground)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull @NotNull Bitmap resource, @Nullable @org.jetbrains.annotations.Nullable Transition<? super Bitmap> transition) {
+                            Bitmap bitmap = resource;
+                            sendNotification(bitmap, body);
+                        }
+                    });
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
+                R.mipmap.profile_placeholder_foreground);
+            sendNotification(bitmap, body);
+        }
+    }
+
+    private void configureLiveMessageRefresh() {
         String webSocketUrl = "https://collegeconnect.b4a.io";
         ParseLiveQueryClient parseLiveQueryClient = null;
         try {
@@ -97,32 +187,6 @@ public class ConversationActivity extends AppCompatActivity {
                     binding.rvMessages.scrollToPosition(0);
                 }
             });
-        });
-
-        // Create new Message in Parse
-        binding.ibSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String body = binding.etMessage.getText().toString();
-                if (body.isEmpty()) { return; }
-                Message message = new Message();
-                message.setSender(user);
-                message.setBody(body);
-                message.setConversation(conversation);
-                message.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(ConversationActivity.this, "Successfully created message on Parse",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(ConversationActivity.this, "Failed to save message", Toast.LENGTH_SHORT).show();
-                            Log.e(TAG, "Failed to save message", e);
-                        }
-                    }
-                });
-                binding.etMessage.setText(null);
-            }
         });
     }
 

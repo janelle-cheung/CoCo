@@ -90,7 +90,7 @@ C = college student(s)
     
  ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="https://github.com/janelle-cheung/CollegeConnect/blob/master/Wireframe" width=600>
+<img src="https://github.com/janelle-cheung/CollegeConnect/blob/master/Wireframe.pdf" width=600>
 
 ## Schema 
 ### Models
