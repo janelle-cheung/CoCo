@@ -17,6 +17,8 @@ public class College {
 
     public static final String TAG = "College";
     public static final String KEY_NAME = "name";
+    public static final String KEY_UNIT_ID = "unitId"; // for the API's autocomplete endpoint
+    public static final String KEY_COLLEGE_UNIT_ID = "collegeUnitId"; // for the API's college info endpoint
     public static final String KEY_CAMPUS_IMAGE = "campusImage";
     public static final String KEY_CITY = "city";
     public static final String KEY_STATE_ABBR = "stateAbbr";
@@ -28,6 +30,7 @@ public class College {
     public static final String KEY_SAT25 = "satCompositePercentile25";
     public static final String KEY_SAT75 = "satCompositePercentile75";
     private String name;
+    private String collegeUnitId;
     private String campusImageUrl;
     private String city;
     private String stateAbbr;
@@ -52,7 +55,12 @@ public class College {
     // For each variable, check if the object has a non-null value for it
     public static College fromJSON(JSONObject jsonObject) throws JSONException {
         College college = new College();
-        college.name = jsonObject.getString("name");
+        college.name = jsonObject.getString(KEY_NAME);
+        if (jsonObject.has(KEY_COLLEGE_UNIT_ID)) { // college info endpoint
+            college.collegeUnitId = jsonObject.getString(KEY_COLLEGE_UNIT_ID);
+        } else if (jsonObject.has(KEY_UNIT_ID)) { // autocomplete endpoint
+            college.collegeUnitId = jsonObject.getString(KEY_UNIT_ID);
+        }
         college.campusImageUrl = jsonObject.has(KEY_CAMPUS_IMAGE) && !jsonObject.isNull(KEY_CAMPUS_IMAGE) ?
                 jsonObject.getString(KEY_CAMPUS_IMAGE) : null;
         college.city = jsonObject.has(KEY_CITY) && !jsonObject.isNull(KEY_CITY) ?
@@ -79,6 +87,7 @@ public class College {
     public String getName() {
         return name;
     }
+    public String getCollegeUnitId() { return collegeUnitId; }
     public boolean hasCampusImage() { return campusImageUrl != null; }
     public String getCampusImageUrl() { return campusImageUrl; }
     public String getCityState() {

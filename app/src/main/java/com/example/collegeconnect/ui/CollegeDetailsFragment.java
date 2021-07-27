@@ -2,6 +2,7 @@ package com.example.collegeconnect.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,6 +65,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         return binding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -86,6 +89,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void getCollegeInfo() {
         CollegeAIClient.getCollegeDetails(collegeId, new JsonHttpResponseHandler() {
             @Override

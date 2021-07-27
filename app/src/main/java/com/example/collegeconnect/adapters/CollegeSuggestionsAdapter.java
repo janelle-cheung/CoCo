@@ -20,12 +20,14 @@ import java.util.List;
 
 public class CollegeSuggestionsAdapter extends RecyclerView.Adapter<CollegeSuggestionsAdapter.ViewHolder> {
 
-    Context context;
-    List<College> collegeSuggestions;
+    private Context context;
+    private List<College> collegeSuggestions;
+    private OnCollegeListener onCollegeListener;
 
-    public CollegeSuggestionsAdapter(Context context, List<College> collegeSuggestions) {
+    public CollegeSuggestionsAdapter(Context context, List<College> collegeSuggestions, OnCollegeListener onCollegeListener) {
         this.context = context;
         this.collegeSuggestions = collegeSuggestions;
+        this.onCollegeListener = onCollegeListener;
     }
 
     @NonNull
@@ -33,7 +35,7 @@ public class CollegeSuggestionsAdapter extends RecyclerView.Adapter<CollegeSugge
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_college_suggestion, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onCollegeListener);
     }
 
     @Override
@@ -52,19 +54,22 @@ public class CollegeSuggestionsAdapter extends RecyclerView.Adapter<CollegeSugge
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvName;
         TextView tvCityState;
         TextView tvAcceptanceRate;
         TextView tvSATRange;
+        OnCollegeListener onCollegeListener;
 
-        public ViewHolder(@NonNull @NotNull View itemView) {
+        public ViewHolder(@NonNull @NotNull View itemView, OnCollegeListener onCollegeListener) {
             super(itemView);
             this.tvName = itemView.findViewById(R.id.tvName);
             this.tvCityState = itemView.findViewById(R.id.tvCityState);
             this.tvAcceptanceRate = itemView.findViewById(R.id.tvAcceptanceRate);
             this.tvSATRange = itemView.findViewById(R.id.tvSATRange);
+            this.onCollegeListener = onCollegeListener;
+            itemView.setOnClickListener(this);
         }
 
         @SuppressLint("DefaultLocale")
@@ -87,5 +92,14 @@ public class CollegeSuggestionsAdapter extends RecyclerView.Adapter<CollegeSugge
                 tvSATRange.setText(String.format("%s %s", SATRangePrompt, college.getSATRange()));
             }
         }
+
+        @Override
+        public void onClick(View v) {
+            onCollegeListener.onCollegeSuggestionByCategoryClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnCollegeListener {
+        void onCollegeSuggestionByCategoryClick(int position);
     }
 }
