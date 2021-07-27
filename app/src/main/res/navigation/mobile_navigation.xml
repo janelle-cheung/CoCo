@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.collegeconnect.ui.search.SearchFragment"
+        android:name="com.example.collegeconnect.fragments.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_conversations"
-        android:name="com.example.collegeconnect.ui.conversations.ConversationsFragment"
+        android:name="com.example.collegeconnect.fragments.ConversationsFragment"
         android:label="@string/title_conversations"
         tools:layout="@layout/fragment_conversations" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.collegeconnect.ui.profile.ProfileFragment"
+        android:name="com.example.collegeconnect.fragments.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

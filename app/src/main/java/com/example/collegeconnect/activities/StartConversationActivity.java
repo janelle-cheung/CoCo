@@ -15,16 +15,12 @@ import com.example.collegeconnect.databinding.ActivityStartConversationBinding;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
-import com.example.collegeconnect.ui.profile.ProfileFragment;
-import com.parse.FindCallback;
+import com.example.collegeconnect.fragments.ProfileFragment;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
-
-import java.util.List;
 
 public class StartConversationActivity extends AppCompatActivity {
 

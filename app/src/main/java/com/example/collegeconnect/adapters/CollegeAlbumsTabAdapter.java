@@ -1,16 +1,11 @@
 package com.example.collegeconnect.adapters;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Lifecycle;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.collegeconnect.ui.AlbumFragment;
-import com.example.collegeconnect.ui.CollegeAlbumsFragment;
+import com.example.collegeconnect.fragments.AlbumFragment;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,21 +1,16 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect.fragments;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.activities.CollegeMediaActivity;
 import com.example.collegeconnect.adapters.CollegeAlbumsTabAdapter;
 import com.example.collegeconnect.databinding.FragmentCollegeAlbumsBinding;
-import com.example.collegeconnect.ui.search.SearchFragment;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

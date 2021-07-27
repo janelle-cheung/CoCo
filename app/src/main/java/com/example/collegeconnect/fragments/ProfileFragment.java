@@ -1,9 +1,8 @@
-package com.example.collegeconnect.ui.profile;
+package com.example.collegeconnect.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
@@ -18,18 +17,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.activities.StartConversationActivity;
 import com.example.collegeconnect.models.Conversation;
-import com.example.collegeconnect.ui.CollegeDetailsFragment;
 import com.example.collegeconnect.databinding.FragmentProfileBinding;
 import com.example.collegeconnect.models.User;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
@@ -40,9 +36,7 @@ import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Set;
 
 public class ProfileFragment extends Fragment {
 
@@ -50,7 +44,6 @@ public class ProfileFragment extends Fragment {
     public static final int START_CONVERSATION_REQUEST_CODE = 20;
     public static final int PICK_PHOTO_REQUEST_CODE = 30;
     public static final String KEY_COLLEGE_USER = "college user";
-    private ProfileViewModel mViewModel;
     private FragmentProfileBinding binding;
     User userShown;
     User currUser;

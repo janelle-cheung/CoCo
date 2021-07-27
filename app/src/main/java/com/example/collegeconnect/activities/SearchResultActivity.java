@@ -2,15 +2,11 @@ package com.example.collegeconnect.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.icu.util.BuddhistCalendar;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.models.College;
-import com.example.collegeconnect.ui.CollegeDetailsFragment;
-import com.example.collegeconnect.ui.profile.ProfileFragment;
-import com.example.collegeconnect.ui.search.SearchFragment;
+import com.example.collegeconnect.fragments.CollegeDetailsFragment;
+import com.example.collegeconnect.fragments.SearchFragment;
 
 public class SearchResultActivity extends AppCompatActivity {
 

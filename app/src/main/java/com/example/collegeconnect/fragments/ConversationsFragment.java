@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui.conversations;
+package com.example.collegeconnect.fragments;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -40,15 +40,10 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
 
     public static final String TAG = "ConversationsFragment";
     public static final String KEY_CONVERSATION_1 = "conversation1";
-    private ConversationsViewModel mViewModel;
     private FragmentConversationsBinding binding;
     private ConversationsAdapter adapter;
     private List<Conversation> conversations;
     private User user;
-
-    public static ConversationsFragment newInstance() {
-        return new ConversationsFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

@@ -1,11 +1,9 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -16,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -27,17 +24,13 @@ import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeStudentsAdapter;
 import com.example.collegeconnect.databinding.FragmentCollegeDetailsBinding;
 import com.example.collegeconnect.models.College;
-import com.example.collegeconnect.models.Conversation;
-import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
-import com.example.collegeconnect.ui.profile.ProfileFragment;
-import com.example.collegeconnect.ui.search.SearchFragment;
+import com.example.collegeconnect.fragments.ProfileFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;

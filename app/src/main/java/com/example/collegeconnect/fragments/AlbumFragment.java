@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect.fragments;
 
 import android.os.Bundle;
 
@@ -11,16 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.activities.CollegeMediaActivity;
-import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeAlbumAdapter;
 import com.example.collegeconnect.databinding.FragmentAlbumBinding;
 import com.example.collegeconnect.models.CollegeMedia;
-import com.example.collegeconnect.models.User;
-import com.example.collegeconnect.ui.profile.ProfileFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

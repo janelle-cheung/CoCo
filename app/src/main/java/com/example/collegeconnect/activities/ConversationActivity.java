@@ -3,20 +3,12 @@ package com.example.collegeconnect.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.app.Activity;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +17,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.collegeconnect.R;
@@ -34,7 +25,7 @@ import com.example.collegeconnect.databinding.ActivityConversationBinding;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
-import com.example.collegeconnect.ui.conversations.ConversationsFragment;
+import com.example.collegeconnect.fragments.ConversationsFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -46,16 +37,10 @@ import com.parse.livequery.SubscriptionHandling;
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ConversationActivity extends AppCompatActivity {
 

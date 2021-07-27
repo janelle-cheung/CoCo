@@ -7,19 +7,14 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.ui.CollegeAlbumsFragment;
-import com.example.collegeconnect.ui.CollegeDetailsFragment;
-import com.example.collegeconnect.ui.search.SearchFragment;
+import com.example.collegeconnect.fragments.CollegeAlbumsFragment;
+import com.example.collegeconnect.fragments.CollegeDetailsFragment;
 
 public class CollegeMediaActivity extends AppCompatActivity {
 

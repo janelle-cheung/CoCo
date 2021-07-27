@@ -15,12 +15,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityUploadCollegeMediaBinding;
 import com.example.collegeconnect.models.CollegeMedia;
-import com.example.collegeconnect.ui.CollegeAlbumsFragment;
-import com.example.collegeconnect.ui.CollegeDetailsFragment;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;

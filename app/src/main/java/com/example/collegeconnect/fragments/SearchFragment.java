@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui.search;
+package com.example.collegeconnect.fragments;
 
 import android.content.Intent;
 import android.os.Build;
@@ -26,12 +26,10 @@ import com.example.collegeconnect.activities.SearchResultActivity;
 import com.example.collegeconnect.adapters.CollegeSuggestionsAdapter;
 import com.example.collegeconnect.databinding.FragmentSearchBinding;
 import com.example.collegeconnect.models.College;
-import com.example.collegeconnect.ui.CollegeDetailsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,6 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
 
     public static final String TAG = "SearchFragment";
     public static final String KEY_SEARCH_FRAG_COLLEGE_ID = "SearchFrag collegeId";
-    private SearchViewModel mViewModel;
     private ArrayAdapter<String> arrayAdapter;
     private FragmentSearchBinding binding;
     private CollegeSuggestionsAdapter adapter;
@@ -50,10 +47,6 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
     private List<String> autocompleteSuggestionIds;
     String collegeId;
     boolean suggestionClicked = false;
-
-    public static SearchFragment newInstance() {
-        return new SearchFragment();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
