@@ -94,23 +94,28 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
             }
         });
 
-        binding.ibSaveToList.setEnabled(false); // Disable button while we access Parse
-        getSaveFromParse(); // Check if button is saved in Parse, and fill button if yes
-        binding.ibSaveToList.setEnabled(true);
-        binding.ibSaveToList.setOnTouchListener(new OnDoubleTapListener(getContext()) {
-            @Override
-            public void onDoubleTap(MotionEvent e) {
-                binding.ibSaveToList.setEnabled(false); // Disable button while we access Parse
-                if (collegeSaved) {
-                    deleteSave = true;
-                    getSaveFromParse();
-                } else {
-                    createSave();
+        // High school students have the option to save the college to their list
+        if (user.isInHighSchool()) {
+            binding.ibSaveToList.setEnabled(false); // Disable button while we access Parse
+            getSaveFromParse(); // Check if button is saved in Parse, and fill button if yes
+            binding.ibSaveToList.setEnabled(true);
+            binding.ibSaveToList.setOnTouchListener(new OnDoubleTapListener(getContext()) {
+                @Override
+                public void onDoubleTap(MotionEvent e) {
+                    binding.ibSaveToList.setEnabled(false); // Disable button while we access Parse
+                    if (collegeSaved) {
+                        deleteSave = true;
+                        getSaveFromParse();
+                    } else {
+                        createSave();
+                    }
+                    collegeSaved = !collegeSaved;
+                    binding.ibSaveToList.setEnabled(true);
                 }
-                collegeSaved = !collegeSaved;
-                binding.ibSaveToList.setEnabled(true);
-            }
-        });
+            });
+        } else {
+            binding.ibSaveToList.setVisibility(View.GONE);
+        }
     }
 
     private void getSaveFromParse() {

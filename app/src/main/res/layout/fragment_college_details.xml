@@ -150,7 +150,7 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="0dp"
         android:padding="10dp"
-        android:text="@string/no_college_students"
+        android:text="@string/no_college_students_message"
         android:textColor="#E6E2E2"
         android:visibility="visible" />
 

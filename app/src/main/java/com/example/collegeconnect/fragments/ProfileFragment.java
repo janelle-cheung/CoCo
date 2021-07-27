@@ -22,9 +22,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.activities.StartConversationActivity;
+import com.example.collegeconnect.adapters.ProfileTabAdapter;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.databinding.FragmentProfileBinding;
 import com.example.collegeconnect.models.User;
+import com.google.android.material.tabs.TabLayout;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -36,6 +38,7 @@ import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -59,11 +62,15 @@ public class ProfileFragment extends Fragment {
         currUser = (User) ParseUser.getCurrentUser();
         if (bundle != null) {
             userShown = Parcels.unwrap(getArguments().getParcelable(CollegeDetailsFragment.KEY_OTHER_PROFILE));
+            binding.tabLayout.setVisibility(View.GONE); // Hide tab layout if viewing another user's profile
         } else {
             userShown = currUser;
+            if (!userShown.isInHighSchool()) {
+                binding.tabLayout.setVisibility(View.GONE); // Hide tab layout if currUser is in college
+            }
         }
 
-        displayInfo();
+        configureTabAdapter();
 
         binding.ivProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +79,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        if (currUser.isInHighSchool() && !userShown.isInHighSchool()) {
+            checkForExistingConversation();
+        }
+
+        displayInfo();
         return binding.getRoot();
     }
 
@@ -82,9 +94,6 @@ public class ProfileFragment extends Fragment {
         else { currSchool = userShown.getCollege(); }
         binding.tvGradeAndSchool.setText(
                 String.format("%s at %s", userShown.getGrade(), currSchool));
-        binding.tvFromValue.setText(userShown.getFrom());
-        binding.tvExtracurricularsValue.setText(userShown.getExtracurriculars());
-        binding.tvAcademicsValue.setText(userShown.getAcademics());
 
         if (userShown.hasProfileImage()) {
             Glide.with(getContext())
@@ -99,26 +108,26 @@ public class ProfileFragment extends Fragment {
                     .circleCrop()
                     .into(binding.ivProfileImage);
         }
+    }
 
-        // Hide high school-related text views if userShown is in HS, set value otherwise
-        if (userShown.isInHighSchool()) {
-            binding.tvHighSchoolPrompt.setVisibility(View.GONE);
-            binding.tvHighSchoolValue.setVisibility(View.GONE);
-        } else {
-            binding.tvHighSchoolValue.setText(userShown.getHighSchool());
-        }
-
-        if (currUser.isInHighSchool() && !userShown.isInHighSchool()) {
-            checkForExistingConversation();
-        }
-
-        binding.btnStartConversation.setOnClickListener(new View.OnClickListener() {
+    private void configureTabAdapter() {
+        List<String> profileTabs = Arrays.asList(getResources().getStringArray(R.array.profile_tabs_array));
+        final ProfileTabAdapter tabAdapter = new ProfileTabAdapter(this.getChildFragmentManager(),
+                profileTabs, profileTabs.size(), userShown);
+        binding.viewPager.setAdapter(tabAdapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+        binding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout));
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), StartConversationActivity.class);
-                i.putExtra(KEY_COLLEGE_USER, Parcels.wrap(userShown));
-                startActivityForResult(i, START_CONVERSATION_REQUEST_CODE);
+            public void onTabSelected(TabLayout.Tab tab) {
+                binding.viewPager.setCurrentItem(tab.getPosition());
             }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
         });
     }
 
@@ -134,14 +143,21 @@ public class ProfileFragment extends Fragment {
             @Override
             public void done(List<Conversation> objects, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Problem with querying for existing conversation ", e);
                 } else {
                     // If conversation exists, disable button and notify HS user
                     if (objects.size() > 0) {
                         binding.btnStartConversation.setEnabled(false);
                         binding.btnStartConversation.setText(getString(R.string.existing_conversation));
+                    } else {
+                        binding.btnStartConversation.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(getContext(), StartConversationActivity.class);
+                                i.putExtra(KEY_COLLEGE_USER, Parcels.wrap(userShown));
+                                startActivityForResult(i, START_CONVERSATION_REQUEST_CODE);
+                            }
+                        });
                     }
-                    // Show StartConversation button and set on click listener
                     binding.btnStartConversation.setVisibility(View.VISIBLE);
                 }
             }

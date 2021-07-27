@@ -28,7 +28,7 @@
     <string name="message_hint">Message...</string>
     <string name="college_search_prompt">Search for a college...</string>
     <string name="start_conversation">Start conversation</string>
-    <string name="no_college_students">Sorry!\nThere are no CoCo users who attend this college right now.</string>
+    <string name="no_college_students_message">Sorry!\nThere are no CoCo users who attend this college right now.</string>
     <string name="brief_intro_prompt">Give a brief introduction of yourself</string>
     <string name="inquiries_prompt">Describe what you\'re interested in talking about</string>
     <string name="starting_conversation_with">Starting conversation with </string>
@@ -57,6 +57,7 @@
     <string name="uploading_to">Uploading to:</string>
     <string name="upload">Upload</string>
     <string name="category">Category:</string>
+    <string name="no_colleges_saved_message">You have no colleges saved to your list yet</string>
 
     <string-array name="all_albums_array">
         <item>@string/album_all</item>
@@ -73,6 +74,11 @@
         <item>@string/album_student_life</item>
     </string-array>
 
+    <string-array name="profile_tabs_array">
+        <item>About</item>
+        <item>My List</item>
+    </string-array>
+
     <string-array name="readable_college_categories_array">
         <item>@string/readable_best_colleges_category</item>
         <item>@string/readable_best_academics_category</item>
@@ -80,7 +86,7 @@
         <item>@string/readable_best_student_life_category</item>
         <item>@string/readable_best_CS_category</item>
     </string-array>
-    
+
     <string name="readable_best_colleges_category">Best colleges</string>
     <string name="readable_best_value_category">Best value</string>
     <string name="readable_best_academics_category">Best academics</string>
