@@ -145,6 +145,7 @@ public class CollegeDetailsFragment extends Fragment implements CollegeStudentsA
         save.setUser(user);
         save.setCollegeName(college.getName());
         save.setCollegeUnitId(collegeId);
+        save.setColumn(Save.COLUMN_SAVED); // Default column is "Saved"
         save.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

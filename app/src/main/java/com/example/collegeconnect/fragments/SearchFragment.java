@@ -116,12 +116,12 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
                     autocompleteSuggestionIds.clear();
                     JSONArray collegeList = jsonObject.getJSONArray("collegeList");
                     for (int i = 0; i < collegeList.length(); i++) {
+                        Log.i(TAG, collegeList.getJSONObject(i).getString(College.KEY_NAME));
                         arrayAdapter.add(collegeList.getJSONObject(i).getString(College.KEY_NAME));
                         autocompleteSuggestionIds.add(collegeList.getJSONObject(i).getString(College.KEY_UNIT_ID));
                     }
                     // Force the adapter to filter itself, necessary to show new data.
-                    // Filter based on the current text because api call is asynchronous.
-                    arrayAdapter.getFilter().filter(collegeInput, null);
+                    arrayAdapter.getFilter().filter("", null);
 
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception getting auto complete ", e);

@@ -58,6 +58,11 @@
     <string name="upload">Upload</string>
     <string name="category">Category:</string>
     <string name="no_colleges_saved_message">You have no colleges saved to your list yet</string>
+    <string name="college_column_saved">Saved</string>
+    <string name="college_column_safety">Safety</string>
+    <string name="college_column_match">Match</string>
+    <string name="college_column_reach">Reach</string>
+
 
     <string-array name="all_albums_array">
         <item>@string/album_all</item>
