@@ -4,17 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.fragments.AlbumFragment;
 import com.example.collegeconnect.fragments.CollegeAlbumsFragment;
 import com.example.collegeconnect.fragments.CollegeDetailsFragment;
+import com.example.collegeconnect.fragments.CollegeMediaDetailsFragment;
 
 public class CollegeMediaActivity extends AppCompatActivity {
 
@@ -83,10 +91,28 @@ public class CollegeMediaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void changeFragment(Class fragmentClass, Bundle bundle) {
+    // Used from AlbumFragment to change to CollegeMediaDetailsFragment
+    public void changeFragmentWithTransition(Class fragmentClass, Bundle bundle, View ivCollegeMedia) {
+        Transition changeTransform = TransitionInflater.from(this).
+                inflateTransition(R.transition.change_image_transform);
+        Transition fadeTransform = TransitionInflater.from(this).
+                inflateTransition(android.R.transition.fade);
+
+        Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        CollegeMediaDetailsFragment newFragment = new CollegeMediaDetailsFragment();
+
+        // Setup exit transition on AlbumFragment
+        currFragment.setSharedElementReturnTransition(changeTransform);
+        currFragment.setExitTransition(fadeTransform);
+
+        // Setup enter transition on CollegeMediaDetailsFragment
+        newFragment.setSharedElementEnterTransition(changeTransform);
+        newFragment.setEnterTransition(fadeTransform);
+
+        newFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, fragmentClass, bundle)
+                .add(R.id.fragment_container_view, newFragment)
+                .addSharedElement(ivCollegeMedia, getString(R.string.college_media_transition_name))
                 .addToBackStack(null)
                 .commit();
     }

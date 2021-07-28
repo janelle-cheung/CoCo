@@ -62,6 +62,7 @@
     <string name="college_column_safety">Safety</string>
     <string name="college_column_match">Match</string>
     <string name="college_column_reach">Reach</string>
+    <string name="college_media_transition_name">collegeMediaTransition</string>
 
 
     <string-array name="all_albums_array">

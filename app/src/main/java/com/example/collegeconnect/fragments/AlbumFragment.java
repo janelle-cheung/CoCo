@@ -95,10 +95,10 @@ public class AlbumFragment extends Fragment implements CollegeAlbumAdapter.OnMed
     }
 
     @Override
-    public void onMediaClick(int position) {
+    public void onMediaClick(int position, View ivCollegeMedia) {
         CollegeMedia clickedMedia = allMedia.get(position);
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_CLICKED_MEDIA, Parcels.wrap(clickedMedia));
-        ((CollegeMediaActivity) getActivity()).changeFragment(CollegeMediaDetailsFragment.class, bundle);
+        ((CollegeMediaActivity) getActivity()).changeFragmentWithTransition(CollegeMediaDetailsFragment.class, bundle, ivCollegeMedia);
     }
 }

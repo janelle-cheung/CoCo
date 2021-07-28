@@ -10,6 +10,7 @@
 
     <ImageView
         android:id="@+id/ivCollegeMedia"
+        android:transitionName="@string/college_media_transition_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rvDetails"

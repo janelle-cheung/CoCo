@@ -72,11 +72,11 @@ public class CollegeAlbumAdapter extends RecyclerView.Adapter<CollegeAlbumAdapte
 
         @Override
         public void onClick(View v) {
-            onMediaListener.onMediaClick(getAdapterPosition());
+            onMediaListener.onMediaClick(getAdapterPosition(), ivCollegeMedia);
         }
     }
 
     public interface OnMediaListener {
-        void onMediaClick(int position);
+        void onMediaClick(int position, View ivCollegeMedia);
     }
 }
