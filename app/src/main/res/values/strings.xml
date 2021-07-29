@@ -63,6 +63,9 @@
     <string name="college_column_match">Match</string>
     <string name="college_column_reach">Reach</string>
     <string name="college_media_transition_name">collegeMediaTransition</string>
+    <string name="channel_id">messages</string>
+    <string name="channel_name">Messages</string>
+    <string name="channel_description">Notifications for when another user sends a message or shares a meet-up location.</string>
 
 
     <string-array name="all_albums_array">

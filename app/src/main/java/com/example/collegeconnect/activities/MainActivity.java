@@ -1,5 +1,6 @@
 package com.example.collegeconnect.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,8 +13,13 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.models.User;
+import com.example.collegeconnect.notifications.FirebaseNotificationService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,15 +29,21 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.collegeconnect.databinding.ActivityMainBinding;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.parse.LogOutCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
+    User currUser;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +53,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         configureBottomNavBar();
-        // createNotificationChannel();
+
+        currUser = (User) ParseUser.getCurrentUser();
+
+        if (FirebaseNotificationService.newTokenGenerated(this)) {
+            Log.i(TAG, "new token generated");
+            token = FirebaseNotificationService.getNewToken(this);
+            saveUserFCMToken();
+            Log.i(TAG, token);
+        } else {
+            Log.i(TAG, "token already exists");
+            retrieveToken();
+        }
     }
 
     private void configureBottomNavBar() {
-        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -56,22 +78,29 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-//    private void createNotificationChannel() {
-//        // Create the NotificationChannel, but only on API 26+ because
-//        // the NotificationChannel class is new and not in the support library
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            String channelId = getString(R.string.channel_id);
-//            CharSequence name = getString(R.string.channel_name);
-//            String description = getString(R.string.channel_description);
-//            int importance = NotificationManager.IMPORTANCE_HIGH;
-//            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-//            channel.setDescription(description);
-//            channel.setShowBadge(true);
-//            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//            notificationManager.createNotificationChannel(channel);
-//        }
-//    }
+    public void retrieveToken() {
+        try {
+            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull @NotNull Task<String> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e(TAG, "retrieveToken: Fetching FCM token failed");
+                        return;
+                    }
+                    token = task.getResult();
+                    saveUserFCMToken();
+                    Log.i(TAG, token);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "retrieveToken: Error fetching FCM token ", e);
+        }
+    }
+
+    public void saveUserFCMToken() {
+        currUser.setFCMToken(token);
+        currUser.saveInBackground();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,14 +112,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
-            ParseUser.logOutInBackground(new LogOutCallback() {
+            currUser.setFCMToken("");
+            // Remove FCM token in background, only after that call returns do we get to log out in background
+            currUser.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    if (e == null) {
-                        returnToStartActivity();
+                    if (e != null) {
+                        Log.i(TAG, "Error removing token " + e);
                     } else {
-                        Log.e(TAG, "Issue with log-out");
-                        return;
+                        ParseUser.logOutInBackground(new LogOutCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    returnToStartActivity();
+                                } else {
+                                    Log.e(TAG, "Issue with log-out");
+                                }
+                            }
+                        });
                     }
                 }
             });

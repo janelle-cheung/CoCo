@@ -26,6 +26,7 @@ public class User extends ParseUser {
     public static final String KEY_HIGHSCHOOL = "highSchool";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_COLLEGE_ID = "collegeUnitId";
+    public static final String KEY_FCM_TOKEN = "FCMToken";
 
     public boolean isInHighSchool() {
         return getString(KEY_TYPE).equals("high school");
@@ -52,6 +53,8 @@ public class User extends ParseUser {
 
     public String getCollegeUnitId() { return getString(KEY_COLLEGE_ID); }
 
+    public String getFCMToken() { return getString(KEY_FCM_TOKEN); }
+
     public void setType(String type) { put(KEY_TYPE, type); }
 
     public void setCollege(String college) { put(KEY_COLLEGE, college); }
@@ -74,4 +77,6 @@ public class User extends ParseUser {
     public void setHighSchool(String highSchool) { put(KEY_HIGHSCHOOL, highSchool); }
 
     public void setCollegeUnitId(String collegeId) { put(KEY_COLLEGE_ID, collegeId); }
+
+    public void setFCMToken(String FCMToken) { put(KEY_FCM_TOKEN, FCMToken); }
 }

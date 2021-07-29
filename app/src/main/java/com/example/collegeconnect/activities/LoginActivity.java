@@ -1,5 +1,6 @@
 package com.example.collegeconnect.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,9 +14,15 @@ import android.widget.Toast;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityLoginBinding;
 import com.example.collegeconnect.databinding.ActivitySignupBinding;
+import com.example.collegeconnect.notifications.FirebaseNotificationService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import org.jetbrains.annotations.NotNull;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -57,5 +64,24 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    public void retrieveToken() {
+        try {
+            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull @NotNull Task<String> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e(TAG, "retrieveToken: Fetching FCM token failed");
+                        return;
+                    }
+                    // Get and save new FCM registration token in Parse
+                    String token = task.getResult();
+                    Log.i(TAG, "retrieveToken: " + token);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "retrieveToken: Error fetching FCM token ", e);
+        }
     }
 }
