@@ -38,44 +38,25 @@ public class FirebaseClient {
 
     public FirebaseClient() {}
 
-    public static void postNotificationVolley(Context context, JSONObject notification) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REST_URL, notification, response -> {
-            Log.i(TAG, "post notification " + response);
-        }, error -> {
-            Log.i(TAG, "post notification error " + error);
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put("Authorization:", "key=" + SERVER_KEY);
-                return headers;
-            }
-        };
+    public static void postNotification(Context context, JSONObject notification) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REST_URL, notification,
+            response -> {},
+            error -> {
+                Log.i(TAG, "Post notification error " + error);
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("Authorization", "key=" + SERVER_KEY);
+                    return headers;
+                }
+            };
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         request.setRetryPolicy(new DefaultRetryPolicy(30000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
-    }
-
-    public static void postNotificationAsyncHTTPClient(JSONObject notification) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("Content-Type", "application/json");
-        params.put("Authorization:", "key=" + SERVER_KEY);
-        client.post(REST_URL, params, String.valueOf(notification), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "Success posting notification to FCM");
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.i(TAG, "Error posting notification to FCM " + statusCode + response);
-                Log.i(TAG, String.valueOf(throwable));
-            }
-        });
     }
 }

@@ -47,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
         currUser = (User) ParseUser.getCurrentUser();
 
         if (FirebaseNotificationService.newTokenGenerated(this)) {
-            Log.i(TAG, "new token generated");
             token = FirebaseNotificationService.getNewToken(this);
             saveUserFCMToken();
-            Log.i(TAG, token);
+            Log.i(TAG, "token: " + token);
         } else {
-            Log.i(TAG, "token already exists");
             retrieveToken();
         }
     }
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     token = task.getResult();
                     saveUserFCMToken();
-                    Log.i(TAG, token);
+                    Log.i(TAG, "token: " + token);
                 }
             });
         } catch (Exception e) {
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Log.i(TAG, "error saving token ", e);
+                    Log.i(TAG, "Error saving token ", e);
                 }
             }
         });

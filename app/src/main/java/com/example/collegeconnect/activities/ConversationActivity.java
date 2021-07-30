@@ -139,14 +139,12 @@ public class ConversationActivity extends AppCompatActivity {
             if (user.hasProfileImage()) {
                 data.put(User.KEY_PROFILEIMAGE, message.getSender().getProfileImageUrl());
             }
-            data.put(Message.KEY_CONVERSATION, message.getConversation());
+            data.put(Message.KEY_CONVERSATION, message.getConversation().getObjectId());
 
             notification.put("to", otherUser.getFCMToken());
             notification.put("data", data);
 
-            // TODO: Get the client to successfully send request!
-//            FirebaseClient.postNotificationAsyncHTTPClient(notification);
-//            FirebaseClient.postNotificationVolley(this, notification);
+            FirebaseClient.postNotification(this, notification);
 
         } catch (JSONException e) {
             Log.e(TAG, "Error creating JSON notification ", e );
