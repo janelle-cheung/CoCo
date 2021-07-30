@@ -2,20 +2,17 @@ package com.example.collegeconnect;
 
 
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.codepath.asynchttpclient.callback.TextHttpResponseHandler;
 import com.example.collegeconnect.models.College;
+import java.util.Base64;
 
 import java.util.Arrays;
 import java.util.List;
-
-import okhttp3.Headers;
 
 public class CollegeAIClient {
 

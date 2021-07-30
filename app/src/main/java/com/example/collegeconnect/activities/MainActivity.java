@@ -1,28 +1,19 @@
 package com.example.collegeconnect.activities;
 
-import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.models.User;
-import com.example.collegeconnect.notifications.FirebaseNotificationService;
+import com.example.collegeconnect.firebase.FirebaseNotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,7 +22,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.collegeconnect.databinding.ActivityMainBinding;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.parse.LogOutCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -99,7 +89,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveUserFCMToken() {
         currUser.setFCMToken(token);
-        currUser.saveInBackground();
+        currUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.i(TAG, "error saving token ", e);
+                }
+            }
+        });
     }
 
     @Override
@@ -112,29 +109,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
-            currUser.setFCMToken("");
-            // Remove FCM token in background, only after that call returns do we get to log out in background
-            currUser.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        Log.i(TAG, "Error removing token " + e);
-                    } else {
-                        ParseUser.logOutInBackground(new LogOutCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                if (e == null) {
-                                    returnToStartActivity();
-                                } else {
-                                    Log.e(TAG, "Issue with log-out");
-                                }
-                            }
-                        });
-                    }
-                }
-            });
+            logout();
         }
         return true;
+    }
+
+    private void logout() {
+        currUser.setFCMToken("");
+        // Remove FCM token in background, only after that call returns do we log out in background
+        currUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.i(TAG, "Error removing token " + e);
+                } else {
+                    ParseUser.logOutInBackground(new LogOutCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                returnToStartActivity();
+                            } else {
+                                Log.e(TAG, "Issue with log-out");
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void returnToStartActivity() {

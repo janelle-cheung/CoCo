@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.ConversationAdapter;
 import com.example.collegeconnect.databinding.ActivityConversationBinding;
+import com.example.collegeconnect.firebase.FirebaseClient;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
@@ -35,12 +37,18 @@ import com.parse.livequery.ParseLiveQueryClient;
 import com.parse.livequery.SubscriptionHandling;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Headers;
 
 public class ConversationActivity extends AppCompatActivity {
 
@@ -89,6 +97,12 @@ public class ConversationActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+    }
+
     private void sendMessage() {
         String body = binding.etMessage.getText().toString();
         if (body.isEmpty()) { return; }
@@ -104,48 +118,38 @@ public class ConversationActivity extends AppCompatActivity {
                     Log.e(TAG, "Failed to save message", e);
                     return;
                 }
+
+                if (otherUser.hasFCMToken()) {
+                    Log.i(TAG, "other user has active token. creating notification");
+                    createAndSendJSONNotification(message);
+                } else {
+                    Log.i(TAG, "other user doesn't have active token. not creating notification");
+                }
             }
         });
         binding.etMessage.setText(null);
     }
 
-    private void sendNotification(Bitmap bitmap, String body) {
-        Intent intent = new Intent(this, ConversationsFragment.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    private void createAndSendJSONNotification(Message message) {
+        JSONObject notification = new JSONObject();
+        JSONObject data = new JSONObject();
+        try {
+            data.put(Message.KEY_SENDER, user.getUsername());
+            data.put(Message.KEY_BODY, message.getBody());
+            if (user.hasProfileImage()) {
+                data.put(User.KEY_PROFILEIMAGE, message.getSender().getProfileImageUrl());
+            }
+            data.put(Message.KEY_CONVERSATION, message.getConversation());
 
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.channel_id))
-//            .setSmallIcon(R.drawable.ic_launcher_foreground)
-//            .setContentTitle(user.getUsername())
-//            .setContentText(body)
-//            .setLargeIcon(bitmap)
-//            .setPriority(Notification.PRIORITY_MAX)
-//            .setDefaults(Notification.DEFAULT_ALL)
-//            .setContentIntent(pendingIntent)
-//            .setAutoCancel(true);
-//
-//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-//        notificationManager.notify(12345, builder.build());
-    }
+            notification.put("to", otherUser.getFCMToken());
+            notification.put("data", data);
 
-    private void getUserImageBitmap(String body) {
-        if (user.hasProfileImage()) {
-            Glide.with(this)
-                    .asBitmap()
-                    .load(user.getProfileImageUrl())
-                    .centerCrop()
-                    .error(R.mipmap.profile_placeholder_foreground)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull @NotNull Bitmap resource, @Nullable @org.jetbrains.annotations.Nullable Transition<? super Bitmap> transition) {
-                            Bitmap bitmap = resource;
-                            sendNotification(bitmap, body);
-                        }
-                    });
-        } else {
-            Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
-                R.mipmap.profile_placeholder_foreground);
-            sendNotification(bitmap, body);
+            // TODO: Get the client to successfully send request!
+//            FirebaseClient.postNotificationAsyncHTTPClient(notification);
+//            FirebaseClient.postNotificationVolley(this, notification);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Error creating JSON notification ", e );
         }
     }
 

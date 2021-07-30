@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CollegeConnect">
         <service
-            android:name=".notifications.FirebaseNotificationService"
+            android:name=".firebase.FirebaseNotificationService"
             android:exported="false"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>

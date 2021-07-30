@@ -109,8 +109,7 @@ public class SignupActivity extends AppCompatActivity {
                         suggestionIds.add(collegeList.getJSONObject(i).getString("unitId"));
                     }
                     // Force the adapter to filter itself, necessary to show new data.
-                    // Filter based on the current text because api call is asynchronous.
-                    arrayAdapter.getFilter().filter(collegeInput, null);
+                    arrayAdapter.getFilter().filter("", null);
 
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception ", e);

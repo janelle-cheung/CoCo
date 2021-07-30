@@ -53,6 +53,11 @@ public class User extends ParseUser {
 
     public String getCollegeUnitId() { return getString(KEY_COLLEGE_ID); }
 
+    public boolean hasFCMToken() {
+        String FCMToken = getString(KEY_FCM_TOKEN);
+        return FCMToken != null && !FCMToken.equals("");
+    }
+
     public String getFCMToken() { return getString(KEY_FCM_TOKEN); }
 
     public void setType(String type) { put(KEY_TYPE, type); }

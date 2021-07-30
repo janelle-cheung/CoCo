@@ -1,19 +1,12 @@
 package com.example.collegeconnect.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.collegeconnect.R;
-import com.example.collegeconnect.databinding.ActivitySignupBinding;
 import com.example.collegeconnect.databinding.ActivityStartBinding;
-import com.example.collegeconnect.notifications.FirebaseNotificationService;
 import com.parse.ParseUser;
 
 public class StartActivity extends AppCompatActivity {
