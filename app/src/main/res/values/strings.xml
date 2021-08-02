@@ -66,6 +66,20 @@
     <string name="channel_id">messages</string>
     <string name="channel_name">Messages</string>
     <string name="channel_description">Notifications for when another user sends a message or shares a meet-up location.</string>
+    <string name="filter">Filter</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="college_type">COLLEGE TYPE</string>
+    <string name="type_four_year">4-year</string>
+    <string name="type_two_year">2-year</string>
+    <string name="type_public">Public</string>
+    <string name="type_private">Private</string>
+    <string name="college_cost">MAX NET COST</string>
+    <string name="college_cost_hint">MAX NET COST: $0</string>
+    <string name="college_student_body_size">STUDENT BODY SIZE</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
 
 
     <string-array name="all_albums_array">

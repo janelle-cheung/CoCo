@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <RelativeLayout
+        android:id="@+id/rlCollegeType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvCollegeType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/college_type" />
+
+        <CheckBox
+            android:id="@+id/cbxPublic"
+            android:minHeight="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCollegeType"
+            android:checkMark="@android:drawable/checkbox_on_background"
+            android:text="@string/type_public" />
+
+        <CheckBox
+            android:id="@+id/cbx4Year"
+            android:minHeight="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_alignTop="@+id/cbxPublic"
+            android:layout_toEndOf="@+id/cbxPublic"
+            android:checkMark="@android:drawable/checkbox_on_background"
+            android:text="@string/type_four_year" />
+
+        <CheckBox
+            android:id="@+id/cbxPrivate"
+            android:minHeight="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cbxPublic"
+            android:checkMark="@android:drawable/checkbox_on_background"
+            android:text="@string/type_private" />
+
+        <CheckBox
+            android:id="@+id/cbx2Year"
+            android:minHeight="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_alignTop="@+id/cbxPrivate"
+            android:layout_toEndOf="@+id/cbxPrivate"
+            android:checkMark="@android:drawable/checkbox_on_background"
+            android:text="@string/type_two_year" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rlCollegeType"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="15dp"
+        android:background="#DFDFDF"/>
+
+    <TextView
+        android:id="@+id/tvSliderCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line1"
+        android:text="@string/college_cost_hint" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSliderCost"
+        android:valueFrom="0"
+        android:valueTo="50000"
+        app:thumbRadius="10dp"
+        android:stepSize="1000"
+        app:thumbColor="#6587ED"
+        app:trackColorInactive="#EDEDED"
+        app:trackColorActive="#6363DD"
+        app:tickColor="#00000000"/>
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/sliderCost"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="#DFDFDF" />
+
+    <TextView
+        android:id="@+id/tvStudentBodySize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:text="@string/college_student_body_size" />
+
+    <Button
+        android:id="@+id/btnCollegeSmall"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tvStudentBodySize"
+        android:layout_marginEnd="5dp"
+        android:textSize="10sp"
+        android:backgroundTint="@color/button_background"
+        android:textColor="@color/black"
+        android:text="@string/small" />
+
+    <Button
+        android:id="@+id/btnCollegeMedium"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tvStudentBodySize"
+        android:layout_toEndOf="@+id/btnCollegeSmall"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="5dp"
+        android:textSize="10sp"
+        android:backgroundTint="@color/button_background"
+        android:textColor="@color/black"
+        android:text="@string/medium" />
+
+    <Button
+        android:id="@+id/btnCollegeLarge"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tvStudentBodySize"
+        android:layout_toEndOf="@+id/btnCollegeMedium"
+        android:layout_marginBottom="20dp"
+        android:textSize="10sp"
+        android:backgroundTint="@color/button_background"
+        android:textColor="@color/black"
+        android:text="@string/large" />
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/btnCollegeSmall"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="15dp"
+        android:background="#DFDFDF" />
+
+    <TextView
+        android:id="@+id/tvSliderSAT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line3"
+        android:text="SAT: 600" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderSAT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSliderSAT"
+        android:valueFrom="600"
+        android:valueTo="1600"
+        app:thumbRadius="10dp"
+        android:stepSize="10"
+        app:thumbColor="#6587ED"
+        app:trackColorInactive="#EDEDED"
+        app:trackColorActive="#6363DD"
+        app:tickColor="#00000000"/>
+
+    <View
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/sliderSAT"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="#DFDFDF" />
+
+    <TextView
+        android:id="@+id/tvSliderACT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line4"
+        android:text="ACT: 12" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderACT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSliderACT"
+        android:valueFrom="12"
+        android:valueTo="36"
+        app:thumbRadius="10dp"
+        android:stepSize="1"
+        app:thumbColor="#6587ED"
+        app:trackColorInactive="#EDEDED"
+        app:trackColorActive="#6363DD"
+        app:tickColor="#00000000"/>
+
+</RelativeLayout>
