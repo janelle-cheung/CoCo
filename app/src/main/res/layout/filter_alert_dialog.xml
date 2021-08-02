@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSliderCost"
         android:valueFrom="0"
-        android:valueTo="50000"
+        android:valueTo="30000"
         app:thumbRadius="10dp"
         android:stepSize="1000"
         app:thumbColor="#6587ED"
@@ -156,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/line3"
-        android:text="SAT: 600" />
+        android:text="@string/sat_slider_hint" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/sliderSAT"
@@ -187,7 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line4"
-        android:text="ACT: 12" />
+        android:text="@string/act_slider_hint" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/sliderACT"

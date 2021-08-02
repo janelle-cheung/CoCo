@@ -75,7 +75,9 @@
     <string name="type_public">Public</string>
     <string name="type_private">Private</string>
     <string name="college_cost">MAX NET COST</string>
-    <string name="college_cost_hint">MAX NET COST: $0</string>
+    <string name="college_cost_hint">MAX NET COST: Select a value</string>
+    <string name="sat_slider_hint">SAT: Select a value</string>
+    <string name="act_slider_hint">ACT: Select a value</string>
     <string name="college_student_body_size">STUDENT BODY SIZE</string>
     <string name="small">Small</string>
     <string name="medium">Medium</string>
