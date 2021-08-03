@@ -23,9 +23,10 @@
             app:srcCompat="@drawable/search_background" />
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:gravity="center">
 
             <AutoCompleteTextView
                 android:id="@+id/aetCollegeAutoComplete"
@@ -55,10 +56,25 @@
                 android:layout_alignTop="@+id/aetCollegeAutoComplete"
                 android:text="@string/filter"
                 android:textAllCaps="false"
-                android:backgroundTint="@color/quantum_amber50"
+                android:backgroundTint="#FFE97D"
                 android:letterSpacing=".02"
                 android:textColor="#6E6A6A"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvFilterCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_alignTop="@+id/btnFilter"
+                android:layout_alignEnd="@+id/btnFilter"
+                android:layout_marginEnd="-10dp"
+                android:background="@drawable/circle"
+                android:textSize="12sp"
+                android:translationZ="5dp"
+                android:visibility="gone"
+                android:hint="0" />
         </RelativeLayout>
 
     </RelativeLayout>

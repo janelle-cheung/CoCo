@@ -70,10 +70,22 @@
 
     <TextView
         android:id="@+id/tvSliderCost"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/line1"
         android:text="@string/college_cost_hint" />
+
+    <ImageButton
+        android:id="@+id/ibClearCost"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:padding="20dp"
+        android:layout_alignBottom="@+id/tvSliderCost"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/white"
+        android:scaleType="centerInside"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_clear_24" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/sliderCost"
@@ -153,10 +165,21 @@
 
     <TextView
         android:id="@+id/tvSliderSAT"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/line3"
         android:text="@string/sat_slider_hint" />
+
+    <ImageButton
+        android:id="@+id/ibClearSAT"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:padding="20dp"
+        android:layout_alignBottom="@+id/tvSliderSAT"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_clear_24" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/sliderSAT"
@@ -184,10 +207,21 @@
 
     <TextView
         android:id="@+id/tvSliderACT"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line4"
         android:text="@string/act_slider_hint" />
+
+    <ImageButton
+        android:id="@+id/ibClearACT"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:padding="20dp"
+        android:layout_alignBottom="@+id/tvSliderACT"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_baseline_clear_24" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/sliderACT"

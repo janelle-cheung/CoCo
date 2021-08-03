@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,15 +50,29 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
 
     public static final String TAG = "SearchFragment";
     public static final String KEY_SEARCH_FRAG_COLLEGE_ID = "SearchFrag collegeId";
-    private static final int MIN_SAT_SCORE = 600;
-    private static final int MIN_ACT_SCORE = 12;
     private ArrayAdapter<String> arrayAdapter;
     private FragmentSearchBinding binding;
     private CollegeSuggestionsAdapter adapter;
     private List<College> collegeSuggestionsByCategory;
     private List<String> autocompleteSuggestionIds;
+    private String formattedCategory;
+    private JSONObject filtersJSON;
+    private String[] formattedCollegeCategoriesArray;
     String collegeId;
-    boolean suggestionClicked = false;
+    boolean autocompleteSuggestionClicked = false;
+
+    private boolean filterPublicChecked = false;
+    private boolean filterPrivateChecked = false;
+    private boolean filter4YearChecked = false;
+    private boolean filter2YearChecked = false;
+    private boolean filterSmallChecked = false;
+    private boolean filterMediumChecked = false;
+    private boolean filterLargeChecked = false;
+    private int filterMaxNetCost = -1;
+    private int filterSAT = -1;
+    private int filterACT = -1;
+    private static final int MIN_SAT_SCORE = 600;
+    private static final int MIN_ACT_SCORE = 12;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -74,7 +89,7 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
             @Override
             public void onClick(View v) {
                 String input = binding.aetCollegeAutoComplete.getText().toString();
-                if (input.isEmpty() || autocompleteSuggestionIds.isEmpty() || !suggestionClicked) {
+                if (input.isEmpty() || autocompleteSuggestionIds.isEmpty() || !autocompleteSuggestionClicked) {
                     return;
                 }
                 launchSearchResultActivity(collegeId);
@@ -96,7 +111,7 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 getAutoComplete();
-                suggestionClicked = false;
+                autocompleteSuggestionClicked = false;
             }
 
             @Override
@@ -107,7 +122,7 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 collegeId = autocompleteSuggestionIds.get(position);
-                suggestionClicked = true;
+                autocompleteSuggestionClicked = true;
             }
         });
     }
@@ -160,24 +175,17 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
         binding.spnCategory.setAdapter(adapter);
 
         // Default suggestions category is "Best colleges"
-        String defaultCategory = getString(R.string.formatted_best_colleges_category);
-        getCollegeSuggestionsByCategory(defaultCategory);
+        formattedCategory = getString(R.string.formatted_best_colleges_category);
+        // Filters are defaulted to none
+        filtersJSON = new JSONObject();
+        formattedCollegeCategoriesArray = getResources().getStringArray(R.array.formatted_college_categories_array);
+        getCollegeSuggestionsByCategoryAndFilters();
 
         binding.spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                if (selectedItem.equals(getString(R.string.readable_best_colleges_category))) {
-                    getCollegeSuggestionsByCategory(getString(R.string.formatted_best_colleges_category));
-                } else if (selectedItem.equals(getString(R.string.readable_best_value_category))) {
-                    getCollegeSuggestionsByCategory(getString(R.string.formatted_best_value_category));
-                } else if (selectedItem.equals(getString(R.string.readable_best_academics_category))) {
-                    getCollegeSuggestionsByCategory(getString(R.string.formatted_best_academics_category));
-                } else if (selectedItem.equals(getString(R.string.readable_best_student_life_category))) {
-                    getCollegeSuggestionsByCategory(getString(R.string.formatted_best_student_life_category));
-                } else if (selectedItem.equals(getString(R.string.readable_best_CS_category))) {
-                    getCollegeSuggestionsByCategory(getString(R.string.formatted_best_CS_category));
-                }
+                formattedCategory = formattedCollegeCategoriesArray[position];
+                getCollegeSuggestionsByCategoryAndFilters();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
@@ -186,8 +194,8 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void getCollegeSuggestionsByCategory(String category) {
-        CollegeAIClient.getCollegeSuggestionsByCategory(category, new JsonHttpResponseHandler() {
+    private void getCollegeSuggestionsByCategoryAndFilters() {
+        CollegeAIClient.getCollegeSuggestionsByCategoryAndFilters(formattedCategory, filtersJSON, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONObject jsonObject = json.jsonObject;
@@ -235,77 +243,148 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
                 Button btnSmall = filterAlertDialog.findViewById(R.id.btnCollegeSmall);
                 Button btnMedium = filterAlertDialog.findViewById(R.id.btnCollegeMedium);
                 Button btnLarge = filterAlertDialog.findViewById(R.id.btnCollegeLarge);
+                ImageButton ibClearCost = filterAlertDialog.findViewById(R.id.ibClearCost);
+                ImageButton ibClearSAT = filterAlertDialog.findViewById(R.id.ibClearSAT);
+                ImageButton ibClearACT = filterAlertDialog.findViewById(R.id.ibClearACT);
+
+
+                // Set saved filters
+                if (filterPublicChecked) { cbxPublic.setChecked(true); }
+                if (filterPrivateChecked) { cbxPrivate.setChecked(true); }
+                if (filter4YearChecked) { cbx4Year.setChecked(true); }
+                if (filter2YearChecked) { cbx2Year.setChecked(true); }
+                if (filterSmallChecked) { btnSmall.setSelected(true); }
+                if (filterMediumChecked) { btnMedium.setSelected(true); }
+                if (filterLargeChecked) { btnLarge.setSelected(true); }
+                if (filterMaxNetCost == -1) {
+                    ibClearCost.setSelected(true);
+                } else {
+                    tvSliderCost.setText((String.format("%s: $%s", getString(R.string.college_cost), (int) filterMaxNetCost)));
+                    sliderCost.setValue(filterMaxNetCost);
+                }
+
+                if (filterSAT == -1) {
+                    ibClearSAT.setSelected(true);
+                } else {
+                    tvSliderSAT.setText((String.format("%s: %s", getString(R.string.SAT), (int) filterSAT)));
+                    sliderSAT.setValue(filterSAT);
+                }
+
+                if (filterACT == -1) {
+                    ibClearACT.setSelected(true);
+                } else {
+                    tvSliderACT.setText((String.format("%s: %s", getString(R.string.ACT), (int) filterACT)));
+                    sliderACT.setValue(filterACT);
+                }
+
+                Log.i(TAG, "clearACT.isSelected(): " + ibClearACT.isSelected());
 
                 btnSmall.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        btnSmall.setSelected(!btnSmall.isSelected());
-                    }
+                    public void onClick(View v) { btnSmall.setSelected(!btnSmall.isSelected()); }
                 });
 
                 btnMedium.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        btnMedium.setSelected(!btnMedium.isSelected());
-                    }
+                    public void onClick(View v) { btnMedium.setSelected(!btnMedium.isSelected()); }
                 });
 
                 btnLarge.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        btnLarge.setSelected(!btnLarge.isSelected());
-                    }
+                    public void onClick(View v) { btnLarge.setSelected(!btnLarge.isSelected()); }
                 });
 
-                // If max net cost slider is set to 0, make slider gray and don't filter with max net cost
                 sliderCost.addOnChangeListener(new Slider.OnChangeListener() {
                     @Override
                     public void onValueChange(@NonNull @NotNull Slider slider, float value, boolean fromUser) {
-                        String maxNetCostPrompt = getString(R.string.college_cost);
-                        tvSliderCost.setText(String.format("%s: $%s", maxNetCostPrompt, (int) value));
-                        if (value > 0) {
-                            sliderCost.setThumbStrokeColor(ColorStateList.valueOf(0x04C4CFF));
-                        } else {
-                            sliderCost.setThumbStrokeColor(ColorStateList.valueOf(0xFFAAAAAA));
-                        }
+                        tvSliderCost.setText((String.format("%s: $%s", getString(R.string.college_cost), (int) value)));
+                        ibClearCost.setSelected(false);
                     }
                 });
 
-                // If SAT slider is set to 600, make slider gray and don't filter with SAT score
                 sliderSAT.addOnChangeListener(new Slider.OnChangeListener() {
                     @Override
                     public void onValueChange(@NonNull @NotNull Slider slider, float value, boolean fromUser) {
-                        tvSliderSAT.setText(String.format("SAT: %s", (int) value));
-                        if (value > MIN_SAT_SCORE) {
-                            sliderSAT.setThumbStrokeColor(ColorStateList.valueOf(Color.parseColor("#4C4CFF")));
-                        } else {
-                            sliderSAT.setThumbStrokeColor(ColorStateList.valueOf(Color.parseColor("#FFAAAAAA")));
-                        }
+                        tvSliderSAT.setText((String.format("%s: %s", getString(R.string.SAT), (int) value)));
+                        ibClearSAT.setSelected(false);
                     }
                 });
 
-                // If ACT slider is set to 12, make slider gray and don't filter with ACT score
                 sliderACT.addOnChangeListener(new Slider.OnChangeListener() {
                     @Override
                     public void onValueChange(@NonNull @NotNull Slider slider, float value, boolean fromUser) {
-                        tvSliderACT.setText(String.format("ACT: %s", (int) value));
-                        if (value > MIN_ACT_SCORE) {
-                            sliderACT.setThumbStrokeColor(ColorStateList.valueOf(Color.parseColor("#4C4CFF")));
-                        } else {
-                            sliderACT.setThumbStrokeColor(ColorStateList.valueOf(Color.parseColor("#FFAAAAAA")));
-                        }
+                        tvSliderACT.setText((String.format("%s: %s", getString(R.string.ACT), (int) value)));
+                        ibClearACT.setSelected(false);
+                    }
+                });
+
+                ibClearCost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ibClearCost.setSelected(true);
+                        tvSliderCost.setText(getString(R.string.college_cost_hint));
+                        sliderCost.setValue(0);
+                    }
+                });
+
+                ibClearSAT.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ibClearSAT.setSelected(true);
+                        sliderSAT.setValue(MIN_SAT_SCORE);
+                        tvSliderSAT.setText(getString(R.string.sat_slider_hint));
+                    }
+                });
+
+                ibClearACT.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sliderACT.setValue(MIN_ACT_SCORE);
+                        tvSliderACT.setText(getString(R.string.act_slider_hint));
+                        ibClearACT.setSelected(true);
                     }
                 });
 
                 // Apply button: send data from the AlertDialog to the Activity
                 builder.setPositiveButton(getString(R.string.apply), new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                sendDialogDataToFragment(cbxPublic.isChecked(), cbxPrivate.isChecked(),
-                                                        cbx4Year.isChecked(), cbx2Year.isChecked(),
-                                                        (int) sliderCost.getValue(),
-                                                        (int) sliderSAT.getValue(),
-                                                        (int) sliderACT.getValue());
+                                filterPublicChecked = cbxPublic.isChecked();
+                                filterPrivateChecked = cbxPrivate.isChecked();
+                                filter4YearChecked = cbx4Year.isChecked();
+                                filter2YearChecked = cbx2Year.isChecked();
+                                filterSmallChecked = btnSmall.isSelected();
+                                filterMediumChecked = btnMedium.isSelected();
+                                filterLargeChecked = btnLarge.isSelected();
+                                if (ibClearCost.isSelected()) { filterMaxNetCost = -1; }
+                                else { filterMaxNetCost = (int) sliderCost.getValue(); }
+
+                                if (ibClearSAT.isSelected()) { filterSAT = -1; }
+                                else { filterSAT = (int) sliderSAT.getValue(); }
+
+                                if (ibClearACT.isSelected()) { filterACT = -1; }
+                                else { filterACT = (int) sliderACT.getValue(); }
+
+                                filtersJSON = CollegeAIClient.createFiltersJSONObject(
+                                        filterPublicChecked, filterPrivateChecked,
+                                        filter4YearChecked, filter2YearChecked,
+                                        filterSmallChecked, filterMediumChecked, filterLargeChecked,
+                                        filterMaxNetCost, filterSAT, filterACT);
+                                getCollegeSuggestionsByCategoryAndFilters();
+
+                                int numFiltersApplied = 0;
+                                if (cbxPublic.isChecked() || cbxPrivate.isChecked() || cbx4Year.isChecked() || cbx2Year.isChecked()) numFiltersApplied++;
+                                if (btnSmall.isSelected() || btnMedium.isSelected() || btnLarge.isSelected()) numFiltersApplied++;
+                                if (!ibClearCost.isSelected()) numFiltersApplied++;
+                                if (!ibClearSAT.isSelected()) numFiltersApplied++;
+                                if (!ibClearACT.isSelected()) numFiltersApplied++;
+                                if (numFiltersApplied > 0) {
+                                    binding.tvFilterCount.setText(String.valueOf(numFiltersApplied));
+                                    binding.tvFilterCount.setVisibility(View.VISIBLE);
+                                } else {
+                                    binding.tvFilterCount.setVisibility(View.GONE);
+                                }
                             }
                         }
                 );
@@ -324,13 +403,6 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setAllCaps(false);
             }
         });
-    }
-
-    private void sendDialogDataToFragment(boolean filterPublic, boolean filterPrivate,
-                                          boolean filter4Year, boolean filter2Year,
-                                          int maxCost, int SAT, int ACT) {
-        Toast.makeText(getContext(), String.valueOf(maxCost), Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), String.valueOf(filterPublic), Toast.LENGTH_SHORT).show();
     }
 
     private void launchSearchResultActivity(String collegeId) {

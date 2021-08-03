@@ -75,6 +75,8 @@
     <string name="type_public">Public</string>
     <string name="type_private">Private</string>
     <string name="college_cost">MAX NET COST</string>
+    <string name="SAT">SAT</string>
+    <string name="ACT">ACT</string>
     <string name="college_cost_hint">MAX NET COST: Select a value</string>
     <string name="sat_slider_hint">SAT: Select a value</string>
     <string name="act_slider_hint">ACT: Select a value</string>
@@ -110,6 +112,14 @@
         <item>@string/readable_best_value_category</item>
         <item>@string/readable_best_student_life_category</item>
         <item>@string/readable_best_CS_category</item>
+    </string-array>
+
+    <string-array name="formatted_college_categories_array">
+        <item>@string/formatted_best_colleges_category</item>
+        <item>@string/formatted_best_academics_category</item>
+        <item>@string/formatted_best_value_category</item>
+        <item>@string/formatted_best_student_life_category</item>
+        <item>@string/formatted_best_CS_category</item>
     </string-array>
 
     <string name="readable_best_colleges_category">Best colleges</string>
