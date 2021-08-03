@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
         Bundle bundle = this.getArguments();
         currUser = (User) ParseUser.getCurrentUser();
         if (bundle != null) {
-            userShown = Parcels.unwrap(getArguments().getParcelable(CollegeDetailsFragment.KEY_OTHER_PROFILE));
+            userShown = Parcels.unwrap(getArguments().getParcelable(CoCoUsersFragment.KEY_OTHER_PROFILE));
             binding.tabLayout.setVisibility(View.GONE); // Hide tab layout if viewing another user's profile
         } else {
             userShown = currUser;
@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void displayInfo() {
-        binding.tvName.setText(userShown.getUsername());
+        binding.tvName.setText(String.format("%s %s", getString(R.string.hi_profile_name_prompt), userShown.getUsername()));
         String currSchool;
         if (userShown.isInHighSchool()) { currSchool = userShown.getHighSchool(); }
         else { currSchool = userShown.getCollege(); }

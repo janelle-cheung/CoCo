@@ -21,6 +21,7 @@
     <string name="academics_prompt">Academically, I\'m interested in...</string>
     <string name="extracurriculars_prompt">Outside of academics, I\'m interested in...</string>
     <string name="logout">Logout</string>
+    <string name="hi_profile_name_prompt">hi, I\'m</string>
     <string name="profile_from">From:</string>
     <string name="profile_academics">Academic interests:</string>
     <string name="profile_extracurriculars">Extracurricular interests:</string>
@@ -106,6 +107,11 @@
         <item>My List</item>
     </string-array>
 
+    <string-array name="college_details_tabs_array">
+        <item>Details</item>
+        <item>Connect</item>
+    </string-array>
+
     <string-array name="readable_college_categories_array">
         <item>@string/readable_best_colleges_category</item>
         <item>@string/readable_best_academics_category</item>
@@ -133,4 +139,5 @@
     <string name="formatted_best_academics_category">best-college-academics</string>
     <string name="formatted_best_student_life_category">best-student-life</string>
     <string name="formatted_best_CS_category">best-colleges-for-computer-science</string>
+
 </resources>

@@ -143,7 +143,6 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
                     autocompleteSuggestionIds.clear();
                     JSONArray collegeList = jsonObject.getJSONArray("collegeList");
                     for (int i = 0; i < collegeList.length(); i++) {
-                        Log.i(TAG, collegeList.getJSONObject(i).getString(College.KEY_NAME));
                         arrayAdapter.add(collegeList.getJSONObject(i).getString(College.KEY_NAME));
                         autocompleteSuggestionIds.add(collegeList.getJSONObject(i).getString(College.KEY_UNIT_ID));
                     }

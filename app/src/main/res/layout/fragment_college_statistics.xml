@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.CollegeStatisticsFragment"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvAcceptanceRatePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acceptance_rate"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAcceptanceRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvAcceptanceRatePrompt"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/tvAcceptanceRatePrompt"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvUndergradSizePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAcceptanceRateValue"
+            android:layout_marginTop="3dp"
+            android:text="@string/undergrad_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvUndergradSizeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvUndergradSizePrompt"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/tvUndergradSizePrompt"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvWebsitePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvUndergradSizeValue"
+            android:layout_marginTop="3dp"
+            android:text="@string/website"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWebsiteValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvWebsitePrompt"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/tvWebsitePrompt"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:hint="TextView" />
+
+        <TextView
+            android:id="@+id/tvShortDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvWebsiteValue"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:hint="TextView" />
+
+        <ImageButton
+            android:id="@+id/ibSaveToList"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/white"
+            android:src="@mipmap/ic_save_unfilled_foreground" />
+
+    </RelativeLayout>
+</ScrollView>

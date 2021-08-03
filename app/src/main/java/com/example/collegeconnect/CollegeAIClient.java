@@ -72,7 +72,6 @@ public class CollegeAIClient {
         params.put("sort_order", category);
         params.put("info_ids", infoIdsCommaSeparated);
         params.put("filters", String.valueOf(jsonFilters));
-        Log.i(TAG, String.valueOf(jsonFilters));
         client.get(REST_URL + REST_COLLEGE_LIST_ENDPOINT, params, handler);
     }
 
@@ -99,7 +98,6 @@ public class CollegeAIClient {
             if (maxNetCost != -1) filtersJSON.put("maxNetCost", maxNetCost);
             if (SAT != -1) filtersJSON.put("satOverall", SAT);
             if (ACT != -1) filtersJSON.put("actComposite", ACT);
-            Log.i(TAG, filtersJSON.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

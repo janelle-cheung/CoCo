@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CoCoUsersFragment"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvConnectPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/connect_with_students"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvNoStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvConnectPrompt"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        android:text="@string/no_college_students_message"
+        android:textColor="#E6E2E2"
+        android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCollegeStudents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvNoStudents"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"/>
+
+</RelativeLayout>
