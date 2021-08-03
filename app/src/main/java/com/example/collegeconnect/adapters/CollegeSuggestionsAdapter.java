@@ -14,7 +14,6 @@ import com.example.collegeconnect.R;
 import com.example.collegeconnect.models.College;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -75,21 +74,36 @@ public class CollegeSuggestionsAdapter extends RecyclerView.Adapter<CollegeSugge
         @SuppressLint("DefaultLocale")
         public void bind(College college) {
             tvName.setText(college.getName());
-            if (college.getCityState() == null) { tvCityState.setVisibility(View.GONE); }
-            else { tvCityState.setText(college.getCityState()); }
+            if (college.getCityState() == null) {
+                tvCityState.setVisibility(View.GONE);
+            }
+            else {
+                tvCityState.setText(college.getCityState());
+                tvSATRange.setVisibility(View.VISIBLE);
+            }
 
             if (college.getAcceptanceRate() == -1) {
                 tvAcceptanceRate.setVisibility(View.GONE);
             } else {
                 String acceptanceRatePrompt = context.getString(R.string.acceptance_rate);
-                tvAcceptanceRate.setText(String.format("%s %.1f%% • ", acceptanceRatePrompt, college.getAcceptanceRate()));
+                tvAcceptanceRate.setText(String.format("%s %.1f%%", acceptanceRatePrompt, college.getAcceptanceRate()));
+                tvAcceptanceRate.setVisibility(View.VISIBLE);
             }
 
             if (college.getSATRange() == null) {
                 tvSATRange.setVisibility(View.GONE);
             } else {
-                String SATRangePrompt = context.getString(R.string.sat_range);
-                tvSATRange.setText(String.format("%s %s", SATRangePrompt, college.getSATRange()));
+                String SATText = "";
+                if (college.getAcceptanceRate() == -1) {
+                    // If the acceptance rate is gone, it messes up the SAT textview
+                    tvAcceptanceRate.setText("");
+                    tvAcceptanceRate.setVisibility(View.INVISIBLE);
+                } else {
+                    SATText += " • ";
+                }
+                SATText += context.getString(R.string.sat_range) + " " + college.getSATRange();
+                tvSATRange.setText(SATText);
+                tvSATRange.setVisibility(View.VISIBLE);
             }
         }
 
