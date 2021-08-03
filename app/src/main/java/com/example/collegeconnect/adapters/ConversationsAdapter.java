@@ -91,7 +91,6 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
             if (otherStudent.hasProfileImage()) {
                 Glide.with(context)
                         .load(otherStudent.getProfileImageUrl())
-                        .placeholder(R.mipmap.profile_placeholder_foreground)
                         .circleCrop()
                         .into(ivProfileImage);
             } else {

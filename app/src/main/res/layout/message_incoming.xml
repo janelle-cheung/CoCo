@@ -22,6 +22,7 @@
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/ivProfileOther"
         android:background="@drawable/message_incoming"
+        android:textColor="@color/white"
         android:paddingHorizontal="16dp"
         android:paddingVertical="10dp"
         android:hint="TextView"

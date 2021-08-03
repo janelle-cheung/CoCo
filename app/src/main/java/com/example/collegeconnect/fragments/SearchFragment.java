@@ -208,6 +208,7 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
                     adapter.clear();
                     collegeSuggestionsByCategory.addAll(College.fromJSONArray(collegeList));
                     adapter.notifyDataSetChanged();
+                    binding.rvSuggestions.scrollToPosition(0);
                 } catch (JSONException e) {
                     Log.d(TAG, "Hit JSON exception getting suggestions ", e);
                 }

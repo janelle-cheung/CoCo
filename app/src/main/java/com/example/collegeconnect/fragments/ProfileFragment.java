@@ -98,7 +98,6 @@ public class ProfileFragment extends Fragment {
         if (userShown.hasProfileImage()) {
             Glide.with(getContext())
                     .load(userShown.getProfileImageUrl())
-                    .placeholder(R.mipmap.profile_placeholder_foreground)
                     .circleCrop()
                     .into(binding.ivProfileImage);
         } else {

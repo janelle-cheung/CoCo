@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         if (FirebaseNotificationService.newTokenGenerated(this)) {
             token = FirebaseNotificationService.getNewToken(this);
             saveUserFCMToken();
-            Log.i(TAG, "token: " + token);
+            Log.i(TAG, currUser.getUsername() + " token: " + token);
         } else {
             retrieveToken();
         }
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     token = task.getResult();
                     saveUserFCMToken();
-                    Log.i(TAG, "token: " + token);
+                    Log.i(TAG, currUser.getUsername() + " token: " + token);
                 }
             });
         } catch (Exception e) {

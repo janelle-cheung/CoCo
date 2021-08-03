@@ -143,7 +143,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             if (user.hasProfileImage()) {
                 Glide.with(context)
                         .load(user.getProfileImageUrl())
-                        .placeholder(R.mipmap.profile_placeholder_foreground)
                         .circleCrop()
                         .into(ivProfileMe);
             } else {

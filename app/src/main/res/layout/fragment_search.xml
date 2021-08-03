@@ -56,9 +56,9 @@
                 android:layout_alignTop="@+id/aetCollegeAutoComplete"
                 android:text="@string/filter"
                 android:textAllCaps="false"
-                android:backgroundTint="#FFE97D"
+                android:backgroundTint="@color/light_green"
                 android:letterSpacing=".02"
-                android:textColor="#6E6A6A"
+                android:textColor="@color/white"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:textSize="12sp" />
 
@@ -80,43 +80,53 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlSelectCategory"
+        android:id="@+id/rlBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rlSearch"
         android:paddingVertical="5dp"
-        android:paddingHorizontal="10dp"
-        android:background="#E8E3D9">
+        android:background="@color/light_grey">
 
-        <TextView
-            android:id="@+id/tvCategoryPrompt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/category"
-            android:textSize="16sp" />
+        <RelativeLayout
+            android:id="@+id/rlSelectCategory"
+            android:paddingHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/tvCategoryPrompt"
-            android:background="@drawable/white_spinner">
-            <Spinner
-                android:id="@+id/spnCategory"
-                android:padding="5dp"
+            <TextView
+                android:id="@+id/tvCategoryPrompt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/category"
+                android:layout_centerVertical="true"
+                android:textSize="16sp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/tvCategoryPrompt"
+                android:background="@drawable/white_spinner">
+                <Spinner
+                    android:id="@+id/spnCategory"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSuggestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/rlSelectCategory"
+            android:layout_marginBottom="?android:attr/actionBarSize"/>
+
+
 
     </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSuggestions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rlSelectCategory"
-        android:layout_marginBottom="?android:attr/actionBarSize"/>
 
 
 </RelativeLayout>

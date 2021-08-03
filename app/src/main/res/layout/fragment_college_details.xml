@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragments.ConversationsFragment">
@@ -42,7 +47,7 @@
 
     </RelativeLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.example.collegeconnect.WrapContentHeightViewPager
         android:id="@+id/viewPager"
         android:layout_below="@+id/rlCollegeInfo"
         android:layout_width="match_parent"
@@ -57,7 +62,7 @@
             android:layout_gravity="top">
         </com.google.android.material.tabs.TabLayout>
 
-    </androidx.viewpager.widget.ViewPager>
+    </com.example.collegeconnect.WrapContentHeightViewPager>
 
     <Button
         android:id="@+id/btnViewPhotos"
@@ -68,10 +73,11 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:text="@string/view_photos"
-        android:backgroundTint="#FFE97D"
+        android:backgroundTint="@color/green"
         android:letterSpacing=".02"
         android:textColor="@color/black"
         android:foreground="?android:attr/selectableItemBackground"
         android:textSize="10sp" />
 
 </RelativeLayout>
+</ScrollView>
