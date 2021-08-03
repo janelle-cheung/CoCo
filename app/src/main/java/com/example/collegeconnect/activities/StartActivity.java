@@ -20,6 +20,8 @@ public class StartActivity extends AppCompatActivity {
         binding = ActivityStartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getSupportActionBar().hide();
+
         if (ParseUser.getCurrentUser() != null) {
             launchMainActivity();
         }
