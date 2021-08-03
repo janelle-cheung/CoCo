@@ -320,18 +320,18 @@ public class SearchFragment extends Fragment implements CollegeSuggestionsAdapte
                 ibClearCost.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ibClearCost.setSelected(true);
-                        tvSliderCost.setText(getString(R.string.college_cost_hint));
                         sliderCost.setValue(0);
+                        tvSliderCost.setText(getString(R.string.college_cost_hint));
+                        ibClearCost.setSelected(true);
                     }
                 });
 
                 ibClearSAT.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ibClearSAT.setSelected(true);
                         sliderSAT.setValue(MIN_SAT_SCORE);
                         tvSliderSAT.setText(getString(R.string.sat_slider_hint));
+                        ibClearSAT.setSelected(true);
                     }
                 });
 
