@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityStartConversationBinding;
+import com.example.collegeconnect.firebase.FirebaseClient;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
@@ -20,6 +21,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 public class StartConversationActivity extends AppCompatActivity {
@@ -109,7 +112,11 @@ public class StartConversationActivity extends AppCompatActivity {
                 if (e == null) {
                     Toast.makeText(StartConversationActivity.this,
                             "Conversation started", Toast.LENGTH_SHORT).show();
-                    Log.i(TAG, "Successfully saved Message");
+                    if (otherUser.hasFCMToken()) {
+                        createAndSendJSONNotification(message);
+                    } else {
+                        Log.i(TAG, "Other user doesn't have active token. Not creating notification");
+                    }
                     Intent i = new Intent();
                     setResult(RESULT_OK, i);
                     finish();
@@ -120,5 +127,27 @@ public class StartConversationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @SuppressLint("LongLogTag")
+    private void createAndSendJSONNotification(Message message) {
+        JSONObject notification = new JSONObject();
+        JSONObject data = new JSONObject();
+        try {
+            data.put(Message.KEY_SENDER, user.getUsername());
+            data.put(Message.KEY_BODY, user.getUsername() + " " + getString(R.string.conversation_started_message));
+            if (user.hasProfileImage()) {
+                data.put(User.KEY_PROFILEIMAGE, message.getSender().getProfileImageUrl());
+            }
+            data.put(Message.KEY_CONVERSATION, message.getConversation().getObjectId());
+
+            notification.put("to", otherUser.getFCMToken());
+            notification.put("data", data);
+
+            FirebaseClient.postNotification(this, notification);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Error creating JSON notification ", e );
+        }
     }
 }

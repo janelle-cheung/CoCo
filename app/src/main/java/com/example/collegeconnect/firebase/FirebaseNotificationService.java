@@ -60,6 +60,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
     @SuppressLint("LongLogTag")
     @Override
     public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
+        Log.i("MainActivity", "onMessageReceived");
         super.onMessageReceived(remoteMessage);
         // First get the user image in background, then get Parse conversation, then show notification
         getSenderProfileImage(remoteMessage);

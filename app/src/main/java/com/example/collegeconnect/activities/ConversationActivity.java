@@ -55,6 +55,7 @@ public class ConversationActivity extends AppCompatActivity {
     public static final int NUM_MESSAGES_TO_QUERY = 10;
     public static final String TAG = "ConversationActivity";
     public static final String KEY_CONVERSATION_2 = "conversation2";
+    public static final String KEY_HIGH_SCHOOL_USER = "high school user";
     public static final int LOCATION_REQUEST_CODE = 40;
     private ConversationAdapter adapter;
     private ActivityConversationBinding binding;
@@ -222,6 +223,7 @@ public class ConversationActivity extends AppCompatActivity {
             } else {
                 Intent i = new Intent(this, CollegeLocationShareActivity.class);
                 i.putExtra(KEY_CONVERSATION_2, Parcels.wrap(conversation));
+                i.putExtra(KEY_HIGH_SCHOOL_USER, Parcels.wrap(otherUser));
                 startActivityForResult(i, LOCATION_REQUEST_CODE);
             }
         }

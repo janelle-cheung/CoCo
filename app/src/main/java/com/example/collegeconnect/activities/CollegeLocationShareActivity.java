@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ActivityCollegeLocationShareBinding;
+import com.example.collegeconnect.firebase.FirebaseClient;
 import com.example.collegeconnect.models.Conversation;
+import com.example.collegeconnect.models.Message;
+import com.example.collegeconnect.models.User;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,8 +32,11 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.Arrays;
@@ -44,6 +50,8 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
     private ActivityCollegeLocationShareBinding binding;
     private GoogleMap map;
     private Conversation conversation;
+    private User currUser;
+    private User highSchoolUser;
     private LatLng locationSelected;
 
     @SuppressLint("LongLogTag")
@@ -54,6 +62,8 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
         setContentView(binding.getRoot());
 
         conversation = Parcels.unwrap(getIntent().getParcelableExtra(ConversationActivity.KEY_CONVERSATION_2));
+        highSchoolUser = Parcels.unwrap(getIntent().getParcelableExtra(ConversationActivity.KEY_HIGH_SCHOOL_USER));
+        currUser = (User) ParseUser.getCurrentUser();
 
         // Set up map fragment
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -123,6 +133,7 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
 
     private void saveLocation() {
         ParseGeoPoint meetLocation = new ParseGeoPoint(locationSelected.latitude, locationSelected.longitude);
+        boolean firstTimeSettingLocation = !conversation.meetLocationSet();
         conversation.setMeetLocation(meetLocation, new SaveCallback() {
             @SuppressLint("LongLogTag")
             @Override
@@ -139,8 +150,39 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
                 Intent i = getIntent();
                 i.putExtra(KEY_NEW_CONVERSATION, Parcels.wrap(conversation));
                 setResult(RESULT_OK, i);
+                if (highSchoolUser.hasFCMToken()) {
+                    createAndSendJSONNotification(firstTimeSettingLocation);
+                } else {
+                    Log.i(TAG, "Other user doesn't have active token. Not creating notification");
+                }
             }
         });
+    }
+
+    @SuppressLint("LongLogTag")
+    private void createAndSendJSONNotification(boolean firstTimeSettingLocation) {
+        JSONObject notification = new JSONObject();
+        JSONObject data = new JSONObject();
+        try {
+            data.put(Message.KEY_SENDER, currUser.getUsername());
+            if (firstTimeSettingLocation) {
+                data.put(Message.KEY_BODY, currUser.getUsername() + " " + getString(R.string.location_sent_message));
+            } else {
+                data.put(Message.KEY_BODY, currUser.getUsername() + " " + getString(R.string.location_updated_message));
+            }
+            if (currUser.hasProfileImage()) {
+                data.put(User.KEY_PROFILEIMAGE, currUser.getProfileImageUrl());
+            }
+            data.put(Message.KEY_CONVERSATION, conversation.getObjectId());
+
+            notification.put("to", highSchoolUser.getFCMToken());
+            notification.put("data", data);
+
+            FirebaseClient.postNotification(this, notification);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Error creating JSON notification ", e );
+        }
     }
 
     @SuppressLint("LongLogTag")

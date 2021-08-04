@@ -32,6 +32,7 @@
     <string name="message_hint">Message...</string>
     <string name="college_search_prompt">Search for a college...</string>
     <string name="start_conversation">Start conversation</string>
+    <string name="conversation_started_message">started a conversation with you</string>
     <string name="no_college_students_message">Sorry!\nThere are no CoCo users who attend this college right now.</string>
     <string name="brief_intro_prompt">Give a brief introduction of yourself</string>
     <string name="inquiries_prompt">Describe what you\'re interested in talking about</string>
@@ -46,6 +47,8 @@
     <string name="connect_with_students">Connect with students on CoCo now</string>
     <string name="send_location">Send location</string>
     <string name="search_location">Search location</string>
+    <string name="location_sent_message">shared a meet-up location</string>
+    <string name="location_updated_message">updated the meet-up location</string>
     <string name="send_location_prompt">Search or tap location on map</string>
     <string name="update_location_prompt">Select a location to update</string>
     <string name="update_location">Update location</string>

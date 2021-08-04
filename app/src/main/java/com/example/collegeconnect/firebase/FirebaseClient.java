@@ -40,7 +40,9 @@ public class FirebaseClient {
 
     public static void postNotification(Context context, JSONObject notification) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REST_URL, notification,
-            response -> {},
+            response -> {
+                Log.i("MainActivity", "Successful sent notification");
+            },
             error -> {
                 Log.i(TAG, "Post notification error " + error);
             }) {
@@ -58,5 +60,6 @@ public class FirebaseClient {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
+        Log.i("MainActivity", notification.toString());
     }
 }
