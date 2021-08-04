@@ -121,35 +121,19 @@ public class ConversationActivity extends AppCompatActivity {
                 }
 
                 if (otherUser.hasFCMToken()) {
-                    Log.i(TAG, "other user has active token. creating notification");
-                    createAndSendJSONNotification(message);
+                    FirebaseClient.createAndSendNotification(
+                            ConversationActivity.this,
+                            user,
+                            otherUser.getFCMToken(),
+                            message.getBody(),
+                            conversation.getObjectId()
+                    );
                 } else {
                     Log.i(TAG, "other user doesn't have active token. not creating notification");
                 }
             }
         });
         binding.etMessage.setText(null);
-    }
-
-    private void createAndSendJSONNotification(Message message) {
-        JSONObject notification = new JSONObject();
-        JSONObject data = new JSONObject();
-        try {
-            data.put(Message.KEY_SENDER, user.getUsername());
-            data.put(Message.KEY_BODY, message.getBody());
-            if (user.hasProfileImage()) {
-                data.put(User.KEY_PROFILEIMAGE, message.getSender().getProfileImageUrl());
-            }
-            data.put(Message.KEY_CONVERSATION, message.getConversation().getObjectId());
-
-            notification.put("to", otherUser.getFCMToken());
-            notification.put("data", data);
-
-            FirebaseClient.postNotification(this, notification);
-
-        } catch (JSONException e) {
-            Log.e(TAG, "Error creating JSON notification ", e );
-        }
     }
 
     private void configureLiveMessageRefresh() {

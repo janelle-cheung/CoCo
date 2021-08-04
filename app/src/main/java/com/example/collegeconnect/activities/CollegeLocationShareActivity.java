@@ -155,38 +155,23 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
                 i.putExtra(KEY_NEW_CONVERSATION, Parcels.wrap(conversation));
                 setResult(RESULT_OK, i);
                 if (highSchoolUser.hasFCMToken()) {
-                    createAndSendJSONNotification(firstTimeSettingLocation);
+                    String notificationBody;
+                    if (firstTimeSettingLocation) {
+                        notificationBody = currUser.getUsername() + " " + getString(R.string.location_sent_message);
+                    } else {
+                        notificationBody = currUser.getUsername() + " " + getString(R.string.location_updated_message);
+                    }
+                    FirebaseClient.createAndSendNotification(
+                            CollegeLocationShareActivity.this,
+                            currUser,
+                            highSchoolUser.getFCMToken(),
+                            notificationBody,
+                            conversation.getObjectId());
                 } else {
                     Log.i(TAG, "Other user doesn't have active token. Not creating notification");
                 }
             }
         });
-    }
-
-    @SuppressLint("LongLogTag")
-    private void createAndSendJSONNotification(boolean firstTimeSettingLocation) {
-        JSONObject notification = new JSONObject();
-        JSONObject data = new JSONObject();
-        try {
-            data.put(Message.KEY_SENDER, currUser.getUsername());
-            if (firstTimeSettingLocation) {
-                data.put(Message.KEY_BODY, currUser.getUsername() + " " + getString(R.string.location_sent_message));
-            } else {
-                data.put(Message.KEY_BODY, currUser.getUsername() + " " + getString(R.string.location_updated_message));
-            }
-            if (currUser.hasProfileImage()) {
-                data.put(User.KEY_PROFILEIMAGE, currUser.getProfileImageUrl());
-            }
-            data.put(Message.KEY_CONVERSATION, conversation.getObjectId());
-
-            notification.put("to", highSchoolUser.getFCMToken());
-            notification.put("data", data);
-
-            FirebaseClient.postNotification(this, notification);
-
-        } catch (JSONException e) {
-            Log.e(TAG, "Error creating JSON notification ", e );
-        }
     }
 
     @SuppressLint("LongLogTag")

@@ -113,7 +113,13 @@ public class StartConversationActivity extends AppCompatActivity {
                     Toast.makeText(StartConversationActivity.this,
                             "Conversation started", Toast.LENGTH_SHORT).show();
                     if (otherUser.hasFCMToken()) {
-                        createAndSendJSONNotification(message);
+                        FirebaseClient.createAndSendNotification(
+                                StartConversationActivity.this,
+                                user,
+                                otherUser.getFCMToken(),
+                                user.getUsername() + " " + getString(R.string.conversation_started_message),
+                                conversation.getObjectId()
+                        );
                     } else {
                         Log.i(TAG, "Other user doesn't have active token. Not creating notification");
                     }
@@ -127,27 +133,5 @@ public class StartConversationActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @SuppressLint("LongLogTag")
-    private void createAndSendJSONNotification(Message message) {
-        JSONObject notification = new JSONObject();
-        JSONObject data = new JSONObject();
-        try {
-            data.put(Message.KEY_SENDER, user.getUsername());
-            data.put(Message.KEY_BODY, user.getUsername() + " " + getString(R.string.conversation_started_message));
-            if (user.hasProfileImage()) {
-                data.put(User.KEY_PROFILEIMAGE, message.getSender().getProfileImageUrl());
-            }
-            data.put(Message.KEY_CONVERSATION, message.getConversation().getObjectId());
-
-            notification.put("to", otherUser.getFCMToken());
-            notification.put("data", data);
-
-            FirebaseClient.postNotification(this, notification);
-
-        } catch (JSONException e) {
-            Log.e(TAG, "Error creating JSON notification ", e );
-        }
     }
 }

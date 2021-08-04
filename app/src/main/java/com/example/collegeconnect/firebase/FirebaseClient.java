@@ -16,6 +16,10 @@ import com.codepath.asynchttpclient.RequestHeaders;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.models.Conversation;
+import com.example.collegeconnect.models.Message;
+import com.example.collegeconnect.models.User;
+
 import cz.msebera.android.httpclient.entity.StringEntity;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -37,6 +41,27 @@ public class FirebaseClient {
             "AAAAw883Zv4:APA91bHTENiUwV43Qkc41kS-K9VzU4hzXN2FvuOMcdgZJqw_P1KoL5EhMulsbAoi9BidpN4ddPadMCqixfmDwa5-SBe7D-qvXWnW5Gd6a_EjxnTkV1fIScNRUmCDTEf2NGQ_nQ7vydUK";
 
     public FirebaseClient() {}
+
+    public static void createAndSendNotification(Context context, User sender, String FCMToken, String body, String conversationId) {
+        JSONObject notification = new JSONObject();
+        JSONObject data = new JSONObject();
+        try {
+            data.put(Message.KEY_SENDER, sender.getUsername());
+            data.put(Message.KEY_BODY, body);
+            if (sender.hasProfileImage()) {
+                data.put(User.KEY_PROFILEIMAGE, sender.getProfileImageUrl());
+            }
+            data.put(Message.KEY_CONVERSATION, conversationId);
+
+            notification.put("to", FCMToken);
+            notification.put("data", data);
+
+            postNotification(context, notification);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Error creating JSON notification ", e );
+        }
+    }
 
     public static void postNotification(Context context, JSONObject notification) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REST_URL, notification,
