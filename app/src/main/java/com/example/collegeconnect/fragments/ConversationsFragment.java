@@ -49,6 +49,8 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentConversationsBinding.inflate(inflater, container, false);
+        setHasOptionsMenu(true);
+        getActivity().invalidateOptionsMenu();
 
         conversations = new ArrayList<>();
         user = (User) ParseUser.getCurrentUser();

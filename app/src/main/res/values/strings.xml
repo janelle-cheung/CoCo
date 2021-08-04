@@ -24,11 +24,11 @@
     <string name="academics_prompt">Academically, I\'m interested in...</string>
     <string name="extracurriculars_prompt">Outside of academics, I\'m interested in...</string>
     <string name="logout">Logout</string>
-    <string name="hi_profile_name_prompt">hi, I\'m</string>
-    <string name="profile_from">From:</string>
-    <string name="profile_academics">Academic interests:</string>
-    <string name="profile_extracurriculars">Extracurricular interests:</string>
-    <string name="profile_highschool">High school:</string>
+    <string name="hi_profile_name_prompt">Hi, I\'m</string>
+    <string name="profile_from">From</string>
+    <string name="profile_academics">Academic interests</string>
+    <string name="profile_extracurriculars">Extracurricular interests</string>
+    <string name="profile_highschool">High school</string>
     <string name="message_hint">Message...</string>
     <string name="college_search_prompt">Search for a college...</string>
     <string name="start_conversation">Start conversation</string>

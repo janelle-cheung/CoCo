@@ -7,7 +7,7 @@
     tools:context=".fragments.ProfileFragment">
 
     <RelativeLayout
-        android:id="@+id/profileInfo"
+        android:id="@+id/rlProfileInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
@@ -56,20 +56,20 @@
             android:textSize="13sp"
             android:text="@string/start_conversation" />
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/btnStartConversation"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:background="@android:color/darker_gray" />
-
     </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rlProfileInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/darker_gray" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
-        android:layout_below="@+id/profileInfo"
+        android:layout_below="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

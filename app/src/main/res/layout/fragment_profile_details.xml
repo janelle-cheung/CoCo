@@ -7,11 +7,20 @@
     tools:context=".fragments.ProfileDetailsFragment"
     android:padding="20dp">
 
+    <ImageView
+        android:id="@+id/ivFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_house_24" />
+
     <TextView
         android:id="@+id/tvFromPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_toEndOf="@id/ivFrom"
         android:text="@string/profile_from"
         android:textStyle="bold" />
 
@@ -19,18 +28,24 @@
         android:id="@+id/tvFromValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvFromPrompt"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/tvFromPrompt"
+        android:layout_below="@+id/ivFrom"
         android:hint="TextView" />
+
+    <ImageView
+        android:id="@+id/ivHighSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/tvFromValue"
+        android:src="@drawable/ic_baseline_school_24" />
 
     <TextView
         android:id="@+id/tvHighSchoolPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFromValue"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/ivHighSchool"
+        android:layout_alignTop="@+id/ivHighSchool"
         android:text="@string/profile_highschool"
         android:textStyle="bold" />
 
@@ -38,19 +53,24 @@
         android:id="@+id/tvHighSchoolValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFromValue"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/tvHighSchoolPrompt"
+        android:layout_below="@+id/ivHighSchool"
         android:hint="TextView" />
+
+    <ImageView
+        android:id="@+id/ivAcademics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvHighSchoolValue"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_menu_book_24" />
 
     <TextView
         android:id="@+id/tvAcademicsPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHighSchoolValue"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/ivAcademics"
+        android:layout_alignTop="@+id/ivAcademics"
         android:text="@string/profile_academics"
         android:textStyle="bold" />
 
@@ -58,19 +78,24 @@
         android:id="@+id/tvAcademicsValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHighSchoolValue"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/tvAcademicsPrompt"
+        android:layout_below="@id/ivAcademics"
         android:hint="TextView" />
+
+    <ImageView
+        android:id="@+id/ivExtracurriculars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAcademicsValue"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_sports_baseball_24" />
 
     <TextView
         android:id="@+id/tvExtracurricularsPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAcademicsValue"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/ivExtracurriculars"
+        android:layout_alignTop="@+id/ivExtracurriculars"
         android:text="@string/profile_extracurriculars"
         android:textStyle="bold" />
 
@@ -78,10 +103,8 @@
         android:id="@+id/tvExtracurricularsValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAcademicsValue"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/tvExtracurricularsPrompt"
+        android:layout_below="@+id/ivExtracurriculars"
         android:hint="TextView" />
+
 
 </RelativeLayout>

@@ -39,6 +39,7 @@ public class ProfileDetailsFragment extends Fragment {
 
         // Hide high school-related text views if userShown is in HS, set value otherwise
         if (userShown.isInHighSchool()) {
+            binding.ivHighSchool.setVisibility(View.GONE);
             binding.tvHighSchoolPrompt.setVisibility(View.GONE);
             binding.tvHighSchoolValue.setVisibility(View.GONE);
         } else {

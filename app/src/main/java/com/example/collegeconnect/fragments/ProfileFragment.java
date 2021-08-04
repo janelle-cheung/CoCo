@@ -56,6 +56,9 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
+        setHasOptionsMenu(true);
+        getActivity().invalidateOptionsMenu();
+
         // Check if bundle has arguments - if so, we are displaying another user's profile
         // If bundle is null, we're displaying the current user's profile
         Bundle bundle = this.getArguments();
