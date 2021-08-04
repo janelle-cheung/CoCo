@@ -64,6 +64,10 @@ public class CollegeLocationShareActivity extends AppCompatActivity implements G
         conversation = Parcels.unwrap(getIntent().getParcelableExtra(ConversationActivity.KEY_CONVERSATION_2));
         highSchoolUser = Parcels.unwrap(getIntent().getParcelableExtra(ConversationActivity.KEY_HIGH_SCHOOL_USER));
         currUser = (User) ParseUser.getCurrentUser();
+        if (conversation.meetLocationSet()) {
+            locationSelected = new LatLng(conversation.getMeetLocation().getLatitude(),
+                                        conversation.getMeetLocation().getLongitude());
+        }
 
         // Set up map fragment
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
