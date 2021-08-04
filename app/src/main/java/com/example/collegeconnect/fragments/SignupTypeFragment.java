@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,11 @@ public class SignupTypeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setEnterTransition(transitionInflater.inflateTransition(android.R.transition.slide_right));
+        setExitTransition(transitionInflater.inflateTransition(android.R.transition.fade));
+
         binding = FragmentSignupTypeBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }

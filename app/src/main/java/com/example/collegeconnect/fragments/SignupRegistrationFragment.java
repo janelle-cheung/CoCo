@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,10 @@ public class SignupRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setExitTransition(transitionInflater.inflateTransition(android.R.transition.fade));
+
         binding = FragmentSignupRegistrationBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
@@ -48,11 +53,11 @@ public class SignupRegistrationFragment extends Fragment {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!checkForValidInputs()) return;
-
-                signupActivityInstance.setUsername(capitalizeName(binding.etName.getText().toString()));
-                signupActivityInstance.setEmail(binding.etEmail.getText().toString());
-                signupActivityInstance.setPassword(binding.etPassword.getText().toString());
+//                if (!checkForValidInputs()) return;
+//
+//                signupActivityInstance.setUsername(capitalizeName(binding.etName.getText().toString()));
+//                signupActivityInstance.setEmail(binding.etEmail.getText().toString());
+//                signupActivityInstance.setPassword(binding.etPassword.getText().toString());
                 signupActivityInstance.replaceFragment(SignupTypeFragment.class);
             }
         });

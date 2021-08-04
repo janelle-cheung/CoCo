@@ -95,19 +95,19 @@ public class CollegeMediaActivity extends AppCompatActivity {
     public void changeFragmentWithTransition(Class fragmentClass, Bundle bundle, View ivCollegeMedia) {
         Transition changeTransform = TransitionInflater.from(this).
                 inflateTransition(R.transition.change_image_transform);
-        Transition fadeTransform = TransitionInflater.from(this).
-                inflateTransition(android.R.transition.fade);
+        Transition slideRightTransform = TransitionInflater.from(this).
+                inflateTransition(android.R.transition.slide_right);
 
         Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         CollegeMediaDetailsFragment newFragment = new CollegeMediaDetailsFragment();
 
         // Setup exit transition on AlbumFragment
         currFragment.setSharedElementReturnTransition(changeTransform);
-        currFragment.setExitTransition(fadeTransform);
+        currFragment.setExitTransition(slideRightTransform);
 
         // Setup enter transition on CollegeMediaDetailsFragment
         newFragment.setSharedElementEnterTransition(changeTransform);
-        newFragment.setEnterTransition(fadeTransform);
+        newFragment.setEnterTransition(slideRightTransform);
 
         newFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
