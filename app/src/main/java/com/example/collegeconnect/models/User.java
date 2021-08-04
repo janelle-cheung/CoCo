@@ -29,7 +29,7 @@ public class User extends ParseUser {
     public static final String KEY_FCM_TOKEN = "FCMToken";
 
     public boolean isInHighSchool() {
-        return getString(KEY_TYPE).equals("high school");
+        return getString(KEY_TYPE).equals(KEY_HIGHSCHOOL);
     }
 
     public String getCollege() { return getString(KEY_COLLEGE); }

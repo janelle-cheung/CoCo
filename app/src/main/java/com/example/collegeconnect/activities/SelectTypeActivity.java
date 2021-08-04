@@ -19,22 +19,5 @@ public class SelectTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySelectTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        RadioGroup rGroupType = binding.rGroupType;
-        rGroupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            String type;
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radioHighSchool) {
-                    type = "high school";
-                } else {
-                    type = "college";
-                }
-
-                Intent i = new Intent(SelectTypeActivity.this, SignupActivity.class);
-                i.putExtra(KEY_TYPE, type);
-                startActivity(i);
-            }
-        });
     }
 }

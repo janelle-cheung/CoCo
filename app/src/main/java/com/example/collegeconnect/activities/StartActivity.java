@@ -29,8 +29,7 @@ public class StartActivity extends AppCompatActivity {
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(StartActivity.this, SelectTypeActivity.class);
-                startActivity(i);
+                launchSignupActivity();
             }
         });
 
@@ -40,6 +39,11 @@ public class StartActivity extends AppCompatActivity {
                 launchLoginActivity();
             }
         });
+    }
+
+    private void launchSignupActivity() {
+        Intent i = new Intent(StartActivity.this, SignupActivity.class);
+        startActivity(i);
     }
 
     private void launchLoginActivity() {

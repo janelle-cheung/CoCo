@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".fragments.SignupSchoolInfoFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:id="@+id/etHighSchool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/high_school" />
+
+        <AutoCompleteTextView
+            android:id="@+id/aetCollegeAutoComplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etHighSchool"
+            android:layout_marginTop="10dp"
+            android:hint="@string/college" />
+
+        <RadioGroup
+            android:id="@+id/rGroupGrade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aetCollegeAutoComplete"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioFreshman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/freshman" />
+
+            <RadioButton
+                android:id="@+id/radioSophomore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sophomore" />
+
+            <RadioButton
+                android:id="@+id/radioJunior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/junior" />
+
+            <RadioButton
+                android:id="@+id/radioSenior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/senior" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:layout_below="@+id/rGroupGrade"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
