@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">CollegeConnect</string>
     <string name="coco">CoCo</string>
-    <string name="app_description">Connect and learn\nabout your dream colleges now</string>
+    <string name="app_description">Connect with students\n to learn about your dream colleges</string>
     <string name="google_maps_api_key">AIzaSyBsE6EN1QlJJOL-fwdaFdy4PBlALQdNhc8</string>
     <string name="title_search">Search</string>
     <string name="title_conversations">Conversations</string>
     <string name="title_profile">Profile</string>
     <string name="new_prompt">New?</string>
     <string name="get_started">Get started</string>
+    <string name="login_prompt">Already have an account?</string>
     <string name="login">Log-in</string>
     <string name="name">Name</string>
     <string name="password">Password</string>

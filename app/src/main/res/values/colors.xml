@@ -4,7 +4,8 @@
     <color name="green">#5AA469</color>
     <color name="light_green">#70AF85</color>
     <color name="lightest_green">#C6EBC9</color>
-    <color name="light_grey">#ECECEC</color>
+    <color name="light_grey">#AAEFEFEF</color>
+    <color name="light_grey_opaque">#66EFEFEF</color>
     <color name="dark_brown">#433D3C</color>
     <color name="light_beige"></color>
     <color name="purple_200">#FFBB86FC</color>

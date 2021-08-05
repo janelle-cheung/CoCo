@@ -1,6 +1,5 @@
 package com.example.collegeconnect.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,31 +7,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.transition.TransitionInflater;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.collegeconnect.CollegeAIClient;
-import com.example.collegeconnect.R;
-import com.example.collegeconnect.activities.MainActivity;
-import com.example.collegeconnect.activities.SelectTypeActivity;
 import com.example.collegeconnect.activities.SignupActivity;
 import com.example.collegeconnect.databinding.FragmentSignupExtraInfoBinding;
-import com.example.collegeconnect.databinding.FragmentSignupTypeBinding;
-import com.example.collegeconnect.models.User;
-import com.parse.ParseException;
-import com.parse.SignUpCallback;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import okhttp3.Headers;
 
 public class SignupExtraInfoFragment extends Fragment {
 

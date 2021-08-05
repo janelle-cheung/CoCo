@@ -5,38 +5,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/green_gradient"
     tools:context=".activities.LoginActivity">
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="300dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="252dp"
-        android:hint="@string/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="242dp" />
+        android:layout_centerInParent="true"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/tvEmailPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvEmailPrompt"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/tvPasswordPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_below="@+id/etEmail"
+            android:layout_marginTop="15dp"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPasswordPrompt"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
+            android:inputType="textPassword" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="28dp"
         android:text="@string/login"
-        tools:layout_editor_absoluteY="398dp" />
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etEmail"
+        android:backgroundTint="@color/lightest_green"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"/>
 
 </RelativeLayout>

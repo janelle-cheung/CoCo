@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SignupRegistrationFragment"
+    android:background="@drawable/green_gradient"
     android:padding="20dp">
 
     <RelativeLayout
@@ -15,6 +16,7 @@
             android:id="@+id/tvNamePrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/name_prompt"/>
 
         <EditText
@@ -30,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etName"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:text="@string/email"/>
 
@@ -46,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etEmail"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:text="@string/password"/>
 

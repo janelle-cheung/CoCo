@@ -1,7 +1,5 @@
 package com.example.collegeconnect.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,16 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collegeconnect.CollegeAIClient;
-import com.example.collegeconnect.R;
-import com.example.collegeconnect.activities.SelectTypeActivity;
 import com.example.collegeconnect.activities.SignupActivity;
 import com.example.collegeconnect.databinding.FragmentSignupSchoolInfoBinding;
-import com.example.collegeconnect.databinding.FragmentSignupTypeBinding;
 import com.example.collegeconnect.models.User;
 
 import org.jetbrains.annotations.NotNull;
