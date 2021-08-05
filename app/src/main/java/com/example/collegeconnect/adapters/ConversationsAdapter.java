@@ -3,6 +3,7 @@ package com.example.collegeconnect.adapters;
 import android.content.ClipData;
 import android.content.Context;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.databinding.ItemConversationBinding;
+import com.example.collegeconnect.models.College;
 import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.User;
 import com.parse.ParseFile;
@@ -23,18 +25,24 @@ import com.parse.ParseUser;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
 
+    public static final String TAG = "ConversationsAdapter";
     Context context;
     List<Conversation> conversations;
+    List<Conversation> conversationsForFilter;
     OnConversationListener onConversationListener;
+    boolean isHighSchool;
 
-    public ConversationsAdapter(Context context, List<Conversation> conversations, OnConversationListener onConversationListener) {
+    public ConversationsAdapter(Context context, List<Conversation> conversations, OnConversationListener onConversationListener, boolean isHighSchool) {
         this.context = context;
         this.conversations = conversations;
         this.onConversationListener = onConversationListener;
+        this.isHighSchool = isHighSchool;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,6 +63,34 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
 
     public void clear() {
         conversations.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setAllConversationsForFilter(List<Conversation> conversations) {
+        conversationsForFilter = new ArrayList<>(conversations);
+    }
+
+    public void filter(String filter) {
+        filter = filter.toLowerCase(Locale.getDefault());
+        conversations.clear();
+        if (filter.isEmpty()) {
+            conversations.addAll(conversationsForFilter);
+            notifyDataSetChanged();
+            return;
+        }
+
+        // Filter by both username and school name
+        for (Conversation c : conversationsForFilter) {
+            if (isHighSchool &&
+                    (c.getCollegeStudent().getUsername().toLowerCase().contains(filter) ||
+                     c.getCollegeStudent().getCollege().toLowerCase().contains(filter))) {
+                conversations.add(c);
+            } else if (!isHighSchool &&
+                    (c.getHighSchoolStudent().getUsername().toLowerCase().contains(filter) ||
+                     c.getHighSchoolStudent().getHighSchool().toLowerCase().contains(filter))) {
+                conversations.add(c);
+            }
+        }
         notifyDataSetChanged();
     }
 

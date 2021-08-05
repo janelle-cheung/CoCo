@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,10 +58,24 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
         user = (User) ParseUser.getCurrentUser();
 
         // Set up recycler view and adapter
-        adapter = new ConversationsAdapter(getContext(), conversations, this);
+        adapter = new ConversationsAdapter(getContext(), conversations, this, user.isInHighSchool());
         binding.rvConversations.setAdapter(adapter);
         binding.rvConversations.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvConversations.addItemDecoration(new DividerItemDecoration(binding.rvConversations.getContext(), DividerItemDecoration.VERTICAL));
+
+        // Set up search edittext
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         queryConversations();
 
@@ -93,6 +109,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
 
                 adapter.clear();
                 conversations.addAll(objects);
+                adapter.setAllConversationsForFilter(conversations);
                 adapter.notifyDataSetChanged();
             }
         });

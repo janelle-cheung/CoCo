@@ -27,6 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFromPrompt"
             android:background="@drawable/rounded_edittext"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:padding="10dp" />
 
         <TextView

@@ -25,6 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvHighSchoolPrompt"
             android:background="@drawable/rounded_edittext"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:padding="10dp" />
 
         <TextView
@@ -42,6 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvCollegePrompt"
             android:background="@drawable/rounded_edittext"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:padding="10dp" />
 
         <TextView

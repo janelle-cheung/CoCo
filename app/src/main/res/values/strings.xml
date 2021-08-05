@@ -38,6 +38,7 @@
     <string name="profile_highschool">High school</string>
     <string name="message_hint">Message…</string>
     <string name="college_search_prompt">Search for a college…</string>
+    <string name="conversations_search_prompt">Search by name or school</string>
     <string name="start_conversation">Start conversation</string>
     <string name="conversation_started_message">started a conversation with you</string>
     <string name="start_convo_introduction_hint">Hi, I\'m…</string>

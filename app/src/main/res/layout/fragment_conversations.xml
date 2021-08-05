@@ -6,8 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ConversationsFragment">
 
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:layout_margin="10dp"
+        android:textSize="15sp"
+        android:paddingHorizontal="7dp"
+        android:paddingVertical="3dp"
+        android:drawablePadding="7dp"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:hint="@string/conversations_search_prompt" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvConversations"
+        android:layout_below="@+id/etSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />

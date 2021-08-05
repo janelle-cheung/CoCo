@@ -27,6 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvEmailPrompt"
             android:background="@drawable/rounded_edittext"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:padding="10dp"/>
 
         <TextView
@@ -46,6 +48,8 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/rounded_edittext"
             android:padding="10dp"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:inputType="textPassword" />
 
     </RelativeLayout>
