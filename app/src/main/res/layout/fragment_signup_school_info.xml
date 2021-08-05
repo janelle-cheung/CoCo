@@ -11,26 +11,50 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
+        <TextView
+            android:id="@+id/tvHighSchoolPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/high_school_prompt"/>
+
         <EditText
             android:id="@+id/etHighSchool"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/high_school" />
+            android:layout_below="@id/tvHighSchoolPrompt"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/tvCollegePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etHighSchool"
+            android:layout_marginTop="10dp"
+            android:text="@string/college_prompt"/>
 
         <AutoCompleteTextView
             android:id="@+id/aetCollegeAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etHighSchool"
-            android:layout_marginTop="10dp"
-            android:hint="@string/college" />
+            android:layout_below="@+id/tvCollegePrompt"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/tvGradePrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aetCollegeAutoComplete"
+            android:layout_marginTop="15dp"
+            android:text="@string/grade_prompt"/>
 
         <RadioGroup
             android:id="@+id/rGroupGrade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/aetCollegeAutoComplete"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="-9dp"
+            android:layout_below="@+id/tvGradePrompt"
             android:orientation="horizontal">
 
             <RadioButton

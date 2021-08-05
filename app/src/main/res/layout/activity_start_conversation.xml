@@ -68,7 +68,7 @@
         android:minLines="5"
         android:maxLines="5"
         android:background="@drawable/rounded_edittext"
-        android:hint="TextView" />
+        android:hint="@string/start_convo_introduction_hint" />
 
     <TextView
         android:id="@+id/tvInquiriesPrompt"
@@ -91,7 +91,7 @@
         android:minLines="7"
         android:maxLines="7"
         android:background="@drawable/rounded_edittext"
-        android:hint="TextView" />
+        android:hint="@string/start_convo_inquiries_hint" />
 
     <Button
         android:id="@+id/btnSend"

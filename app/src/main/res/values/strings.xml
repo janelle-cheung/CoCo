@@ -15,28 +15,35 @@
     <string name="create_account">Create account</string>
     <string name="email">Email</string>
     <string name="from">Hometown</string>
-    <string name="high_school">High school</string>
+    <string name="high_school" translatable="false">High school</string>
     <string name="college">College</string>
     <string name="freshman">Freshman</string>
     <string name="sophomore">Sophomore</string>
     <string name="junior">Junior</string>
     <string name="senior">Senior</string>
-    <string name="type_prompt">I\'m currently in...</string>
-    <string name="academics_prompt">Academically, I\'m interested in...</string>
-    <string name="extracurriculars_prompt">Outside of academics, I\'m interested in...</string>
+    <string name="type_prompt">I\'m currently in…</string>
+    <string name="name_prompt">My preferred name</string>
+    <string name="high_school_prompt">My high school</string>
+    <string name="college_prompt">My college</string>
+    <string name="grade_prompt">I\'m currently a…</string>
+    <string name="from_prompt">My hometown</string>
+    <string name="academics_prompt">Academically, I\'m interested in…</string>
+    <string name="extracurriculars_prompt">Outside of academics, I\'m interested in…</string>
     <string name="logout">Logout</string>
     <string name="hi_profile_name_prompt">Hi, I\'m</string>
     <string name="profile_from">From</string>
     <string name="profile_academics">Academic interests</string>
     <string name="profile_extracurriculars">Extracurricular interests</string>
     <string name="profile_highschool">High school</string>
-    <string name="message_hint">Message...</string>
-    <string name="college_search_prompt">Search for a college...</string>
+    <string name="message_hint">Message…</string>
+    <string name="college_search_prompt">Search for a college…</string>
     <string name="start_conversation">Start conversation</string>
     <string name="conversation_started_message">started a conversation with you</string>
+    <string name="start_convo_introduction_hint">Hi, I\'m…</string>
+    <string name="start_convo_inquiries_hint">Can you tell me about…</string>
     <string name="no_college_students_message">Sorry!\nThere are no CoCo users who attend this college right now.</string>
-    <string name="brief_intro_prompt">Give a brief introduction of yourself</string>
-    <string name="inquiries_prompt">Describe what you\'re interested in talking about</string>
+    <string name="brief_intro_prompt">Give a brief introduction</string>
+    <string name="inquiries_prompt">What do you want to talk about?</string>
     <string name="starting_conversation_with">Starting conversation with </string>
     <string name="send">Send</string>
     <string name="existing_conversation">Conversation started</string>
@@ -61,7 +68,7 @@
     <string name="album_food">Food</string>
     <string name="album_student_life">Student life</string>
     <string name="no_media_message">No photos or videos uploaded yet</string>
-    <string name="caption_prompt">(Optional) Write a caption...</string>
+    <string name="caption_prompt">(Optional) Write a caption…</string>
     <string name="uploading_to">Uploading to:</string>
     <string name="upload">Upload</string>
     <string name="category">Category:</string>
@@ -146,7 +153,5 @@
     <string name="formatted_best_academics_category">best-college-academics</string>
     <string name="formatted_best_student_life_category">best-student-life</string>
     <string name="formatted_best_CS_category">best-colleges-for-computer-science</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

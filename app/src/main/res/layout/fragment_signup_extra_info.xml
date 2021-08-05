@@ -13,29 +13,57 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
+        <TextView
+            android:id="@+id/tvFromPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from_prompt"/>
+
         <EditText
             android:id="@+id/etFrom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/from" />
+            android:layout_below="@id/tvFromPrompt"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/tvAcademicsPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etFrom"
+            android:layout_marginTop="10dp"
+            android:text="@string/academics_prompt"/>
 
         <EditText
             android:id="@+id/etAcademics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etFrom"
+            android:layout_below="@+id/tvAcademicsPrompt"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
+            android:gravity="top|left"
+            android:minLines="2"
+            android:maxLines="2" />
+
+        <TextView
+            android:id="@+id/tvExtracurricularsPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAcademics"
             android:layout_marginTop="10dp"
-            android:maxLines="1"
-            android:hint="@string/academics_prompt" />
+            android:text="@string/extracurriculars_prompt"/>
 
         <EditText
             android:id="@+id/etExtracurriculars"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etAcademics"
-            android:layout_marginTop="10dp"
-            android:maxLines="1"
-            android:hint="@string/extracurriculars_prompt" />
+            android:gravity="top|left"
+            android:minLines="2"
+            android:maxLines="2"
+            android:layout_below="@+id/tvExtracurricularsPrompt"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp" />
 
     </RelativeLayout>
 
