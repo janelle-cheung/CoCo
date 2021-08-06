@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.SinchVoiceClient;
 import com.example.collegeconnect.models.User;
 import com.example.collegeconnect.firebase.FirebaseNotificationService;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,8 @@ import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.calling.Call;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             retrieveToken();
         }
+
+        SinchVoiceClient.instantiateClient(this, currUser.getObjectId());
     }
 
     private void configureBottomNavBar() {

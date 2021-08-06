@@ -5,4 +5,11 @@
         android:icon="@mipmap/google_maps_foreground"
         android:title="LocationShare"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/miCalling"
+        android:icon="@android:drawable/stat_sys_phone_call"
+        android:title="Calling"
+        app:showAsAction="always" />
+
 </menu>

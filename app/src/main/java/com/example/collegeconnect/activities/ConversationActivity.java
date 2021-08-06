@@ -1,14 +1,10 @@
 package com.example.collegeconnect.activities;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,11 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.SinchVoiceClient;
 import com.example.collegeconnect.adapters.ConversationAdapter;
 import com.example.collegeconnect.databinding.ActivityConversationBinding;
 import com.example.collegeconnect.firebase.FirebaseClient;
@@ -35,20 +28,15 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.livequery.ParseLiveQueryClient;
 import com.parse.livequery.SubscriptionHandling;
+import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.calling.Call;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Headers;
 
 public class ConversationActivity extends AppCompatActivity {
 
@@ -64,6 +52,8 @@ public class ConversationActivity extends AppCompatActivity {
     private User user;
     private User otherUser;
     private boolean firstLoad;
+    SinchClient sinchClient;
+    Call call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +86,6 @@ public class ConversationActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
     }
 
     private void sendMessage() {
@@ -210,6 +194,8 @@ public class ConversationActivity extends AppCompatActivity {
                 i.putExtra(KEY_HIGH_SCHOOL_USER, Parcels.wrap(otherUser));
                 startActivityForResult(i, LOCATION_REQUEST_CODE);
             }
+        } else if (item.getItemId() == R.id.miCalling) {
+            SinchVoiceClient.startCall(this, otherUser.getObjectId(), otherUser.getUsername());
         }
         return super.onOptionsItemSelected(item);
     }

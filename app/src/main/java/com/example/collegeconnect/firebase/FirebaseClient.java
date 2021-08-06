@@ -20,7 +20,6 @@ import com.example.collegeconnect.models.Conversation;
 import com.example.collegeconnect.models.Message;
 import com.example.collegeconnect.models.User;
 
-import cz.msebera.android.httpclient.entity.StringEntity;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

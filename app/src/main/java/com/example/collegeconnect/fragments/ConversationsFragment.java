@@ -45,6 +45,7 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
     private FragmentConversationsBinding binding;
     private ConversationsAdapter adapter;
     private List<Conversation> conversations;
+    TextWatcher textWatcher;
     private User user;
 
     @Override
@@ -64,18 +65,20 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
         binding.rvConversations.addItemDecoration(new DividerItemDecoration(binding.rvConversations.getContext(), DividerItemDecoration.VERTICAL));
 
         // Set up search edittext
-        binding.etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.filter(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
+//        textWatcher = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.i(TAG, s.toString());
+//                adapter.filter(s.toString());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {}
+//        };
+//        binding.etSearch.addTextChangedListener(textWatcher);
 
         queryConversations();
 
@@ -127,5 +130,19 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
         Intent i = new Intent(getContext(), ConversationActivity.class);
         i.putExtra(KEY_CONVERSATION_1, Parcels.wrap(conversation));
         startActivity(i);
+    }
+
+    @Override
+    public void onPause() {
+        Log.i(TAG, "On pause");
+        super.onPause();
+        binding.etSearch.removeTextChangedListener(textWatcher);
+    }
+
+    @Override
+    public void onResume() {
+        Log.i(TAG, "On resume");
+        super.onResume();
+        binding.etSearch.addTextChangedListener(textWatcher);
     }
 }
