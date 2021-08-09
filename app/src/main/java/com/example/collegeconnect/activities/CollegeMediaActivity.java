@@ -23,6 +23,8 @@ import com.example.collegeconnect.fragments.AlbumFragment;
 import com.example.collegeconnect.fragments.CollegeAlbumsFragment;
 import com.example.collegeconnect.fragments.CollegeDetailsFragment;
 import com.example.collegeconnect.fragments.CollegeMediaDetailsFragment;
+import com.example.collegeconnect.models.User;
+import com.parse.ParseUser;
 
 public class CollegeMediaActivity extends AppCompatActivity {
 
@@ -48,8 +50,11 @@ public class CollegeMediaActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_college_media, menu);
-        return true;
+        if (!((User) ParseUser.getCurrentUser()).isInHighSchool()) {
+            getMenuInflater().inflate(R.menu.menu_college_media, menu);
+            return true;
+        }
+        return false;
     }
 
     @Override

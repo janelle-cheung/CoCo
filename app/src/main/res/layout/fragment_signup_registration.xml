@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SignupRegistrationFragment"
-    android:background="@drawable/green_gradient"
+    android:background="@color/beige"
     android:padding="20dp">
 
     <RelativeLayout
+        android:id="@+id/rlRegistrationFields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">

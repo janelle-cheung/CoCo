@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.collegeconnect.CollegeAIClient;
+import com.example.collegeconnect.R;
 import com.example.collegeconnect.activities.SignupActivity;
 import com.example.collegeconnect.databinding.FragmentSignupSchoolInfoBinding;
 import com.example.collegeconnect.models.User;
@@ -65,6 +66,7 @@ public class SignupSchoolInfoFragment extends Fragment {
         Bundle bundle = this.getArguments();
         type = bundle.getString(SignupActivity.KEY_TYPE);
         if (type.equals(User.KEY_HIGHSCHOOL)) {
+            binding.tvCollegePrompt.setVisibility(View.GONE);
             binding.aetCollegeAutoComplete.setVisibility(View.GONE);
         } else {
             configureAutocompleteSearch();
@@ -73,29 +75,29 @@ public class SignupSchoolInfoFragment extends Fragment {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!checkForValidInputs()) return;
-//                signupActivityInstance.setHighSchool(binding.etHighSchool.getText().toString());
-//                if (type.equals(User.KEY_COLLEGE)) {
-//                    signupActivityInstance.setCollege(binding.aetCollegeAutoComplete.getText().toString());
-//                    signupActivityInstance.setCollegeUnitId(college_id);
-//                }
-//
-//                String grade;
-//                switch (binding.rGroupGrade.getCheckedRadioButtonId()) {
-//                    case R.id.radioFreshman:
-//                        grade = getString(R.string.freshman);
-//                        break;
-//                    case R.id.radioSophomore:
-//                        grade = getString(R.string.sophomore);
-//                        break;
-//                    case R.id.radioJunior:
-//                        grade = getString(R.string.junior);
-//                        break;
-//                    case R.id.radioSenior:
-//                    default:
-//                        grade = getString(R.string.senior);
-//                }
-//                signupActivityInstance.setGrade(grade);
+                if (!checkForValidInputs()) return;
+                signupActivityInstance.setHighSchool(binding.etHighSchool.getText().toString());
+                if (type.equals(User.KEY_COLLEGE)) {
+                    signupActivityInstance.setCollege(binding.aetCollegeAutoComplete.getText().toString());
+                    signupActivityInstance.setCollegeUnitId(college_id);
+                }
+
+                String grade;
+                switch (binding.rGroupGrade.getCheckedRadioButtonId()) {
+                    case R.id.radioFreshman:
+                        grade = getString(R.string.freshman);
+                        break;
+                    case R.id.radioSophomore:
+                        grade = getString(R.string.sophomore);
+                        break;
+                    case R.id.radioJunior:
+                        grade = getString(R.string.junior);
+                        break;
+                    case R.id.radioSenior:
+                    default:
+                        grade = getString(R.string.senior);
+                }
+                signupActivityInstance.setGrade(grade);
                 signupActivityInstance.replaceFragment(SignupExtraInfoFragment.class);
             }
         });

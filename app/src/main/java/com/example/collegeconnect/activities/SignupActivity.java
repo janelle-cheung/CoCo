@@ -65,9 +65,11 @@ public class SignupActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getSupportActionBar().hide();
+
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, SignupRegistrationFragment.class, new Bundle())
+                .add(R.id.fragment_container_view, SignupTypeFragment.class, new Bundle())
                 .commit();
     }
 

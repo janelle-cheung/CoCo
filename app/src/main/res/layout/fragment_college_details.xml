@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -47,22 +47,20 @@
 
     </RelativeLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlCollegeInfo"
+        app:tabMaxWidth="0dp"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:layout_gravity="top" />
+
     <com.example.collegeconnect.WrapContentHeightViewPager
         android:id="@+id/viewPager"
-        android:layout_below="@+id/rlCollegeInfo"
+        android:layout_below="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMaxWidth="0dp"
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            android:layout_gravity="top">
-        </com.google.android.material.tabs.TabLayout>
-
-    </com.example.collegeconnect.WrapContentHeightViewPager>
+        android:layout_height="match_parent"/>
 
     <Button
         android:id="@+id/btnViewPhotos"

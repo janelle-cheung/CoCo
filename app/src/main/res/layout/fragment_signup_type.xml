@@ -4,9 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="@drawable/green_gradient">
+    android:background="@color/beige">
+
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rlTypes"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/carter_one"
+        android:text="@string/signup"
+        android:textColor="@color/dark_brown"
+        android:layout_marginBottom="20dp"
+        android:textSize="50sp" />
 
     <RelativeLayout
+        android:id="@+id/rlTypes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
@@ -22,7 +35,7 @@
             android:id="@+id/btnHighSchool"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_grey"
+            android:backgroundTint="@color/light_green"
             android:layout_below="@id/tvTypePrompt"
             android:text="@string/high_school" />
 
@@ -30,7 +43,7 @@
             android:id="@+id/btnCollege"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_grey"
+            android:backgroundTint="@color/light_green"
             android:layout_below="@+id/btnHighSchool"
             android:text="@string/college" />
 

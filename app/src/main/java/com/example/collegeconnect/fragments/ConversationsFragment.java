@@ -37,6 +37,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ConversationsFragment extends Fragment implements ConversationsAdapter.OnConversationListener {
 
@@ -65,20 +66,20 @@ public class ConversationsFragment extends Fragment implements ConversationsAdap
         binding.rvConversations.addItemDecoration(new DividerItemDecoration(binding.rvConversations.getContext(), DividerItemDecoration.VERTICAL));
 
         // Set up search edittext
-//        textWatcher = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.i(TAG, s.toString());
-//                adapter.filter(s.toString());
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {}
-//        };
-//        binding.etSearch.addTextChangedListener(textWatcher);
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.i(TAG, s.toString());
+                adapter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+        binding.etSearch.addTextChangedListener(textWatcher);
 
         queryConversations();
 

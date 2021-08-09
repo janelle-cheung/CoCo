@@ -32,6 +32,7 @@ public class SignupRegistrationFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setEnterTransition(transitionInflater.inflateTransition(android.R.transition.slide_right));
         setExitTransition(transitionInflater.inflateTransition(android.R.transition.fade));
 
         binding = FragmentSignupRegistrationBinding.inflate(getLayoutInflater());
@@ -46,12 +47,12 @@ public class SignupRegistrationFragment extends Fragment {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!checkForValidInputs()) return;
-//
-//                signupActivityInstance.setUsername(capitalizeName(binding.etName.getText().toString()));
-//                signupActivityInstance.setEmail(binding.etEmail.getText().toString());
-//                signupActivityInstance.setPassword(binding.etPassword.getText().toString());
-                signupActivityInstance.replaceFragment(SignupTypeFragment.class);
+                if (!checkForValidInputs()) return;
+
+                signupActivityInstance.setUsername(capitalizeName(binding.etName.getText().toString()));
+                signupActivityInstance.setEmail(binding.etEmail.getText().toString());
+                signupActivityInstance.setPassword(binding.etPassword.getText().toString());
+                signupActivityInstance.replaceFragment(SignupSchoolInfoFragment.class);
             }
         });
     }

@@ -8,6 +8,7 @@
     <string name="title_profile">Profile</string>
     <string name="new_prompt">New?</string>
     <string name="get_started">Get started</string>
+    <string name="signup">Sign up</string>
     <string name="login_prompt">Already have an account?</string>
     <string name="login">Log-in</string>
     <string name="name">Name</string>

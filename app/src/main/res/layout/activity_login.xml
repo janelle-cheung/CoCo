@@ -5,10 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/green_gradient"
+    android:background="@color/beige"
     tools:context=".activities.LoginActivity">
 
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rlLoginFields"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/carter_one"
+        android:text="@string/login"
+        android:textColor="@color/dark_brown"
+        android:layout_marginBottom="15dp"
+        android:textSize="50sp" />
+
     <RelativeLayout
+        android:id="@+id/rlLoginFields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -59,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:backgroundTint="@color/lightest_green"
+        android:backgroundTint="@color/light_green"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"/>

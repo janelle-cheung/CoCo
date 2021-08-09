@@ -45,7 +45,7 @@ public class SignupTypeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 signupActivityInstance.setType(User.KEY_HIGHSCHOOL);
-                signupActivityInstance.replaceFragment(SignupSchoolInfoFragment.class);
+                signupActivityInstance.replaceFragment(SignupRegistrationFragment.class);
             }
         });
 
@@ -53,7 +53,7 @@ public class SignupTypeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 signupActivityInstance.setType(User.KEY_COLLEGE);
-                signupActivityInstance.replaceFragment(SignupSchoolInfoFragment.class);
+                signupActivityInstance.replaceFragment(SignupRegistrationFragment.class);
             }
         });
     }

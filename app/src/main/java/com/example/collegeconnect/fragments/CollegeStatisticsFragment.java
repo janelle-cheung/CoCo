@@ -162,6 +162,13 @@ public class CollegeStatisticsFragment extends Fragment {
             binding.tvUndergradSizeValue.setText(college.getUndergradSize());
         }
 
+        if (college.getSATRange() == null) {
+            binding.tvSATRangePrompt.setVisibility(View.GONE);
+            binding.tvSATRangeValue.setVisibility(View.GONE);
+        } else {
+            binding.tvSATRangeValue.setText(college.getSATRange());
+        }
+
         if (college.getWebsite() == null) {
             binding.tvWebsitePrompt.setVisibility(View.GONE);
             binding.tvWebsiteValue.setVisibility(View.GONE);

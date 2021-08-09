@@ -46,6 +46,8 @@ public class SinchVoiceClient {
         sinchClient.getCallClient().addCallClientListener(new CallClientListener() {
             @Override
             public void onIncomingCall(CallClient callClient, Call incomingCall) {
+                Log.i(TAG, "call == null :" + String.valueOf(call == null));
+                Log.i(TAG, "incoming dialog == null :" + String.valueOf(incomingCallAlertDialog == null));
                 if (call == null && incomingCallAlertDialog == null) {
                     call = incomingCall;
                     call.addCallListener(new SinchCallListener(context));
@@ -73,6 +75,7 @@ public class SinchVoiceClient {
     }
 
     private static void showIncomingCallAlertDialog(Context context) {
+        Log.i(TAG, "Show incoming call dialog");
         incomingCallAlertDialog = new AlertDialog.Builder(context).create();
         incomingCallAlertDialog.setTitle("Incoming call");
         incomingCallAlertDialog.setMessage("Call from " + otherUserName);
