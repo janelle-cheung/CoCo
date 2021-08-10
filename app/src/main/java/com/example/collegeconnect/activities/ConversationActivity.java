@@ -44,6 +44,9 @@ public class ConversationActivity extends AppCompatActivity {
     public static final String TAG = "ConversationActivity";
     public static final String KEY_CONVERSATION_2 = "conversation2";
     public static final String KEY_HIGH_SCHOOL_USER = "high school user";
+    public static final String KEY_OUTGOING_CALL = "outgoing call";
+    public static final String KEY_OUTGOING_USERNAME = "outgoing username";
+    public static final String KEY_OUTGOING_PROFILE_IMAGE = "outgoing profile image";
     public static final int LOCATION_REQUEST_CODE = 40;
     private ConversationAdapter adapter;
     private ActivityConversationBinding binding;
@@ -52,8 +55,6 @@ public class ConversationActivity extends AppCompatActivity {
     private User user;
     private User otherUser;
     private boolean firstLoad;
-    SinchClient sinchClient;
-    Call call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,9 +196,20 @@ public class ConversationActivity extends AppCompatActivity {
                 startActivityForResult(i, LOCATION_REQUEST_CODE);
             }
         } else if (item.getItemId() == R.id.miCalling) {
-            SinchVoiceClient.startCall(this, otherUser.getObjectId(), otherUser.getUsername());
+            SinchVoiceClient.startCall(this, otherUser.getObjectId(), user);
+            launchCallActivity();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void launchCallActivity() {
+        Intent i = new Intent(this, CallActivity.class);
+        i.putExtra(KEY_OUTGOING_CALL, true);
+        i.putExtra(KEY_OUTGOING_USERNAME, otherUser.getUsername());
+        if (otherUser.hasProfileImage()) {
+            i.putExtra(KEY_OUTGOING_PROFILE_IMAGE, otherUser.getProfileImageUrl());
+        }
+        startActivity(i);
     }
 
     @Override

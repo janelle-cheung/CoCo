@@ -102,6 +102,11 @@
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
+    <string name="outgoing_calling">Calling:</string>
+    <string name="incoming_call_from">Incoming call from:</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="incoming_call_body">Incoming call</string>
 
 
     <string-array name="all_albums_array">

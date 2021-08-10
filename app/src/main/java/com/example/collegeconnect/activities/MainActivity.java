@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void logout() {
         currUser.setFCMToken("");
-        // Remove FCM token in background, only after that call returns do we log out in background
+        // Remove FCM token in Parse in background, then terminate SinchClient and log out in background
         currUser.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
+                                SinchVoiceClient.terminateClient();
                                 returnToStartActivity();
                             } else {
                                 Log.e(TAG, "Issue with log-out");

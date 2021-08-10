@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    android:background="@color/black"
+    tools:context=".activities.CallActivity">
+
+    <TextView
+        android:id="@+id/tvCallStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginTop="130dp"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"/>
+
+    <RelativeLayout
+        android:id="@+id/rlCallerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCallStatus"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/ivCallerProfileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvCallerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ivCallerProfileImage"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/green"
+            android:text="@string/accept" />
+
+        <Button
+            android:id="@+id/btnDecline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/red"
+            android:text="@string/decline" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

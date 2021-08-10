@@ -2,7 +2,9 @@ package com.example.collegeconnect.firebase;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.SinchVoiceClient;
+import com.example.collegeconnect.activities.CallActivity;
 import com.example.collegeconnect.activities.ConversationActivity;
 import com.example.collegeconnect.fragments.ConversationsFragment;
 import com.example.collegeconnect.models.Conversation;
@@ -29,6 +33,9 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.sinch.android.rtc.NotificationResult;
+import com.sinch.android.rtc.SinchHelpers;
+import com.sinch.android.rtc.calling.CallNotificationResult;
 
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
@@ -41,6 +48,8 @@ import java.util.Random;
 public class FirebaseNotificationService extends FirebaseMessagingService {
 
     public static final String TAG = "FirebaseNotificationService";
+    public static NotificationManagerCompat sinchNotificationManager;
+    public static int sinchCallNotificationId;
 
     @Override
     // Automatically called when a new token is generated for this app instance / device
@@ -61,16 +70,26 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
         Log.i("MainActivity", "onMessageReceived");
-        super.onMessageReceived(remoteMessage);
-        // First get the user image in background, then get Parse conversation, then show notification
-        getSenderProfileImage(remoteMessage);
+        if (SinchHelpers.isSinchPushPayload(remoteMessage.getData())) {
+            // This is a Sinch notification for an incoming call. onIncomingCall() is automatically called
+            NotificationResult result = SinchHelpers.queryPushNotificationPayload(getApplicationContext(), remoteMessage.getData());
+            if (result.isCall()) {
+                CallNotificationResult callResult = result.getCallResult();
+                Map<String, String> map = callResult.getHeaders();
+                // First get the user profile bitmap in background, then show notification
+                getSenderProfileImageBitmap(map, true);
+            }
+        } else {
+            // This is a chat notification that we created
+            super.onMessageReceived(remoteMessage);
+            // First get the user profile bitmap in background, then get Parse conversation, then show notification
+            getSenderProfileImageBitmap(remoteMessage.getData(), false);
+        }
     }
 
     // To set notification large icon, the image must be a Bitmap
     @SuppressLint("LongLogTag")
-    private void getSenderProfileImage(RemoteMessage remoteMessage) {
-        Map<String, String> map = remoteMessage.getData();
-
+    private void getSenderProfileImageBitmap(Map<String, String> map, boolean isSinch) {
         if (map.containsKey(User.KEY_PROFILEIMAGE)) {
             Glide.with(this)
                     .asBitmap()
@@ -79,13 +98,21 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull @NotNull Bitmap bitmap, @Nullable @org.jetbrains.annotations.Nullable Transition<? super Bitmap> transition) {
-                            getParseConversation(map, bitmap);
+                            if (isSinch) {
+                                showSinchCallNotification(map, bitmap, true);
+                            } else {
+                                getParseConversation(map, bitmap);
+                            }
                         }
                     });
         } else {
             Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
                     R.mipmap.profile_placeholder_foreground);
-            getParseConversation(map, bitmap);
+            if (isSinch) {
+                showSinchCallNotification(map, bitmap, false);
+            } else {
+                getParseConversation(map, bitmap);
+            }
         }
     }
 
@@ -126,5 +153,50 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(new Random().nextInt(), builder.build());
+    }
+
+    private void showSinchCallNotification(Map<String, String> map, Bitmap bitmap, boolean hasProfileImage) {
+        Intent pendingI = new Intent(this, CallActivity.class);
+        pendingI.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        pendingI.putExtra(Message.KEY_SENDER, map.get(Message.KEY_SENDER));
+        if (hasProfileImage) {
+            pendingI.putExtra(User.KEY_PROFILEIMAGE, map.get(User.KEY_PROFILEIMAGE));
+        }
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, pendingI, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // For phones that allow users to dismiss notifications, not tested right now
+//        Intent deleteI = new Intent(this, MyBroadcastReceiver.class);
+//        PendingIntent deleteIntent = PendingIntent.getBroadcast(this, 0, deleteI, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.channel_id))
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setLargeIcon(bitmap)
+                .setContentTitle(map.get(Message.KEY_SENDER))
+                .setContentText(map.get(Message.KEY_BODY))
+                .setPriority(Notification.PRIORITY_MAX)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setOngoing(true)
+                .setContentIntent(pendingIntent)
+                // .setDeleteIntent(deleteIntent)
+                .setAutoCancel(true);
+
+        sinchNotificationManager = NotificationManagerCompat.from(this);
+        sinchCallNotificationId = new Random().nextInt();
+        sinchNotificationManager.notify(sinchCallNotificationId, builder.build());
+    }
+
+    // For phones that allow users to dismiss notifications, not tested right now
+    // If receiver dismisses the call notification, end the call for the caller
+    public static class MyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i("Firebase", "hanging up call after notification dismissed");
+            SinchVoiceClient.hangupCall();
+        }
+
+    }
+
+    public static void cancelSinchCallNotification() {
+        sinchNotificationManager.cancel(sinchCallNotificationId);
     }
 }
