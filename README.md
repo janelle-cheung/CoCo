@@ -1,4 +1,4 @@
-# CollegeConnect
+# CoCo (CollegeConnect)
 An app for high schoolers to learn about their dream colleges, directly from college students.
 
 ## Table of Contents
