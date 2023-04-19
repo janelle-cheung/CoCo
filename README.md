@@ -13,7 +13,7 @@ You may have to download the video to view it.
 
 ## Overview
 ### Description
-This app allows high schoolers to learn about their dream colleges. They can search for schools, save and organize schools into their safety/match/reach lists, view photo albums created by students, message/call/share a meetup location with students, and more. 
+This app allows high schoolers to learn about their dream colleges. They can filter for schools, save and organize schools into their safety/match/reach lists, view photo albums created by college students, message/call/share a meetup location with currently enrolled college students, and more. 
 
 
 ### App Evaluation
